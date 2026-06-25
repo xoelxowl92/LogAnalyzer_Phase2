@@ -17,7 +17,7 @@ jobs:
         with:
           switches: -avzr --delete
           path: ./
-          remote_path: /home/ec2-user/app/
+          remote_path: /home/ec2-user/project/
           remote_host: ${{ secrets.EC2_HOST }}
           remote_user: ${{ secrets.EC2_USER }}
           remote_key: ${{ secrets.EC2_SSH_KEY }}
