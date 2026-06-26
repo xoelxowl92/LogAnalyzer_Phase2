@@ -48,5 +48,6 @@ jobs:
             nohup java -jar /home/ec2-user/app/loganalyzer.jar \
               --spring.profiles.active=prod \
               > /home/ec2-user/app/loganalyzer.log 2>&1 &
+            disown
 
             echo "배포 완료"
