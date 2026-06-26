@@ -12,12 +12,41 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy via rsync
+      - name: Sync files to EC2
         uses: burnett01/rsync-deployments@7.0.1
         with:
-          switches: -avzr --delete
+          switches: -avzr --delete --exclude='.git' --exclude='target'
           path: ./
           remote_path: /home/ec2-user/project/
           remote_host: ${{ secrets.EC2_HOST }}
           remote_user: ${{ secrets.EC2_USER }}
           remote_key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Build & Deploy on EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ec2-user/project
+
+            # 빌드
+            mvn clean package -DskipTests
+
+            # app 폴더 준비
+            mkdir -p /home/ec2-user/app
+
+            # jar 이동
+            mv target/loganalyzer-0.0.1-SNAPSHOT.jar /home/ec2-user/app/loganalyzer.jar
+
+            # 기존 프로세스 종료
+            pkill -f "loganalyzer.jar" || true
+            sleep 2
+
+            # 기동
+            nohup java -jar /home/ec2-user/app/loganalyzer.jar \
+              --spring.profiles.active=prod \
+              > /home/ec2-user/app/loganalyzer.log 2>&1 &
+
+            echo "배포 완료"
