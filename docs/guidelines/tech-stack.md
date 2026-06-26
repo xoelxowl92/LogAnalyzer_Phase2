@@ -4,25 +4,37 @@
 
 | 항목 | 내용 |
 |------|------|
-| 언어 | Java |
-| 프레임워크 | Spring Boot |
+| 언어 | Java 8 |
+| 프레임워크 | Spring Boot 2.7.x |
+| 배치 | Spring Batch 4.x |
 | AI 연동 | Dify Workflow |
 | DB | 미정 |
 | 배포 환경 | AWS EC2 |
 
+> Spring Boot 3.x / Spring Batch 5.x는 Java 17+ 필수이므로 Java 8 환경에서 사용 불가.
+
 ## 배치 구현 방식
 
-**미정** — 아래 두 방식 검토 중
+Spring Batch 사용 확정.
 
-| 방식 | 특징 |
+| 항목 | 내용 |
 |------|------|
-| crontab | 단순, 외부 스케줄링, Spring 의존 없음 |
-| Spring Batch | Job/Step 구조, 재시도·모니터링 내장, Spring 생태계 통합 |
+| Job 실행 이력 | Spring Batch 메타 테이블 (DB 필요) |
+| 재시도 정책 | Spring Batch 내장 retry/skip 활용 |
+| 스케줄링 | Spring @Scheduled |
 
-결정 시 이 문서 업데이트 필요.
+## 웹 (모니터링)
+
+배치 Job 트리거 및 실행 상태 모니터링 용도의 관리 화면.
+
+| 항목 | 내용 |
+|------|------|
+| 목적 | 배치 수동 실행, 실행 이력 조회, 상태 모니터링 |
+| 구현 방식 | Spring Boot Admin |
 
 ## 변경 이력
 
 | 날짜 | 내용 |
 |------|------|
 | 2026-06-23 | 초안 완성 |
+| 2026-06-26 | Java 8 / Spring Boot 2.7.x / Spring Batch 4.x / MySQL / Spring @Scheduled / Spring Boot Admin 전체 확정 |

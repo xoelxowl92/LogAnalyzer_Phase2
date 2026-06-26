@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogAnalyzer 배치 관리</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f6fa;
+            color: #333;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 32px;
+        }
+
+        header h1 { font-size: 20px; font-weight: 600; }
+        header p { font-size: 13px; color: #aab; margin-top: 4px; }
+
+        .env-badge {
+            display: none;
+            font-size: 12px;
+            font-weight: 700;
+            color: #ff4d4d;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 32px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            margin-bottom: 16px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .card-info h3 { font-size: 15px; font-weight: 600; }
+        .card-info p { font-size: 13px; color: #888; margin-top: 4px; }
+
+        .card-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .status {
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            background: #eee;
+            color: #666;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .status.COMPLETED { background: #e6f4ea; color: #2e7d32; }
+        .status.STARTED   { background: #e3f2fd; color: #1565c0; }
+        .status.FAILED    { background: #fdecea; color: #c62828; }
+
+        button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 18px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        button:hover { background: #3d5166; }
+        button:disabled { background: #aaa; cursor: not-allowed; }
+
+        .disabled-badge {
+            font-size: 12px;
+            color: #aaa;
+            padding: 8px 18px;
+        }
+
+        .admin-link {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .admin-link a { color: #2c3e50; text-decoration: none; }
+        .admin-link a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>LogAnalyzer 배치 관리<span class="env-badge" id="env-badge">LOCAL</span></h1>
+    <p>배치 수동 실행 및 상태 확인</p>
+</header>
+
+<main>
+    <div class="card">
+        <div class="card-info">
+            <h3>초기 설정</h3>
+            <p>서버 접속 정보 및 Dify 설정 저장 (설치 시 1회)</p>
+        </div>
+        <div class="card-right">
+            <span class="status" id="status-setupJob">-</span>
+            <button onclick="runJob('setupJob', this)">실행</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-info">
+            <h3>1분 배치 — 실시간 이상 감지</h3>
+            <p>서버 로그 수집 → Dify 이상 분석 → MCP 알림</p>
+        </div>
+        <div class="card-right">
+            <span class="status" id="status-minuteMonitorJob">-</span>
+            <button onclick="runJob('minuteMonitorJob', this)">실행</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-info">
+            <h3>1시간 배치 — 시간 단위 분석</h3>
+            <p>1분 결과 집계 → Dify anomaly/optimization 분석 → 파일 저장</p>
+        </div>
+        <div class="card-right">
+            <span class="status" id="status-hourlyMonitorJob">-</span>
+            <button onclick="runJob('hourlyMonitorJob', this)">실행</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-info">
+            <h3>1일 배치 — 일간 보고서</h3>
+            <p>시간 결과 집계 → Dify 일간 분석 → 메일 발송</p>
+        </div>
+        <div class="card-right">
+            <span class="status" id="status-dailyMonitorJob">-</span>
+            <button onclick="runJob('dailyMonitorJob', this)">실행</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-info">
+            <h3>1월 배치 — 월간 인사이트 <span style="color:#aaa;font-size:12px;">⚠️ 개발 보류</span></h3>
+            <p>일간 결과 집계 → Dify 월간 분석</p>
+        </div>
+        <div class="card-right">
+            <span class="status" id="status-monthlyMonitorJob">-</span>
+            <span class="disabled-badge">보류</span>
+        </div>
+    </div>
+
+    <div class="admin-link">
+        <a href="/admin" target="_blank">Spring Boot Admin →</a>
+    </div>
+</main>
+
+<script>
+    fetch('/api/profile')
+        .then(r => r.json())
+        .then(d => {
+            if (d.profile === 'local') {
+                document.getElementById('env-badge').style.display = 'inline';
+            }
+        });
+
+    async function runJob(jobName, btn) {
+        const statusEl = document.getElementById('status-' + jobName);
+        btn.disabled = true;
+        statusEl.className = 'status STARTED';
+        statusEl.textContent = '실행 중';
+
+        try {
+            const res = await fetch('/api/batch/run/' + jobName, { method: 'POST' });
+            const data = await res.json();
+            statusEl.className = 'status ' + data.status;
+            statusEl.textContent = data.status;
+            if (data.jobExecutionId) {
+                statusEl.title = 'ExecutionId: ' + data.jobExecutionId;
+            }
+        } catch (e) {
+            statusEl.className = 'status FAILED';
+            statusEl.textContent = 'FAILED';
+        } finally {
+            btn.disabled = false;
+        }
+    }
+</script>
+
+</body>
+</html>

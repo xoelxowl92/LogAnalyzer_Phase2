@@ -1,0 +1,51 @@
+package com.loganalyzer.web;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.context.ApplicationContext;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Slf4j
+@RestController
+@RequestMapping("/api/batch")
+@RequiredArgsConstructor
+public class BatchController {
+
+    private final JobLauncher jobLauncher;
+    private final ApplicationContext applicationContext;
+
+    @PostMapping("/run/{jobName}")
+    public ResponseEntity<Map<String, Object>> runJob(@PathVariable String jobName) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Job job = applicationContext.getBean(jobName, Job.class);
+            JobParameters params = new JobParametersBuilder()
+                    .addLong("timestamp", System.currentTimeMillis())
+                    .toJobParameters();
+            JobExecution execution = jobLauncher.run(job, params);
+
+            result.put("jobName", jobName);
+            result.put("status", execution.getStatus().toString());
+            result.put("jobExecutionId", execution.getId());
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            log.error("[{}] 배치 실행 실패: {}", jobName, e.getMessage());
+            result.put("jobName", jobName);
+            result.put("status", "FAILED");
+            result.put("error", e.getMessage());
+            return ResponseEntity.status(500).body(result);
+        }
+    }
+}
