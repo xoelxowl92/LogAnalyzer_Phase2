@@ -1,0 +1,32 @@
+2026-06-29 22:00:01 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob started
+2026-06-29 22:00:01 INFO  [scheduling-1] c.l.service.LogReaderService - Reading logs: 2026-06-29 21:58:41 ~ 2026-06-29 21:59:41
+2026-06-29 22:00:02 INFO  [scheduling-1] c.l.service.LogReaderService - Read 156 lines
+2026-06-29 22:00:03 INFO  [scheduling-1] c.l.service.DifyService - Calling Dify workflow: minute-monitor
+2026-06-29 22:00:05 INFO  [scheduling-1] c.l.service.DifyService - Dify response received (elapsed: 2201ms)
+2026-06-29 22:00:05 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - No fault detected
+2026-06-29 22:00:05 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob finished (elapsed: 4312ms)
+2026-06-29 22:01:01 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob started
+2026-06-29 22:01:03 ERROR [main] c.l.service.DatabaseService - Failed to acquire connection from pool: timeout (pool exhausted)
+2026-06-29 22:01:03 ERROR [main] c.l.service.DatabaseService - Failed to acquire connection from pool: timeout (pool exhausted)
+2026-06-29 22:01:03 ERROR [main] c.l.service.DatabaseService - Failed to acquire connection from pool: timeout (pool exhausted)
+2026-06-29 22:01:04 ERROR [http-nio-8080-exec-1] c.l.controller.LogEntryController - Unhandled exception: DataAccessException - could not execute statement
+java.sql.SQLException: Communications link failure
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2181)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:834)
+	at com.loganalyzer.service.DatabaseService.getConnection(DatabaseService.java:112)
+2026-06-29 22:01:04 ERROR [http-nio-8080-exec-2] c.l.controller.LogEntryController - Unhandled exception: DataAccessException - could not execute statement
+2026-06-29 22:01:04 ERROR [http-nio-8080-exec-3] c.l.controller.LogEntryController - Unhandled exception: DataAccessException - could not execute statement
+2026-06-29 22:01:05 ERROR [scheduling-1] c.l.service.DifyService - Dify API call failed: connection timeout (attempt 1/3)
+2026-06-29 22:01:07 ERROR [scheduling-1] c.l.service.DifyService - Dify API call failed: connection timeout (attempt 2/3)
+2026-06-29 22:01:09 ERROR [scheduling-1] c.l.service.DifyService - Dify API call failed: connection timeout (attempt 3/3)
+2026-06-29 22:01:09 ERROR [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob failed: DifyApiException - max retries exceeded
+2026-06-29 22:01:09 INFO  [scheduling-1] c.l.service.NotificationService - Sending alert via Dify MCP (batch failure)
+2026-06-29 22:01:12 INFO  [scheduling-1] c.l.service.NotificationService - Alert sent successfully
+2026-06-29 22:02:01 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob started
+2026-06-29 22:02:02 WARN  [main] c.l.service.DatabaseService - DB reconnect attempt 1/5
+2026-06-29 22:02:04 WARN  [main] c.l.service.DatabaseService - DB reconnect attempt 2/5
+2026-06-29 22:02:06 WARN  [main] c.l.service.DatabaseService - DB reconnect attempt 3/5
+2026-06-29 22:02:08 ERROR [main] c.l.service.DatabaseService - DB reconnect failed after 3 attempts
+2026-06-29 22:02:08 ERROR [main] c.l.LogAnalyzerApplication - Critical: database unavailable, shutting down batch execution
+2026-06-29 22:02:08 INFO  [main] c.l.LogAnalyzerApplication - Spring context closing
+2026-06-29 22:02:09 INFO  [main] c.l.LogAnalyzerApplication - Application stopped

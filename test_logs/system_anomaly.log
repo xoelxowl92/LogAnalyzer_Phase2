@@ -1,0 +1,37 @@
+2026-06-29 14:00:01 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob started
+2026-06-29 14:00:01 INFO  [scheduling-1] c.l.service.LogReaderService - Reading logs: 2026-06-29 13:58:41 ~ 2026-06-29 13:59:41
+2026-06-29 14:00:02 INFO  [scheduling-1] c.l.service.LogReaderService - Read 201 lines
+2026-06-29 14:00:03 INFO  [scheduling-1] c.l.service.DifyService - Calling Dify workflow: minute-monitor
+2026-06-29 14:00:06 INFO  [scheduling-1] c.l.service.DifyService - Dify response received (elapsed: 3102ms)
+2026-06-29 14:00:06 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - No fault detected
+2026-06-29 14:00:06 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob finished (elapsed: 5211ms)
+2026-06-29 14:01:01 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob started
+2026-06-29 14:01:01 WARN  [http-nio-8080-exec-3] c.l.service.DatabaseService - Slow query detected (elapsed: 3412ms): SELECT * FROM log_entries WHERE ...
+2026-06-29 14:01:02 WARN  [http-nio-8080-exec-5] c.l.service.DatabaseService - Slow query detected (elapsed: 4201ms): SELECT * FROM log_entries WHERE ...
+2026-06-29 14:01:03 ERROR [http-nio-8080-exec-1] c.l.service.DatabaseService - DB connection timeout after 5000ms
+2026-06-29 14:01:03 WARN  [scheduling-1] c.l.service.LogReaderService - Read 87 lines (fewer than average)
+2026-06-29 14:01:04 INFO  [scheduling-1] c.l.service.DifyService - Calling Dify workflow: minute-monitor
+2026-06-29 14:01:08 INFO  [scheduling-1] c.l.service.DifyService - Dify response received (elapsed: 4021ms)
+2026-06-29 14:01:08 WARN  [scheduling-1] c.l.batch.MinuteMonitorJob - Potential anomaly detected: DB connection timeout pattern
+2026-06-29 14:01:08 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob finished (elapsed: 7301ms)
+2026-06-29 14:02:01 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob started
+2026-06-29 14:02:01 ERROR [http-nio-8080-exec-2] c.l.service.DatabaseService - DB connection timeout after 5000ms
+2026-06-29 14:02:01 ERROR [http-nio-8080-exec-4] c.l.service.DatabaseService - DB connection timeout after 5000ms
+2026-06-29 14:02:02 ERROR [http-nio-8080-exec-6] c.l.service.DatabaseService - DB connection timeout after 5000ms
+2026-06-29 14:02:03 ERROR [http-nio-8080-exec-7] c.l.service.ExternalApiService - API call failed: connection refused (host: api.external.com:443)
+2026-06-29 14:02:04 INFO  [scheduling-1] c.l.service.DifyService - Calling Dify workflow: minute-monitor
+2026-06-29 14:02:07 INFO  [scheduling-1] c.l.service.DifyService - Dify response received (elapsed: 3812ms)
+2026-06-29 14:02:07 ERROR [scheduling-1] c.l.batch.MinuteMonitorJob - Fault detected: consecutive DB timeouts + external API failure
+2026-06-29 14:02:07 INFO  [scheduling-1] c.l.service.NotificationService - Sending alert via Dify MCP
+2026-06-29 14:02:09 INFO  [scheduling-1] c.l.service.NotificationService - Alert sent successfully
+2026-06-29 14:02:09 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob finished (elapsed: 8103ms)
+2026-06-29 15:00:01 INFO  [scheduling-2] c.l.batch.HourlyMonitorJob - HourlyMonitorJob started
+2026-06-29 15:00:02 INFO  [scheduling-2] c.l.service.LogReaderService - Reading logs: 2026-06-29 14:00:00 ~ 2026-06-29 15:00:00
+2026-06-29 15:00:03 INFO  [scheduling-2] c.l.service.LogReaderService - Read 9814 lines
+2026-06-29 15:00:04 INFO  [scheduling-2] c.l.service.DifyService - Calling Dify workflow: hourly-anomaly
+2026-06-29 15:00:04 INFO  [scheduling-2] c.l.service.DifyService - Calling Dify workflow: hourly-optimization
+2026-06-29 15:00:13 INFO  [scheduling-2] c.l.service.DifyService - Dify response received (hourly-anomaly, elapsed: 9102ms)
+2026-06-29 15:00:16 INFO  [scheduling-2] c.l.service.DifyService - Dify response received (hourly-optimization, elapsed: 12301ms)
+2026-06-29 15:00:16 INFO  [scheduling-2] c.l.service.FileWriterService - Saved: output/hourly/anomaly/2026-06-29_14.dat (2841 bytes)
+2026-06-29 15:00:16 INFO  [scheduling-2] c.l.service.FileWriterService - Saved: output/hourly/optimization/2026-06-29_14.dat (1023 bytes)
+2026-06-29 15:00:16 INFO  [scheduling-2] c.l.batch.HourlyMonitorJob - HourlyMonitorJob finished (elapsed: 15412ms)

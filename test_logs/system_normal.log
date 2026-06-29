@@ -1,0 +1,29 @@
+2026-06-29 09:00:01 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob started
+2026-06-29 09:00:01 INFO  [scheduling-1] c.l.service.LogReaderService - Reading logs: 2026-06-29 08:58:41 ~ 2026-06-29 08:59:41
+2026-06-29 09:00:02 INFO  [scheduling-1] c.l.service.LogReaderService - Read 142 lines
+2026-06-29 09:00:03 INFO  [scheduling-1] c.l.service.DifyService - Calling Dify workflow: minute-monitor
+2026-06-29 09:00:05 INFO  [scheduling-1] c.l.service.DifyService - Dify response received (elapsed: 2103ms)
+2026-06-29 09:00:05 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - No fault detected
+2026-06-29 09:00:05 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob finished (elapsed: 4218ms)
+2026-06-29 09:01:01 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob started
+2026-06-29 09:01:01 INFO  [scheduling-1] c.l.service.LogReaderService - Reading logs: 2026-06-29 08:59:41 ~ 2026-06-29 09:00:41
+2026-06-29 09:01:02 INFO  [scheduling-1] c.l.service.LogReaderService - Read 138 lines
+2026-06-29 09:01:03 INFO  [scheduling-1] c.l.service.DifyService - Calling Dify workflow: minute-monitor
+2026-06-29 09:01:05 INFO  [scheduling-1] c.l.service.DifyService - Dify response received (elapsed: 1987ms)
+2026-06-29 09:01:05 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - No fault detected
+2026-06-29 09:01:05 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob finished (elapsed: 4012ms)
+2026-06-29 09:02:01 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob started
+2026-06-29 09:02:01 INFO  [scheduling-1] c.l.service.LogReaderService - Reading logs: 2026-06-29 09:00:41 ~ 2026-06-29 09:01:41
+2026-06-29 09:02:02 INFO  [scheduling-1] c.l.service.LogReaderService - Read 0 lines
+2026-06-29 09:02:02 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - No logs in range, skipping Dify call
+2026-06-29 09:02:02 INFO  [scheduling-1] c.l.batch.MinuteMonitorJob - MinuteMonitorJob finished (elapsed: 1003ms)
+2026-06-29 10:00:01 INFO  [scheduling-2] c.l.batch.HourlyMonitorJob - HourlyMonitorJob started
+2026-06-29 10:00:02 INFO  [scheduling-2] c.l.service.LogReaderService - Reading logs: 2026-06-29 09:00:00 ~ 2026-06-29 10:00:00
+2026-06-29 10:00:03 INFO  [scheduling-2] c.l.service.LogReaderService - Read 8427 lines
+2026-06-29 10:00:04 INFO  [scheduling-2] c.l.service.DifyService - Calling Dify workflow: hourly-anomaly
+2026-06-29 10:00:04 INFO  [scheduling-2] c.l.service.DifyService - Calling Dify workflow: hourly-optimization
+2026-06-29 10:00:11 INFO  [scheduling-2] c.l.service.DifyService - Dify response received (hourly-anomaly, elapsed: 7312ms)
+2026-06-29 10:00:14 INFO  [scheduling-2] c.l.service.DifyService - Dify response received (hourly-optimization, elapsed: 10241ms)
+2026-06-29 10:00:14 INFO  [scheduling-2] c.l.service.FileWriterService - Saved: output/hourly/anomaly/2026-06-29_09.dat (512 bytes)
+2026-06-29 10:00:14 INFO  [scheduling-2] c.l.service.FileWriterService - Saved: output/hourly/optimization/2026-06-29_09.dat (734 bytes)
+2026-06-29 10:00:14 INFO  [scheduling-2] c.l.batch.HourlyMonitorJob - HourlyMonitorJob finished (elapsed: 13421ms)
