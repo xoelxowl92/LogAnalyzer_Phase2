@@ -40,13 +40,7 @@ jobs:
             # jar 이동
             mv target/loganalyzer-0.0.1-SNAPSHOT.jar /home/ec2-user/app/loganalyzer.jar
 
-            # 기존 프로세스 종료
-            pkill -f "loganalyzer.jar" || true
-            sleep 2
-
-            # 기동
-            setsid nohup java -jar /home/ec2-user/app/loganalyzer.jar \
-              --spring.profiles.active=prod \
-              > /home/ec2-user/app/loganalyzer.log 2>&1 < /dev/null &
+            # 재기동
+            sudo systemctl restart loganalyzer
 
             echo "배포 완료"
