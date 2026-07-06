@@ -1,4 +1,4 @@
-import subprocess, json, urllib.request, os, sys, glob
+import subprocess, json, urllib.request, os, sys, glob, time
 
 # 첫 번째 커밋이면 스킵
 check = subprocess.run(['git', 'rev-parse', 'HEAD~1'], capture_output=True)
@@ -63,17 +63,28 @@ payload = {
     "contents": [{"parts": [{"text": prompt}]}]
 }
 
-req = urllib.request.Request(
-    f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={api_key}",
-    data=json.dumps(payload).encode(),
-    headers={"Content-Type": "application/json"}
-)
+url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent?key={api_key}"
 
-try:
-    with urllib.request.urlopen(req) as resp:
-        data = json.loads(resp.read())
-except urllib.error.HTTPError as e:
-    print(f"Gemini API error {e.code}: {e.read().decode()}")
+data = None
+for attempt in range(1, 4):
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(payload).encode(),
+        headers={"Content-Type": "application/json"}
+    )
+    try:
+        with urllib.request.urlopen(req) as resp:
+            data = json.loads(resp.read())
+        break
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode()
+        print(f"Gemini API error {e.code} (attempt {attempt}/3): {error_body}")
+        if e.code == 503 and attempt < 3:
+            time.sleep(10 * attempt)
+        else:
+            sys.exit(1)
+
+if data is None:
     sys.exit(1)
 
 review = data["candidates"][0]["content"]["parts"][0]["text"]
