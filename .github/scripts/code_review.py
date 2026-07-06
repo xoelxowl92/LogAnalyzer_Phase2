@@ -64,13 +64,17 @@ payload = {
 }
 
 req = urllib.request.Request(
-    f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}",
+    f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={api_key}",
     data=json.dumps(payload).encode(),
     headers={"Content-Type": "application/json"}
 )
 
-with urllib.request.urlopen(req) as resp:
-    data = json.loads(resp.read())
+try:
+    with urllib.request.urlopen(req) as resp:
+        data = json.loads(resp.read())
+except urllib.error.HTTPError as e:
+    print(f"Gemini API error {e.code}: {e.read().decode()}")
+    sys.exit(1)
 
 review = data["candidates"][0]["content"]["parts"][0]["text"]
 
