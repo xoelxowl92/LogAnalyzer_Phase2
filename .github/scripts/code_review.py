@@ -63,7 +63,7 @@ payload = {
     "contents": [{"parts": [{"text": prompt}]}]
 }
 
-url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent?key={api_key}"
+url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
 
 data = None
 for attempt in range(1, 4):
