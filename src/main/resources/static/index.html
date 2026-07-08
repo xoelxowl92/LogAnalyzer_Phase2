@@ -102,6 +102,67 @@
 
         .admin-link a { color: #2c3e50; text-decoration: none; }
         .admin-link a:hover { text-decoration: underline; }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.open { display: flex; }
+
+        .modal {
+            background: white;
+            border-radius: 10px;
+            padding: 28px 32px;
+            width: 480px;
+            max-width: 90vw;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .modal h2 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+        .modal p.modal-desc { font-size: 13px; color: #888; margin-bottom: 20px; }
+
+        .modal label { font-size: 13px; font-weight: 500; display: block; margin-bottom: 6px; }
+
+        .modal input[type="text"] {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .modal input[type="text"]:focus { border-color: #2c3e50; }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .btn-cancel {
+            background: #eee;
+            color: #444;
+        }
+
+        .btn-cancel:hover { background: #ddd; }
+
+        .modal-progress {
+            display: none;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #555;
+            padding: 10px 14px;
+            background: #f5f6fa;
+            border-radius: 6px;
+        }
     </style>
 </head>
 <body>
@@ -119,7 +180,7 @@
         </div>
         <div class="card-right">
             <span class="status" id="status-setupJob">-</span>
-            <button onclick="runJob('setupJob', this)">실행</button>
+            <button onclick="openSetupModal()">실행</button>
         </div>
     </div>
 
@@ -167,6 +228,24 @@
         </div>
     </div>
 
+    <!-- 초기 설정 모달 -->
+    <div class="modal-overlay" id="setup-modal">
+        <div class="modal">
+            <h2>초기 설정</h2>
+            <p class="modal-desc">분석할 서버 로그 파일 경로를 입력하세요. 인코딩·날짜 형식·타임존은 자동으로 탐지됩니다.</p>
+
+            <label for="log-path">로그 파일 경로</label>
+            <input type="text" id="log-path" placeholder="/var/log/app/application.log" />
+
+            <div class="modal-progress" id="setup-progress">설정 중...</div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeSetupModal()">취소</button>
+                <button id="setup-submit-btn" onclick="submitSetup()">설정 시작</button>
+            </div>
+        </div>
+    </div>
+
     <div class="admin-link">
         <a href="/admin" target="_blank">Spring Boot Admin →</a>
     </div>
@@ -180,6 +259,50 @@
                 document.getElementById('env-badge').style.display = 'inline';
             }
         });
+
+    function openSetupModal() {
+        document.getElementById('log-path').value = '';
+        document.getElementById('setup-progress').style.display = 'none';
+        document.getElementById('setup-modal').classList.add('open');
+    }
+
+    function closeSetupModal() {
+        document.getElementById('setup-modal').classList.remove('open');
+    }
+
+    async function submitSetup() {
+        const logPath = document.getElementById('log-path').value.trim();
+        if (!logPath) {
+            alert('로그 파일 경로를 입력해주세요.');
+            return;
+        }
+
+        const submitBtn = document.getElementById('setup-submit-btn');
+        const progressEl = document.getElementById('setup-progress');
+        const statusEl = document.getElementById('status-setupJob');
+
+        submitBtn.disabled = true;
+        progressEl.style.display = 'block';
+        progressEl.textContent = '설정 중...';
+
+        try {
+            const res = await fetch('/api/batch/run/setupJob', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ logFilePath: logPath })
+            });
+            const data = await res.json();
+            statusEl.className = 'status ' + data.status;
+            statusEl.textContent = data.status;
+            closeSetupModal();
+        } catch (e) {
+            progressEl.textContent = '설정 실패. 다시 시도해주세요.';
+            statusEl.className = 'status FAILED';
+            statusEl.textContent = 'FAILED';
+        } finally {
+            submitBtn.disabled = false;
+        }
+    }
 
     async function runJob(jobName, btn) {
         const statusEl = document.getElementById('status-' + jobName);
