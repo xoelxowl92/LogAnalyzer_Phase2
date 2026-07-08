@@ -1,7 +1,5 @@
 package com.loganalyzer.batch;
 
-import com.loganalyzer.setup.SetupConfig;
-import com.loganalyzer.setup.SetupService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -13,10 +11,6 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * 전체 배치 Job/Step 등록.
- * setupJob은 최초 1회 실행, 나머지는 스케줄러로 주기적 실행.
- */
 @Slf4j
 @Configuration
 @EnableBatchProcessing
@@ -25,47 +19,13 @@ public class BatchConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    private final SetupService setupService;
 
     @Bean
     public Job setupJob() {
         return jobBuilderFactory.get("setupJob")
-                .start(setupStep())
+                .start(placeholderStep("setupStep"))
                 .build();
     }
-
-    @Bean
-    public Step setupStep() {
-        return stepBuilderFactory.get("setupStep")
-                .tasklet((contribution, chunkContext) -> {
-                    // BatchController에서 logFilePath를 JobParameter로 전달받음
-                    String logFilePath = (String) chunkContext.getStepContext()
-                            .getJobParameters().get("logFilePath");
-
-                    String validatedPath = setupService.configureLogFilePath(logFilePath);
-                    String encoding     = setupService.detectEncoding(validatedPath);
-                    String sampleLog    = setupService.readSampleLog(validatedPath, encoding, 100);
-
-                    // Dify 연동 전 임시 고정값. 실제 로그 형식: "yyyy-MM-dd HH:mm:ss"
-                    // String dateFormat = setupService.requestDateFormatToDify(sampleLog); // TODO: Dify 연동 후 활성화
-                    String dateFormat = "yyyy-MM-dd HH:mm:ss";
-
-                    String timezone = setupService.detectTimezone(sampleLog, dateFormat);
-
-                    SetupConfig config = SetupConfig.builder()
-                            .logFilePath(validatedPath)
-                            .encoding(encoding)
-                            .dateFormat(dateFormat)
-                            .timezone(timezone)
-                            .build();
-
-                    setupService.saveSetupConfig(config);
-                    return RepeatStatus.FINISHED;
-                })
-                .build();
-    }
-
-    // ── 이하 배치는 실제 구현 전 placeholder ────────────────────────────
 
     @Bean
     public Job minuteMonitorJob() {
