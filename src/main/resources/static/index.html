@@ -260,6 +260,16 @@
             }
         });
 
+    fetch('/api/setup/status')
+        .then(r => r.json())
+        .then(d => {
+            if (d.completed) {
+                const el = document.getElementById('status-setupJob');
+                el.className = 'status COMPLETED';
+                el.textContent = 'COMPLETED';
+            }
+        });
+
     function openSetupModal() {
         document.getElementById('log-path').value = '';
         document.getElementById('setup-progress').style.display = 'none';

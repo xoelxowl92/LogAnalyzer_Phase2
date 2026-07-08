@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Map;
 
@@ -18,5 +19,11 @@ public class InfoController {
     @GetMapping("/profile")
     public Map<String, String> getProfile() {
         return Collections.singletonMap("profile", activeProfile);
+    }
+
+    @GetMapping("/setup/status")
+    public Map<String, Boolean> getSetupStatus() {
+        boolean completed = new File("config/setup.properties").exists();
+        return Collections.singletonMap("completed", completed);
     }
 }
