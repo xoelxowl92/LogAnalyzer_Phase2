@@ -44,7 +44,11 @@ public class InfoController {
             int formatLen      = dateFormat.length();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
-            Set<String> timestamps = new LinkedHashSet<>();
+
+            // Reservoir Sampling: 파일 전체를 한 번만 읽으면서 메모리는 5개만 유지
+            List<String> reservoir = new ArrayList<>(5);
+            Random random = new Random();
+            int count = 0;
 
             try (BufferedReader reader = new BufferedReader(
                     new InputStreamReader(new FileInputStream(logFilePath), Charset.forName(encoding)))) {
@@ -54,16 +58,20 @@ public class InfoController {
                     try {
                         String prefix = line.substring(0, formatLen);
                         LocalDateTime.parse(prefix, formatter);
-                        timestamps.add(prefix);
+
+                        if (reservoir.size() < 5) {
+                            reservoir.add(prefix);
+                        } else {
+                            int j = random.nextInt(++count);
+                            if (j < 5) reservoir.set(j, prefix);
+                        }
+                        count++;
                     } catch (Exception ignored) {}
                 }
             }
 
-            List<String> list = new ArrayList<>(timestamps);
-            Collections.shuffle(list);
-
             Map<String, Object> result = new HashMap<>();
-            result.put("timestamps", list.subList(0, Math.min(5, list.size())));
+            result.put("timestamps", reservoir);
             result.put("dateFormat", dateFormat);
             return ResponseEntity.ok(result);
 
