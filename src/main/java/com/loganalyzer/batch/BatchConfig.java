@@ -83,10 +83,17 @@ public class BatchConfig {
 
     @Bean
     public Job dailyMonitorJob() {
-        // 테스트 화면 전용 - 실제 운영에서는 스케줄러가 각각 실행
         return jobBuilderFactory.get("dailyMonitorJob")
+                .start(placeholderStep("dailyMonitorStep"))
+                .build();
+    }
+
+    // 테스트 화면 전용 - hourly → daily 순서 확인용. 운영에서는 사용하지 않음
+    @Bean
+    public Job testDailyMonitorJob() {
+        return jobBuilderFactory.get("testDailyMonitorJob")
                 .start(placeholderStep("hourlyMonitorStep-for-daily"))
-                .next(placeholderStep("dailyMonitorStep"))
+                .next(placeholderStep("dailyMonitorStep-for-daily"))
                 .build();
     }
 
