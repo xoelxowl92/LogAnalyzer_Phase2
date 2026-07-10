@@ -1,5 +1,6 @@
 package com.loganalyzer.web;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import java.nio.charset.Charset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class InfoController {
@@ -75,7 +77,9 @@ public class InfoController {
             return ResponseEntity.ok(result);
 
         } catch (Exception e) {
-            return ResponseEntity.ok(Map.of("timestamps", Collections.emptyList(), "dateFormat", ""));
+            log.error("타임스탬프 추출 실패: {}", e.getMessage(), e);
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("timestamps", Collections.emptyList(), "dateFormat", ""));
         }
     }
 }
