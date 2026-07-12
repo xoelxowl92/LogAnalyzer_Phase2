@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -56,7 +57,7 @@ public class InfoController {
                     if (line.length() < formatLen) continue;
                     try {
                         String prefix = line.substring(0, formatLen);
-                        formatter.parse(prefix);
+                        LocalDateTime.parse(prefix, formatter);
 
                         if (reservoir.size() < 5) {
                             reservoir.add(prefix);
