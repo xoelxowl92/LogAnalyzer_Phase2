@@ -1,0 +1,345 @@
+24-Sep-2025 14:58:20.477 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+24-Sep-2025 14:58:20.477 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 14:58:20.484 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+24-Sep-2025 14:58:20.541 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [com.tmax.tibero.jdbc.TbDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 14:58:20.541 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 14:58:20.541 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [org.mariadb.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 14:58:20.542 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [pool-2-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1261)
+ java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:457)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.size(ScheduledThreadPoolExecutor.java:983)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.isEmpty(ScheduledThreadPoolExecutor.java:988)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1065)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)
+24-Sep-2025 14:58:20.545 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [TbTimeoutPollingThread] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Thread.sleep(Native Method)
+ com.tmax.tibero.jdbc.driver.TbTimeoutPollingThread.run(Unknown Source)
+24-Sep-2025 14:58:20.545 SEVERE [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [ROOT] created a ThreadLocal with key of type [com.microsoft.sqlserver.jdbc.ActivityCorrelator$1] (value [com.microsoft.sqlserver.jdbc.ActivityCorrelator$1@1bc8e9b7]) and a value of type [com.microsoft.sqlserver.jdbc.ActivityId] (value [9cfcead9-9296-434d-9a9f-a8bd5b60823e-4]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+24-Sep-2025 14:58:20.556 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 14:58:20.562 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 14:58:38.645 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/8.5.57
+24-Sep-2025 14:58:38.646 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Jun 30 2020 21:49:10 UTC
+24-Sep-2025 14:58:38.646 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 8.5.57.0
+24-Sep-2025 14:58:38.646 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+24-Sep-2025 14:58:38.646 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            3.10.0-957.el7.x86_64
+24-Sep-2025 14:58:38.646 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.181-7.b13.el7.x86_64/jre
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_181-b13
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/hruser/ds_ehr
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/hruser/ds_ehr
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/hruser/ds_ehr/conf/logging.properties
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/hruser/ds_ehr
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/hruser/ds_ehr
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/hruser/ds_ehr/temp
+24-Sep-2025 14:58:38.647 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/home/tibero/tibero6/client/lib::/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
+24-Sep-2025 14:58:38.716 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 14:58:38.724 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+24-Sep-2025 14:58:38.734 INFO [main] org.apache.catalina.startup.Catalina.load Initialization processed in 408 ms
+24-Sep-2025 14:58:38.767 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+24-Sep-2025 14:58:38.767 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.57
+24-Sep-2025 14:58:38.775 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/docs]
+24-Sep-2025 14:58:38.920 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/docs] has finished in [145] ms
+24-Sep-2025 14:58:38.920 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/host-manager]
+24-Sep-2025 14:58:38.937 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/host-manager] has finished in [16] ms
+24-Sep-2025 14:58:38.937 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/manager]
+24-Sep-2025 14:58:38.950 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/manager] has finished in [13] ms
+24-Sep-2025 14:58:38.950 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/ROOT]
+24-Sep-2025 14:58:42.943 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+24-Sep-2025 14:58:51.555 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/ROOT] has finished in [12,605] ms
+24-Sep-2025 14:58:51.569 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 14:58:51.604 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 12869 ms
+24-Sep-2025 15:11:17.652 INFO [http-nio-8080-exec-1] org.apache.coyote.http11.Http11Processor.service Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+	java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x060xc00x010x000x060xbc0x030x0340xac]c0x89j0xd60x800xd1u0x030x7fi0xb3kd0xda0x17/0xa00xd20xc10xb40xf20xc00xf2r0xe9X]. HTTP method names must be tokens
+		at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:432)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:502)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:818)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1626)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+		at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.lang.Thread.run(Thread.java:748)
+24-Sep-2025 15:11:17.655 INFO [http-nio-8080-exec-2] org.apache.coyote.http11.Http11Processor.service Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+	java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x070x000x010x000x060xfc0x030x030xe9qH30xfcG0x87F0xaf0xdaG0xe3"0xb20xd8<h0xb3H0x10Y0xe50x1c140xf80xb4e0xaf|0xce0xf6]. HTTP method names must be tokens
+		at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:432)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:502)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:818)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1626)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+		at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.lang.Thread.run(Thread.java:748)
+24-Sep-2025 15:25:47.790 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+24-Sep-2025 15:25:47.790 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 15:25:47.801 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+24-Sep-2025 15:25:47.910 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [com.tmax.tibero.jdbc.TbDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 15:25:47.911 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 15:25:47.911 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [org.mariadb.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 15:25:47.939 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [pool-2-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1261)
+ java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:457)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.size(ScheduledThreadPoolExecutor.java:983)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.isEmpty(ScheduledThreadPoolExecutor.java:988)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1065)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)
+24-Sep-2025 15:25:47.952 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 15:25:47.953 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 15:25:54.939 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/8.5.57
+24-Sep-2025 15:25:54.940 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Jun 30 2020 21:49:10 UTC
+24-Sep-2025 15:25:54.940 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 8.5.57.0
+24-Sep-2025 15:25:54.940 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+24-Sep-2025 15:25:54.940 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            3.10.0-957.el7.x86_64
+24-Sep-2025 15:25:54.940 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+24-Sep-2025 15:25:54.940 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.181-7.b13.el7.x86_64/jre
+24-Sep-2025 15:25:54.940 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_181-b13
+24-Sep-2025 15:25:54.940 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+24-Sep-2025 15:25:54.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/hruser/ds_ehr
+24-Sep-2025 15:25:54.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/hruser/ds_ehr
+24-Sep-2025 15:25:54.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/hruser/ds_ehr/conf/logging.properties
+24-Sep-2025 15:25:54.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+24-Sep-2025 15:25:54.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+24-Sep-2025 15:25:54.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+24-Sep-2025 15:25:54.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+24-Sep-2025 15:25:54.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+24-Sep-2025 15:25:54.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/hruser/ds_ehr
+24-Sep-2025 15:25:54.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/hruser/ds_ehr
+24-Sep-2025 15:25:54.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/hruser/ds_ehr/temp
+24-Sep-2025 15:25:54.941 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/home/tibero/tibero6/client/lib::/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
+24-Sep-2025 15:25:55.005 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-80"]
+24-Sep-2025 15:25:55.011 SEVERE [main] org.apache.catalina.core.StandardService.initInternal Failed to initialize connector [Connector[HTTP/1.1-80]]
+	org.apache.catalina.LifecycleException: Protocol handler initialization failed
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1077)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136)
+		at org.apache.catalina.core.StandardService.initInternal(StandardService.java:552)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136)
+		at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:848)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:639)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:662)
+		at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+		at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+		at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+		at java.lang.reflect.Method.invoke(Method.java:498)
+		at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:302)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:472)
+	Caused by: java.net.SocketException: Permission denied
+		at sun.nio.ch.Net.bind0(Native Method)
+		at sun.nio.ch.Net.bind(Net.java:433)
+		at sun.nio.ch.Net.bind(Net.java:425)
+		at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+		at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+		at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:221)
+		at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:1118)
+		at org.apache.tomcat.util.net.AbstractJsseEndpoint.init(AbstractJsseEndpoint.java:222)
+		at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:587)
+		at org.apache.coyote.http11.AbstractHttp11Protocol.init(AbstractHttp11Protocol.java:74)
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1075)
+		... 13 more
+24-Sep-2025 15:25:55.011 INFO [main] org.apache.catalina.startup.Catalina.load Initialization processed in 387 ms
+24-Sep-2025 15:25:55.031 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+24-Sep-2025 15:25:55.031 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.57
+24-Sep-2025 15:25:55.044 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/docs]
+24-Sep-2025 15:25:55.224 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/docs] has finished in [180] ms
+24-Sep-2025 15:25:55.224 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/host-manager]
+24-Sep-2025 15:25:55.250 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/host-manager] has finished in [26] ms
+24-Sep-2025 15:25:55.250 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/manager]
+24-Sep-2025 15:25:55.268 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/manager] has finished in [18] ms
+24-Sep-2025 15:25:55.268 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/ROOT]
+24-Sep-2025 15:25:59.279 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+24-Sep-2025 15:26:08.362 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/ROOT] has finished in [13,093] ms
+24-Sep-2025 15:26:08.382 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13370 ms
+24-Sep-2025 15:31:44.230 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+24-Sep-2025 15:31:44.231 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-80"]
+24-Sep-2025 15:31:44.231 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+24-Sep-2025 15:31:44.309 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [com.tmax.tibero.jdbc.TbDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 15:31:44.309 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 15:31:44.309 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [org.mariadb.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 15:31:44.311 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [pool-2-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.poll(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)
+24-Sep-2025 15:31:44.319 INFO [1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-80"]
+24-Sep-2025 15:31:44.319 INFO [1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-80"]
+24-Sep-2025 15:32:02.640 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/8.5.57
+24-Sep-2025 15:32:02.641 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Jun 30 2020 21:49:10 UTC
+24-Sep-2025 15:32:02.641 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 8.5.57.0
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            3.10.0-957.el7.x86_64
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.181-7.b13.el7.x86_64/jre
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_181-b13
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/hruser/ds_ehr
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/hruser/ds_ehr
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/hruser/ds_ehr/conf/logging.properties
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/hruser/ds_ehr
+24-Sep-2025 15:32:02.642 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/hruser/ds_ehr
+24-Sep-2025 15:32:02.643 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/hruser/ds_ehr/temp
+24-Sep-2025 15:32:02.643 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/home/tibero/tibero6/client/lib::/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
+24-Sep-2025 15:32:02.721 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-80"]
+24-Sep-2025 15:32:02.730 SEVERE [main] org.apache.catalina.core.StandardService.initInternal Failed to initialize connector [Connector[HTTP/1.1-80]]
+	org.apache.catalina.LifecycleException: Protocol handler initialization failed
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1077)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136)
+		at org.apache.catalina.core.StandardService.initInternal(StandardService.java:552)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136)
+		at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:848)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:639)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:662)
+		at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+		at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+		at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+		at java.lang.reflect.Method.invoke(Method.java:498)
+		at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:302)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:472)
+	Caused by: java.net.SocketException: Permission denied
+		at sun.nio.ch.Net.bind0(Native Method)
+		at sun.nio.ch.Net.bind(Net.java:433)
+		at sun.nio.ch.Net.bind(Net.java:425)
+		at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+		at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+		at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:221)
+		at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:1118)
+		at org.apache.tomcat.util.net.AbstractJsseEndpoint.init(AbstractJsseEndpoint.java:222)
+		at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:587)
+		at org.apache.coyote.http11.AbstractHttp11Protocol.init(AbstractHttp11Protocol.java:74)
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1075)
+		... 13 more
+24-Sep-2025 15:32:02.731 INFO [main] org.apache.catalina.startup.Catalina.load Initialization processed in 386 ms
+24-Sep-2025 15:32:02.747 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+24-Sep-2025 15:32:02.747 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.57
+24-Sep-2025 15:32:02.753 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/docs]
+24-Sep-2025 15:32:02.909 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/docs] has finished in [156] ms
+24-Sep-2025 15:32:02.909 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/host-manager]
+24-Sep-2025 15:32:02.926 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/host-manager] has finished in [17] ms
+24-Sep-2025 15:32:02.927 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/manager]
+24-Sep-2025 15:32:02.940 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/manager] has finished in [13] ms
+24-Sep-2025 15:32:02.940 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/ROOT]
+24-Sep-2025 15:32:06.914 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+24-Sep-2025 15:32:15.943 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/ROOT] has finished in [13,002] ms
+24-Sep-2025 15:32:16.006 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13275 ms
+24-Sep-2025 15:32:51.876 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+24-Sep-2025 15:32:51.877 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-80"]
+24-Sep-2025 15:32:51.877 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+24-Sep-2025 15:32:51.969 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [com.tmax.tibero.jdbc.TbDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 15:32:51.969 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 15:32:51.969 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [org.mariadb.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 15:32:51.970 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [pool-2-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.poll(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)
+24-Sep-2025 15:32:51.979 INFO [1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-80"]
+24-Sep-2025 15:32:51.979 INFO [1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-80"]
+24-Sep-2025 15:32:59.423 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/8.5.57
+24-Sep-2025 15:32:59.424 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Jun 30 2020 21:49:10 UTC
+24-Sep-2025 15:32:59.424 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 8.5.57.0
+24-Sep-2025 15:32:59.424 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            3.10.0-957.el7.x86_64
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.181-7.b13.el7.x86_64/jre
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_181-b13
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/hruser/ds_ehr
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/hruser/ds_ehr
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/hruser/ds_ehr/conf/logging.properties
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/hruser/ds_ehr
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/hruser/ds_ehr
+24-Sep-2025 15:32:59.425 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/hruser/ds_ehr/temp
+24-Sep-2025 15:32:59.426 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/home/tibero/tibero6/client/lib::/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
+24-Sep-2025 15:32:59.489 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 15:32:59.496 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+24-Sep-2025 15:32:59.505 INFO [main] org.apache.catalina.startup.Catalina.load Initialization processed in 393 ms
+24-Sep-2025 15:32:59.521 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+24-Sep-2025 15:32:59.521 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.57
+24-Sep-2025 15:32:59.534 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/docs]
+24-Sep-2025 15:32:59.714 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/docs] has finished in [180] ms
+24-Sep-2025 15:32:59.714 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/host-manager]
+24-Sep-2025 15:32:59.736 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/host-manager] has finished in [22] ms
+24-Sep-2025 15:32:59.736 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/manager]
+24-Sep-2025 15:32:59.751 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/manager] has finished in [15] ms
+24-Sep-2025 15:32:59.751 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/ROOT]
+24-Sep-2025 15:33:03.556 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+24-Sep-2025 15:33:12.460 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/ROOT] has finished in [12,709] ms
+24-Sep-2025 15:33:12.489 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 15:33:12.495 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 12989 ms
+24-Sep-2025 15:40:44.907 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+24-Sep-2025 15:40:44.908 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 15:40:44.915 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+24-Sep-2025 15:40:44.963 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [com.tmax.tibero.jdbc.TbDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 15:40:44.967 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 15:40:44.967 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ROOT] registered the JDBC driver [org.mariadb.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+24-Sep-2025 15:40:44.967 WARNING [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [ROOT] appears to have started a thread named [pool-2-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.poll(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)
+24-Sep-2025 15:40:44.980 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 15:40:44.990 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 15:40:51.900 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/8.5.57
+24-Sep-2025 15:40:51.901 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Jun 30 2020 21:49:10 UTC
+24-Sep-2025 15:40:51.901 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 8.5.57.0
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            3.10.0-957.el7.x86_64
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.181-7.b13.el7.x86_64/jre
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_181-b13
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/hruser/ds_ehr
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/hruser/ds_ehr
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/hruser/ds_ehr/conf/logging.properties
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/hruser/ds_ehr
+24-Sep-2025 15:40:51.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/hruser/ds_ehr
+24-Sep-2025 15:40:51.903 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/hruser/ds_ehr/temp
+24-Sep-2025 15:40:51.903 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/home/tibero/tibero6/client/lib::/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
+24-Sep-2025 15:40:51.957 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 15:40:51.963 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+24-Sep-2025 15:40:51.974 INFO [main] org.apache.catalina.startup.Catalina.load Initialization processed in 341 ms
+24-Sep-2025 15:40:51.989 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+24-Sep-2025 15:40:51.989 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.57
+24-Sep-2025 15:40:52.000 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/docs]
+24-Sep-2025 15:40:52.201 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/docs] has finished in [200] ms
+24-Sep-2025 15:40:52.201 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/host-manager]
+24-Sep-2025 15:40:52.225 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/host-manager] has finished in [24] ms
+24-Sep-2025 15:40:52.225 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/manager]
+24-Sep-2025 15:40:52.243 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/manager] has finished in [18] ms
+24-Sep-2025 15:40:52.243 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/hruser/ds_ehr/webapps/ROOT]
+24-Sep-2025 15:40:56.255 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+24-Sep-2025 15:41:05.173 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/hruser/ds_ehr/webapps/ROOT] has finished in [12,930] ms
+24-Sep-2025 15:41:05.179 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+24-Sep-2025 15:41:05.193 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13218 ms
