@@ -44,3 +44,15 @@ jobs:
             sudo systemctl restart loganalyzer
 
             echo "배포 완료"
+
+      - name: Extract test logs on EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            find /home/ec2-user/project/test_logs -name "*.gz" | while read f; do
+              gunzip "$f" && echo "압축 해제 완료: $f"
+            done
+            echo "test_logs gz 처리 완료"
