@@ -315,17 +315,21 @@
 
     let currentLogPath = '';
 
-    fetch('/api/setup/status')
-        .then(r => r.json())
-        .then(d => {
-            if (d.completed) {
-                const el = document.getElementById('status-setupJob');
-                el.className = 'status COMPLETED';
-                el.textContent = 'COMPLETED';
-                currentLogPath = d.logFilePath || '';
-                loadTimestamps();
-            }
-        });
+    function refreshSetupStatus() {
+        fetch('/api/setup/status')
+            .then(r => r.json())
+            .then(d => {
+                if (d.completed) {
+                    const el = document.getElementById('status-setupJob');
+                    el.className = 'status COMPLETED';
+                    el.textContent = 'COMPLETED';
+                    currentLogPath = d.logFilePath || '';
+                    loadTimestamps();
+                }
+            });
+    }
+
+    refreshSetupStatus();
 
     function clearBaseTime() {
         const input = document.getElementById('base-time');
@@ -394,8 +398,7 @@
             statusEl.textContent = data.status;
             closeSetupModal();
             if (data.status === 'COMPLETED') {
-                currentLogPath = logPath;
-                loadTimestamps();
+                refreshSetupStatus();
             }
         } catch (e) {
             progressEl.textContent = '설정 실패. 다시 시도해주세요.';
