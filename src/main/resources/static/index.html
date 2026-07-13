@@ -226,7 +226,6 @@
         <div class="card-info">
             <h3>초기 설정</h3>
             <p>서버 접속 정보 및 Dify 설정 저장 (설치 시 1회)</p>
-            <p id="setup-logpath" style="display:none; font-size:12px; color:#555; margin-top:4px; word-break:break-all;"></p>
         </div>
         <div class="card-right">
             <span class="status" id="status-setupJob">-</span>
@@ -284,6 +283,10 @@
             <h2>초기 설정</h2>
             <p class="modal-desc">분석할 서버 로그 파일 경로를 입력하세요. 인코딩·날짜 형식·타임존은 자동으로 탐지됩니다.</p>
 
+            <div id="current-logpath" style="display:none; font-size:12px; color:#555; background:#f5f6fa; padding:8px 12px; border-radius:6px; margin-bottom:16px; word-break:break-all;">
+                현재 설정 경로: <span id="current-logpath-text"></span>
+            </div>
+
             <label for="log-path">로그 파일 경로</label>
             <input type="text" id="log-path" placeholder="/var/log/app/application.log" />
 
@@ -310,6 +313,8 @@
             }
         });
 
+    let currentLogPath = '';
+
     fetch('/api/setup/status')
         .then(r => r.json())
         .then(d => {
@@ -317,17 +322,10 @@
                 const el = document.getElementById('status-setupJob');
                 el.className = 'status COMPLETED';
                 el.textContent = 'COMPLETED';
-                showLogPath(d.logFilePath);
+                currentLogPath = d.logFilePath || '';
                 loadTimestamps();
             }
         });
-
-    function showLogPath(path) {
-        if (!path) return;
-        const el = document.getElementById('setup-logpath');
-        el.textContent = '경로: ' + path;
-        el.style.display = 'block';
-    }
 
     function clearBaseTime() {
         const input = document.getElementById('base-time');
@@ -356,6 +354,13 @@
     function openSetupModal() {
         document.getElementById('log-path').value = '';
         document.getElementById('setup-progress').style.display = 'none';
+        const pathBox = document.getElementById('current-logpath');
+        if (currentLogPath) {
+            document.getElementById('current-logpath-text').textContent = currentLogPath;
+            pathBox.style.display = 'block';
+        } else {
+            pathBox.style.display = 'none';
+        }
         document.getElementById('setup-modal').classList.add('open');
     }
 
@@ -389,7 +394,7 @@
             statusEl.textContent = data.status;
             closeSetupModal();
             if (data.status === 'COMPLETED') {
-                showLogPath(logPath);
+                currentLogPath = logPath;
                 loadTimestamps();
             }
         } catch (e) {
