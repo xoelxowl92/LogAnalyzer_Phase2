@@ -1,5 +1,6 @@
 package com.loganalyzer.web;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class InfoController {
@@ -44,31 +45,40 @@ public class InfoController {
             int formatLen      = dateFormat.length();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
-            Set<String> timestamps = new LinkedHashSet<>();
+            List<String> reservoir = new ArrayList<>(5);
+            int count = 0;
+            Random random = new Random();
 
             try (BufferedReader reader = new BufferedReader(
                     new InputStreamReader(new FileInputStream(logFilePath), Charset.forName(encoding)))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     if (line.length() < formatLen) continue;
+                    String prefix = line.substring(0, formatLen);
                     try {
-                        String prefix = line.substring(0, formatLen);
-                        LocalDateTime.parse(prefix, formatter);
-                        timestamps.add(prefix);
+                        formatter.parse(prefix);
+                        count++;
+                        if (reservoir.size() < 5) {
+                            reservoir.add(prefix);
+                        } else {
+                            int j = random.nextInt(count);
+                            if (j < 5) {
+                                reservoir.set(j, prefix);
+                            }
+                        }
                     } catch (Exception ignored) {}
                 }
             }
 
-            List<String> list = new ArrayList<>(timestamps);
-            Collections.shuffle(list);
-
             Map<String, Object> result = new HashMap<>();
-            result.put("timestamps", list.subList(0, Math.min(5, list.size())));
+            result.put("timestamps", reservoir);
             result.put("dateFormat", dateFormat);
             return ResponseEntity.ok(result);
 
         } catch (Exception e) {
-            return ResponseEntity.ok(Map.of("timestamps", Collections.emptyList(), "dateFormat", ""));
+            log.error("[InfoController] 타임스탬프 조회 실패", e);
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("timestamps", Collections.emptyList(), "dateFormat", ""));
         }
     }
 }
