@@ -379,6 +379,9 @@
             statusEl.className = 'status ' + data.status;
             statusEl.textContent = data.status;
             closeSetupModal();
+            if (data.status === 'COMPLETED') {
+                loadTimestamps();
+            }
         } catch (e) {
             progressEl.textContent = '설정 실패. 다시 시도해주세요.';
             statusEl.className = 'status FAILED';
