@@ -226,6 +226,7 @@
         <div class="card-info">
             <h3>초기 설정</h3>
             <p>서버 접속 정보 및 Dify 설정 저장 (설치 시 1회)</p>
+            <p id="setup-logpath" style="display:none; font-size:12px; color:#555; margin-top:4px; word-break:break-all;"></p>
         </div>
         <div class="card-right">
             <span class="status" id="status-setupJob">-</span>
@@ -316,9 +317,17 @@
                 const el = document.getElementById('status-setupJob');
                 el.className = 'status COMPLETED';
                 el.textContent = 'COMPLETED';
+                showLogPath(d.logFilePath);
                 loadTimestamps();
             }
         });
+
+    function showLogPath(path) {
+        if (!path) return;
+        const el = document.getElementById('setup-logpath');
+        el.textContent = '경로: ' + path;
+        el.style.display = 'block';
+    }
 
     function clearBaseTime() {
         const input = document.getElementById('base-time');
@@ -380,6 +389,7 @@
             statusEl.textContent = data.status;
             closeSetupModal();
             if (data.status === 'COMPLETED') {
+                showLogPath(logPath);
                 loadTimestamps();
             }
         } catch (e) {

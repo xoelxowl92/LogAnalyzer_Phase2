@@ -26,9 +26,22 @@ public class InfoController {
     }
 
     @GetMapping("/setup/status")
-    public Map<String, Boolean> getSetupStatus() {
-        boolean completed = new File("config/setup.properties").exists();
-        return Collections.singletonMap("completed", completed);
+    public Map<String, Object> getSetupStatus() {
+        File configFile = new File("config/setup.properties");
+        Map<String, Object> result = new HashMap<>();
+        result.put("completed", configFile.exists());
+        if (configFile.exists()) {
+            try {
+                Properties props = new Properties();
+                try (InputStream is = new FileInputStream(configFile)) {
+                    props.load(is);
+                }
+                result.put("logFilePath", props.getProperty("setup.log-file-path", ""));
+            } catch (Exception e) {
+                log.error("[InfoController] setup status 조회 실패", e);
+            }
+        }
+        return result;
     }
 
     @GetMapping("/log/timestamps")
