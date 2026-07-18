@@ -2,24 +2,220 @@ package com.loganalyzer.batch;
 
 import com.loganalyzer.setup.SetupConfig;
 import lombok.extern.slf4j.Slf4j;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Properties;
+
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 public class MinuteMonitorService {
 
+    public void execute() {
+
+            log.info("[MinuteMonitor] 실행 시작");
+
+
+            // 1. 설정 읽기
+            SetupConfig config = loadSetupConfig();
+
+            log.info(
+                "[MinuteMonitor] 로그 경로 : {}",
+                config.getLogFilePath()
+            );
+
+            // 2. 최근 로그 추출
+            String logContent = readLastMinuteLog(config);
+
+
+            // 3. 로그 없으면 종료
+            if (logContent == null ||
+                logContent.isBlank()) {
+                log.info(
+                    "[MinuteMonitor] 분석 대상 로그 없음"
+                );
+                return;
+            }
+
+            log.info(
+                "[MinuteMonitor] Dify 요청 데이터 size={}",
+                logContent.length()
+            );
+
+            // 4. Dify 장애 판단
+            FaultCheckResult result =
+                    requestFaultCheckToDify(logContent);
+
+            if(result.isFault()) {
+
+                log.error(
+                    "[MinuteMonitor] 장애 감지 : {}",
+                    result.getSummary()
+                );
+
+            } else {
+
+                log.info(
+                    "[MinuteMonitor] 정상 : {}",
+                    result.getSummary()
+                );
+            }
+
+        }
+
+
+
     public SetupConfig loadSetupConfig() {
         // TODO: config/setup.properties 읽어 SetupConfig 반환 (공용 - HourlyMonitorService와 동일)
-        throw new UnsupportedOperationException("Not implemented yet");
+        //
+        Properties props = new Properties();
+
+        try (InputStream is =
+                new FileInputStream("config/setup.properties")) {
+
+            props.load(is);
+
+            SetupConfig config = new SetupConfig();
+
+            config.setLogFilePath(
+                props.getProperty("setup.log-file-path")
+            );
+
+            return config;
+
+        } catch (IOException e) {
+            throw new RuntimeException(
+                "setup.properties 로딩 실패",
+                e
+            );
+        }
+        //
+
+
     }
 
     public String readLastMinuteLog(SetupConfig config) {
         // TODO: (현재시각 - 80초) ~ (현재시각 - 20초) 구간 로그 읽기
-        throw new UnsupportedOperationException("Not implemented yet");
+        StringBuilder result = new StringBuilder();
+
+        // LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.of(2026, 6, 1, 9, 44, 0); // 테스트용 고정 시각
+
+        LocalDateTime from = now.minusSeconds(80);
+        LocalDateTime to = now.minusSeconds(20);
+
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern(
+                        "dd-MMM-yyyy HH:mm:ss.SSS",
+                        Locale.ENGLISH
+                );
+
+
+        File dir = new File(config.getLogFilePath());
+
+        if (!dir.exists() || !dir.isDirectory()) {
+            log.warn("로그 디렉터리가 없습니다 : {}", dir.getAbsolutePath());
+            return "";
+        }
+
+
+        File[] files = dir.listFiles();
+
+        if (files == null) {
+            return "";
+        }
+
+
+        for (File file : files) {
+
+            // 압축 로그 제외
+            if (!file.isFile()) {
+                continue;
+            }
+
+            String name = file.getName();
+
+            if (!(name.endsWith(".log")
+                    || name.endsWith(".out"))) {
+                continue;
+            }
+
+            try (BufferedReader reader =
+                        new BufferedReader(
+                            new InputStreamReader(
+                                new FileInputStream(file),
+                                StandardCharsets.UTF_8))) {
+
+
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+
+                    if (line.length() < 23) {
+                        continue;
+                    }
+
+
+                    try {
+
+                        String dateText =
+                                line.substring(0, 23);
+
+
+                        LocalDateTime logTime =
+                                LocalDateTime.parse(
+                                        dateText,
+                                        formatter
+                                );
+
+
+                        if (!logTime.isBefore(from)
+                                && !logTime.isAfter(to)) {
+
+                            result.append(line)
+                                .append(System.lineSeparator());
+                        }
+
+
+                    } catch (Exception e) {
+                        // 날짜 형식 아닌 라인은 무시
+                    }
+                }
+
+
+            } catch (IOException e) {
+
+                log.warn(
+                    "로그 파일 읽기 실패 : {}",
+                    file.getAbsolutePath(),
+                    e
+                );
+            }
+        }
+
+        log.info(
+            "[Monitor] 최근 로그 추출 완료. {} ~ {}, size={}",
+            from,
+            to,
+            result.length()
+        );
+
+        return result.toString();  
     }
 
     public FaultCheckResult requestFaultCheckToDify(String logContent) {
         // TODO: 빈 문자열이면 isFault=false 반환, 아니면 Dify 장애 판단 Workflow 호출
+        
         throw new UnsupportedOperationException("Not implemented yet");
     }
 }
