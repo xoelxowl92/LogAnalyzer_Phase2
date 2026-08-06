@@ -1,0 +1,292 @@
+# TEST SCENARIO: DB Connection Pool 고갈 로그
+# Generated sample log for Dify log analyzer validation
+# Encoding: UTF-8
+
+2026-08-02 12:00:00.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=15 active=5 idle=10 waiting=0
+2026-08-02 12:00:01.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=15 active=5 idle=10 waiting=0
+2026-08-02 12:00:02.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=15 active=5 idle=10 waiting=0
+2026-08-02 12:00:03.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=15 active=5 idle=10 waiting=0
+2026-08-02 12:00:04.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=15 active=5 idle=10 waiting=0
+2026-08-02 12:00:05.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=15 active=5 idle=10 waiting=0
+2026-08-02 12:00:06.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=15 active=5 idle=10 waiting=0
+2026-08-02 12:00:07.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=15 active=5 idle=10 waiting=0
+2026-08-02 12:00:08.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=15 active=5 idle=10 waiting=0
+2026-08-02 12:00:09.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=15 active=5 idle=10 waiting=0
+2026-08-02 12:00:10.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=6 idle=10 waiting=0
+2026-08-02 12:00:11.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=6 idle=10 waiting=0
+2026-08-02 12:00:12.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=6 idle=10 waiting=0
+2026-08-02 12:00:13.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=6 idle=10 waiting=0
+2026-08-02 12:00:14.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=6 idle=10 waiting=0
+2026-08-02 12:00:15.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=6 idle=10 waiting=0
+2026-08-02 12:00:16.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=6 idle=10 waiting=0
+2026-08-02 12:00:17.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=6 idle=10 waiting=0
+2026-08-02 12:00:18.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=6 idle=10 waiting=0
+2026-08-02 12:00:19.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=6 idle=10 waiting=0
+2026-08-02 12:00:20.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=7 idle=10 waiting=0
+2026-08-02 12:00:21.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=7 idle=10 waiting=0
+2026-08-02 12:00:22.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=7 idle=10 waiting=0
+2026-08-02 12:00:23.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=7 idle=10 waiting=0
+2026-08-02 12:00:24.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=7 idle=10 waiting=0
+2026-08-02 12:00:25.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=7 idle=9 waiting=0
+2026-08-02 12:00:26.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=7 idle=9 waiting=0
+2026-08-02 12:00:27.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=7 idle=9 waiting=0
+2026-08-02 12:00:28.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=7 idle=9 waiting=0
+2026-08-02 12:00:29.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=16 active=7 idle=9 waiting=0
+2026-08-02 12:00:30.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=8 idle=9 waiting=0
+2026-08-02 12:00:31.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=8 idle=9 waiting=0
+2026-08-02 12:00:32.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=8 idle=9 waiting=0
+2026-08-02 12:00:33.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=8 idle=9 waiting=0
+2026-08-02 12:00:34.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=8 idle=9 waiting=0
+2026-08-02 12:00:35.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=8 idle=9 waiting=0
+2026-08-02 12:00:36.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=8 idle=9 waiting=0
+2026-08-02 12:00:37.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=8 idle=9 waiting=0
+2026-08-02 12:00:38.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=8 idle=9 waiting=0
+2026-08-02 12:00:39.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=17 active=8 idle=9 waiting=0
+2026-08-02 12:00:40.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=9 idle=9 waiting=0
+2026-08-02 12:00:41.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=9 idle=9 waiting=0
+2026-08-02 12:00:42.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=9 idle=9 waiting=0
+2026-08-02 12:00:43.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=9 idle=9 waiting=0
+2026-08-02 12:00:44.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=9 idle=9 waiting=0
+2026-08-02 12:00:45.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=9 idle=9 waiting=0
+2026-08-02 12:00:46.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=9 idle=9 waiting=0
+2026-08-02 12:00:47.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=9 idle=9 waiting=0
+2026-08-02 12:00:48.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=9 idle=9 waiting=0
+2026-08-02 12:00:49.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=9 idle=9 waiting=0
+2026-08-02 12:00:50.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=10 idle=8 waiting=0
+2026-08-02 12:00:51.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=10 idle=8 waiting=0
+2026-08-02 12:00:52.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=10 idle=8 waiting=0
+2026-08-02 12:00:53.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=10 idle=8 waiting=0
+2026-08-02 12:00:54.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=10 idle=8 waiting=0
+2026-08-02 12:00:55.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=10 idle=8 waiting=0
+2026-08-02 12:00:56.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=10 idle=8 waiting=0
+2026-08-02 12:00:57.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=10 idle=8 waiting=0
+2026-08-02 12:00:58.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=10 idle=8 waiting=0
+2026-08-02 12:00:59.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=18 active=10 idle=8 waiting=0
+2026-08-02 12:01:00.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=11 idle=8 waiting=0
+2026-08-02 12:01:01.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=11 idle=8 waiting=0
+2026-08-02 12:01:02.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=11 idle=8 waiting=0
+2026-08-02 12:01:03.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=11 idle=8 waiting=0
+2026-08-02 12:01:04.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=11 idle=8 waiting=0
+2026-08-02 12:01:05.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=11 idle=8 waiting=0
+2026-08-02 12:01:06.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=11 idle=8 waiting=0
+2026-08-02 12:01:07.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=11 idle=8 waiting=0
+2026-08-02 12:01:08.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=11 idle=8 waiting=0
+2026-08-02 12:01:09.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=11 idle=8 waiting=0
+2026-08-02 12:01:10.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=12 idle=8 waiting=0
+2026-08-02 12:01:11.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=12 idle=8 waiting=0
+2026-08-02 12:01:12.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=12 idle=8 waiting=0
+2026-08-02 12:01:13.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=12 idle=8 waiting=0
+2026-08-02 12:01:14.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=12 idle=8 waiting=0
+2026-08-02 12:01:15.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=12 idle=7 waiting=0
+2026-08-02 12:01:16.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=12 idle=7 waiting=0
+2026-08-02 12:01:17.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=12 idle=7 waiting=0
+2026-08-02 12:01:18.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=12 idle=7 waiting=0
+2026-08-02 12:01:19.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=19 active=12 idle=7 waiting=0
+2026-08-02 12:01:20.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=13 idle=7 waiting=0
+2026-08-02 12:01:21.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=13 idle=7 waiting=0
+2026-08-02 12:01:22.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=13 idle=7 waiting=0
+2026-08-02 12:01:23.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=13 idle=7 waiting=0
+2026-08-02 12:01:24.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=13 idle=7 waiting=0
+2026-08-02 12:01:25.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=13 idle=7 waiting=0
+2026-08-02 12:01:26.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=13 idle=7 waiting=0
+2026-08-02 12:01:27.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=13 idle=7 waiting=0
+2026-08-02 12:01:28.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=13 idle=7 waiting=0
+2026-08-02 12:01:29.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=20 active=13 idle=7 waiting=0
+2026-08-02 12:01:30.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=21 active=14 idle=7 waiting=0
+2026-08-02 12:01:31.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=21 active=14 idle=7 waiting=0
+2026-08-02 12:01:32.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=21 active=14 idle=7 waiting=0
+2026-08-02 12:01:33.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=21 active=14 idle=7 waiting=0
+2026-08-02 12:01:34.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=21 active=14 idle=7 waiting=0
+2026-08-02 12:01:35.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=21 active=14 idle=7 waiting=0
+2026-08-02 12:01:36.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=21 active=14 idle=7 waiting=0
+2026-08-02 12:01:37.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=21 active=14 idle=7 waiting=0
+2026-08-02 12:01:38.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=21 active=14 idle=7 waiting=0
+2026-08-02 12:01:39.000 DEBUG [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=21 active=14 idle=7 waiting=0
+2026-08-02 12:01:40.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=17
+2026-08-02 12:01:41.000 INFO  [http-nio-8080-exec-12] c.s.api.RequestLogger - path=/api/accounts status=200 elapsedMs=30365
+2026-08-02 12:01:42.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - path=/api/accounts status=200 elapsedMs=30500
+2026-08-02 12:01:43.000 INFO  [http-nio-8080-exec-14] c.s.api.RequestLogger - path=/api/accounts status=200 elapsedMs=7787
+2026-08-02 12:01:44.000 INFO  [http-nio-8080-exec-15] c.s.api.RequestLogger - path=/api/accounts status=200 elapsedMs=28361
+2026-08-02 12:01:45.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=18
+2026-08-02 12:01:46.000 INFO  [http-nio-8080-exec-17] c.s.api.RequestLogger - path=/api/accounts status=200 elapsedMs=26240
+2026-08-02 12:01:47.000 INFO  [http-nio-8080-exec-18] c.s.api.RequestLogger - path=/api/accounts status=200 elapsedMs=26597
+2026-08-02 12:01:48.000 INFO  [http-nio-8080-exec-19] c.s.api.RequestLogger - path=/api/accounts status=200 elapsedMs=5831
+2026-08-02 12:01:49.000 INFO  [http-nio-8080-exec-20] c.s.api.RequestLogger - path=/api/accounts status=200 elapsedMs=28912
+2026-08-02 12:01:50.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=34
+2026-08-02 12:01:51.000 INFO  [http-nio-8080-exec-22] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=842
+2026-08-02 12:01:52.000 ERROR [http-nio-8080-exec-23] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:01:53.000 INFO  [http-nio-8080-exec-24] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=5907
+2026-08-02 12:01:54.000 INFO  [http-nio-8080-exec-25] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=24165
+2026-08-02 12:01:55.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=29
+2026-08-02 12:01:56.000 INFO  [http-nio-8080-exec-27] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=25667
+2026-08-02 12:01:57.000 INFO  [http-nio-8080-exec-28] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=30530
+2026-08-02 12:01:58.000 INFO  [http-nio-8080-exec-29] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=13521
+2026-08-02 12:01:59.000 ERROR [http-nio-8080-exec-30] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:02:00.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=23
+2026-08-02 12:02:01.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=8772
+2026-08-02 12:02:02.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=5246
+2026-08-02 12:02:03.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=25830
+2026-08-02 12:02:04.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=23009
+2026-08-02 12:02:05.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=14
+2026-08-02 12:02:06.000 ERROR [http-nio-8080-exec-7] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:02:07.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=12565
+2026-08-02 12:02:08.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=28609
+2026-08-02 12:02:09.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=1298
+2026-08-02 12:02:10.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=38
+2026-08-02 12:02:11.000 INFO  [http-nio-8080-exec-12] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=7318
+2026-08-02 12:02:12.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=6569
+2026-08-02 12:02:13.000 ERROR [http-nio-8080-exec-14] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:02:14.000 INFO  [http-nio-8080-exec-15] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=26787
+2026-08-02 12:02:15.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=37
+2026-08-02 12:02:16.000 INFO  [http-nio-8080-exec-17] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=11487
+2026-08-02 12:02:17.000 INFO  [http-nio-8080-exec-18] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=10030
+2026-08-02 12:02:18.000 INFO  [http-nio-8080-exec-19] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=26917
+2026-08-02 12:02:19.000 INFO  [http-nio-8080-exec-20] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=26091
+2026-08-02 12:02:20.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=22
+2026-08-02 12:02:21.000 INFO  [http-nio-8080-exec-22] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=7334
+2026-08-02 12:02:22.000 INFO  [http-nio-8080-exec-23] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=805
+2026-08-02 12:02:23.000 INFO  [http-nio-8080-exec-24] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=21657
+2026-08-02 12:02:24.000 INFO  [http-nio-8080-exec-25] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=6358
+2026-08-02 12:02:25.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=33
+2026-08-02 12:02:26.000 INFO  [http-nio-8080-exec-27] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=10786
+2026-08-02 12:02:27.000 ERROR [http-nio-8080-exec-28] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:02:28.000 INFO  [http-nio-8080-exec-29] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=9159
+2026-08-02 12:02:29.000 INFO  [http-nio-8080-exec-30] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=28353
+2026-08-02 12:02:30.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=12
+2026-08-02 12:02:31.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=25370
+2026-08-02 12:02:32.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=9176
+2026-08-02 12:02:33.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=11536
+2026-08-02 12:02:34.000 ERROR [http-nio-8080-exec-5] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:02:35.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=40
+2026-08-02 12:02:36.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=13126
+2026-08-02 12:02:37.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=22296
+2026-08-02 12:02:38.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=27675
+2026-08-02 12:02:39.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=17600
+2026-08-02 12:02:40.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=29
+2026-08-02 12:02:41.000 ERROR [http-nio-8080-exec-12] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:02:42.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=30806
+2026-08-02 12:02:43.000 INFO  [http-nio-8080-exec-14] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=934
+2026-08-02 12:02:44.000 INFO  [http-nio-8080-exec-15] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=3809
+2026-08-02 12:02:45.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=24
+2026-08-02 12:02:46.000 INFO  [http-nio-8080-exec-17] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=5881
+2026-08-02 12:02:47.000 INFO  [http-nio-8080-exec-18] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=19054
+2026-08-02 12:02:48.000 ERROR [http-nio-8080-exec-19] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:02:49.000 INFO  [http-nio-8080-exec-20] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=8728
+2026-08-02 12:02:50.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=10
+2026-08-02 12:02:51.000 INFO  [http-nio-8080-exec-22] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=3582
+2026-08-02 12:02:52.000 INFO  [http-nio-8080-exec-23] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=19578
+2026-08-02 12:02:53.000 INFO  [http-nio-8080-exec-24] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=14269
+2026-08-02 12:02:54.000 INFO  [http-nio-8080-exec-25] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=11357
+2026-08-02 12:02:55.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=28
+2026-08-02 12:02:56.000 INFO  [http-nio-8080-exec-27] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=14329
+2026-08-02 12:02:57.000 INFO  [http-nio-8080-exec-28] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=19894
+2026-08-02 12:02:58.000 INFO  [http-nio-8080-exec-29] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=16788
+2026-08-02 12:02:59.000 INFO  [http-nio-8080-exec-30] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=3819
+2026-08-02 12:03:00.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=32
+2026-08-02 12:03:01.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=29504
+2026-08-02 12:03:02.000 ERROR [http-nio-8080-exec-3] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:03:03.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=18923
+2026-08-02 12:03:04.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=6258
+2026-08-02 12:03:05.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=24
+2026-08-02 12:03:06.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=1484
+2026-08-02 12:03:07.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=23255
+2026-08-02 12:03:08.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=14318
+2026-08-02 12:03:09.000 ERROR [http-nio-8080-exec-10] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:03:10.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=8
+2026-08-02 12:03:11.000 INFO  [http-nio-8080-exec-12] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=17066
+2026-08-02 12:03:12.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=30359
+2026-08-02 12:03:13.000 INFO  [http-nio-8080-exec-14] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=26457
+2026-08-02 12:03:14.000 INFO  [http-nio-8080-exec-15] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=17673
+2026-08-02 12:03:15.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=20
+2026-08-02 12:03:16.000 ERROR [http-nio-8080-exec-17] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:03:17.000 INFO  [http-nio-8080-exec-18] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=11964
+2026-08-02 12:03:18.000 INFO  [http-nio-8080-exec-19] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=14162
+2026-08-02 12:03:19.000 INFO  [http-nio-8080-exec-20] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=2322
+2026-08-02 12:03:20.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=29
+2026-08-02 12:03:21.000 INFO  [http-nio-8080-exec-22] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=20449
+2026-08-02 12:03:22.000 INFO  [http-nio-8080-exec-23] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=10316
+2026-08-02 12:03:23.000 ERROR [http-nio-8080-exec-24] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:03:24.000 INFO  [http-nio-8080-exec-25] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=21767
+2026-08-02 12:03:25.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=15
+2026-08-02 12:03:26.000 INFO  [http-nio-8080-exec-27] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=23614
+2026-08-02 12:03:27.000 INFO  [http-nio-8080-exec-28] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=29522
+2026-08-02 12:03:28.000 INFO  [http-nio-8080-exec-29] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=9870
+2026-08-02 12:03:29.000 INFO  [http-nio-8080-exec-30] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=16647
+2026-08-02 12:03:30.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=27
+2026-08-02 12:03:31.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=21882
+2026-08-02 12:03:32.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=13412
+2026-08-02 12:03:33.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=10718
+2026-08-02 12:03:34.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=13215
+2026-08-02 12:03:35.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=26
+2026-08-02 12:03:36.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=18196
+2026-08-02 12:03:37.000 ERROR [http-nio-8080-exec-8] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:03:38.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=4200
+2026-08-02 12:03:39.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=6316
+2026-08-02 12:03:40.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=34
+2026-08-02 12:03:41.000 INFO  [http-nio-8080-exec-12] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=21818
+2026-08-02 12:03:42.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=30843
+2026-08-02 12:03:43.000 INFO  [http-nio-8080-exec-14] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=12453
+2026-08-02 12:03:44.000 ERROR [http-nio-8080-exec-15] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:03:45.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=19
+2026-08-02 12:03:46.000 INFO  [http-nio-8080-exec-17] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=20199
+2026-08-02 12:03:47.000 INFO  [http-nio-8080-exec-18] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=18678
+2026-08-02 12:03:48.000 INFO  [http-nio-8080-exec-19] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=9891
+2026-08-02 12:03:49.000 INFO  [http-nio-8080-exec-20] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=13336
+2026-08-02 12:03:50.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=43
+2026-08-02 12:03:51.000 ERROR [http-nio-8080-exec-22] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:03:52.000 INFO  [http-nio-8080-exec-23] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=27349
+2026-08-02 12:03:53.000 INFO  [http-nio-8080-exec-24] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=43
+2026-08-02 12:03:54.000 INFO  [http-nio-8080-exec-25] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=9987
+2026-08-02 12:03:55.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Pool stats total=30 active=30 idle=0 waiting=26
+2026-08-02 12:03:56.000 INFO  [http-nio-8080-exec-27] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=6917
+2026-08-02 12:03:57.000 INFO  [http-nio-8080-exec-28] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=14116
+2026-08-02 12:03:58.000 ERROR [http-nio-8080-exec-29] c.s.db.DatabaseService - Failed to acquire JDBC Connection
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:181)
+2026-08-02 12:03:59.000 INFO  [http-nio-8080-exec-30] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=25777

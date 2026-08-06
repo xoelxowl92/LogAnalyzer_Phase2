@@ -1,0 +1,246 @@
+# TEST SCENARIO: 외부 API Timeout 및 Circuit Breaker 로그
+# Generated sample log for Dify log analyzer validation
+# Encoding: UTF-8
+
+2026-08-02 13:00:00.000 INFO  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000000 responseStatus=200 elapsedMs=376
+2026-08-02 13:00:02.000 INFO  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000001 responseStatus=200 elapsedMs=390
+2026-08-02 13:00:04.000 INFO  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000002 responseStatus=200 elapsedMs=244
+2026-08-02 13:00:06.000 INFO  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000003 responseStatus=200 elapsedMs=318
+2026-08-02 13:00:08.000 INFO  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000004 responseStatus=200 elapsedMs=306
+2026-08-02 13:00:10.000 INFO  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000005 responseStatus=200 elapsedMs=306
+2026-08-02 13:00:12.000 INFO  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000006 responseStatus=200 elapsedMs=189
+2026-08-02 13:00:14.000 INFO  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000007 responseStatus=200 elapsedMs=341
+2026-08-02 13:00:16.000 INFO  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000008 responseStatus=200 elapsedMs=322
+2026-08-02 13:00:18.000 INFO  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000009 responseStatus=200 elapsedMs=166
+2026-08-02 13:00:20.000 INFO  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000010 responseStatus=200 elapsedMs=123
+2026-08-02 13:00:22.000 INFO  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000011 responseStatus=200 elapsedMs=225
+2026-08-02 13:00:24.000 INFO  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000012 responseStatus=200 elapsedMs=343
+2026-08-02 13:00:26.000 INFO  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000013 responseStatus=200 elapsedMs=397
+2026-08-02 13:00:28.000 INFO  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000014 responseStatus=200 elapsedMs=251
+2026-08-02 13:00:30.000 INFO  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000015 responseStatus=200 elapsedMs=127
+2026-08-02 13:00:32.000 INFO  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000016 responseStatus=200 elapsedMs=200
+2026-08-02 13:00:34.000 INFO  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000017 responseStatus=200 elapsedMs=238
+2026-08-02 13:00:36.000 INFO  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000018 responseStatus=200 elapsedMs=195
+2026-08-02 13:00:38.000 INFO  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000019 responseStatus=200 elapsedMs=181
+2026-08-02 13:00:40.000 INFO  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000020 responseStatus=200 elapsedMs=155
+2026-08-02 13:00:42.000 INFO  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000021 responseStatus=200 elapsedMs=92
+2026-08-02 13:00:44.000 INFO  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000022 responseStatus=200 elapsedMs=103
+2026-08-02 13:00:46.000 INFO  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000023 responseStatus=200 elapsedMs=205
+2026-08-02 13:00:48.000 INFO  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000024 responseStatus=200 elapsedMs=323
+2026-08-02 13:00:50.000 INFO  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000025 responseStatus=200 elapsedMs=392
+2026-08-02 13:00:52.000 INFO  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000026 responseStatus=200 elapsedMs=117
+2026-08-02 13:00:54.000 INFO  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000027 responseStatus=200 elapsedMs=313
+2026-08-02 13:00:56.000 INFO  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000028 responseStatus=200 elapsedMs=292
+2026-08-02 13:00:58.000 INFO  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000029 responseStatus=200 elapsedMs=374
+2026-08-02 13:01:00.000 INFO  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000030 responseStatus=200 elapsedMs=179
+2026-08-02 13:01:02.000 INFO  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000031 responseStatus=200 elapsedMs=276
+2026-08-02 13:01:04.000 INFO  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000032 responseStatus=200 elapsedMs=333
+2026-08-02 13:01:06.000 INFO  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000033 responseStatus=200 elapsedMs=284
+2026-08-02 13:01:08.000 INFO  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000034 responseStatus=200 elapsedMs=204
+2026-08-02 13:01:10.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000035 attempt=3 timeout after 3000ms
+2026-08-02 13:01:11.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000035 retries exhausted
+2026-08-02 13:01:12.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000036 attempt=1 timeout after 3000ms
+2026-08-02 13:01:14.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000037 attempt=2 timeout after 3000ms
+2026-08-02 13:01:16.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000038 attempt=3 timeout after 3000ms
+2026-08-02 13:01:17.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000038 retries exhausted
+2026-08-02 13:01:18.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000039 attempt=1 timeout after 3000ms
+2026-08-02 13:01:20.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000040 attempt=2 timeout after 3000ms
+2026-08-02 13:01:22.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000041 attempt=3 timeout after 3000ms
+2026-08-02 13:01:23.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000041 retries exhausted
+2026-08-02 13:01:24.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000042 attempt=1 timeout after 3000ms
+2026-08-02 13:01:26.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000043 attempt=2 timeout after 3000ms
+2026-08-02 13:01:28.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000044 attempt=3 timeout after 3000ms
+2026-08-02 13:01:29.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000044 retries exhausted
+2026-08-02 13:01:30.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000045 attempt=1 timeout after 3000ms
+2026-08-02 13:01:32.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000046 attempt=2 timeout after 3000ms
+2026-08-02 13:01:34.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000047 attempt=3 timeout after 3000ms
+2026-08-02 13:01:35.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000047 retries exhausted
+2026-08-02 13:01:36.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000048 attempt=1 timeout after 3000ms
+2026-08-02 13:01:38.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000049 attempt=2 timeout after 3000ms
+2026-08-02 13:01:40.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000050 attempt=3 timeout after 3000ms
+2026-08-02 13:01:41.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000050 retries exhausted
+2026-08-02 13:01:42.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000051 attempt=1 timeout after 3000ms
+2026-08-02 13:01:44.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000052 attempt=2 timeout after 3000ms
+2026-08-02 13:01:46.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000053 attempt=3 timeout after 3000ms
+2026-08-02 13:01:47.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000053 retries exhausted
+2026-08-02 13:01:48.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000054 attempt=1 timeout after 3000ms
+2026-08-02 13:01:50.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000055 attempt=2 timeout after 3000ms
+2026-08-02 13:01:52.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000056 attempt=3 timeout after 3000ms
+2026-08-02 13:01:53.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000056 retries exhausted
+2026-08-02 13:01:54.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000057 attempt=1 timeout after 3000ms
+2026-08-02 13:01:56.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000058 attempt=2 timeout after 3000ms
+2026-08-02 13:01:58.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000059 attempt=3 timeout after 3000ms
+2026-08-02 13:01:59.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000059 retries exhausted
+2026-08-02 13:02:00.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000060 attempt=1 timeout after 3000ms
+2026-08-02 13:02:02.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000061 attempt=2 timeout after 3000ms
+2026-08-02 13:02:04.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000062 attempt=3 timeout after 3000ms
+2026-08-02 13:02:05.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000062 retries exhausted
+2026-08-02 13:02:06.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000063 attempt=1 timeout after 3000ms
+2026-08-02 13:02:08.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000064 attempt=2 timeout after 3000ms
+2026-08-02 13:02:10.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000065 attempt=3 timeout after 3000ms
+2026-08-02 13:02:11.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000065 retries exhausted
+2026-08-02 13:02:12.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000066 attempt=1 timeout after 3000ms
+2026-08-02 13:02:14.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000067 attempt=2 timeout after 3000ms
+2026-08-02 13:02:16.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000068 attempt=3 timeout after 3000ms
+2026-08-02 13:02:17.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000068 retries exhausted
+2026-08-02 13:02:18.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000069 attempt=1 timeout after 3000ms
+2026-08-02 13:02:20.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000070 attempt=2 timeout after 3000ms
+2026-08-02 13:02:22.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000071 attempt=3 timeout after 3000ms
+2026-08-02 13:02:23.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000071 retries exhausted
+2026-08-02 13:02:24.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000072 attempt=1 timeout after 3000ms
+2026-08-02 13:02:26.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000073 attempt=2 timeout after 3000ms
+2026-08-02 13:02:28.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000074 attempt=3 timeout after 3000ms
+2026-08-02 13:02:29.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000074 retries exhausted
+2026-08-02 13:02:30.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000075 attempt=1 timeout after 3000ms
+2026-08-02 13:02:32.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000076 attempt=2 timeout after 3000ms
+2026-08-02 13:02:34.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000077 attempt=3 timeout after 3000ms
+2026-08-02 13:02:35.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000077 retries exhausted
+2026-08-02 13:02:36.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000078 attempt=1 timeout after 3000ms
+2026-08-02 13:02:38.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000079 attempt=2 timeout after 3000ms
+2026-08-02 13:02:40.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000080 attempt=3 timeout after 3000ms
+2026-08-02 13:02:41.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000080 retries exhausted
+2026-08-02 13:02:42.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000081 attempt=1 timeout after 3000ms
+2026-08-02 13:02:44.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000082 attempt=2 timeout after 3000ms
+2026-08-02 13:02:46.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000083 attempt=3 timeout after 3000ms
+2026-08-02 13:02:47.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000083 retries exhausted
+2026-08-02 13:02:48.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000084 attempt=1 timeout after 3000ms
+2026-08-02 13:02:50.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000085 attempt=2 timeout after 3000ms
+2026-08-02 13:02:52.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000086 attempt=3 timeout after 3000ms
+2026-08-02 13:02:53.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000086 retries exhausted
+2026-08-02 13:02:54.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000087 attempt=1 timeout after 3000ms
+2026-08-02 13:02:56.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000088 attempt=2 timeout after 3000ms
+2026-08-02 13:02:58.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000089 attempt=3 timeout after 3000ms
+2026-08-02 13:02:59.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000089 retries exhausted
+2026-08-02 13:03:00.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000090 attempt=1 timeout after 3000ms
+2026-08-02 13:03:02.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000091 attempt=2 timeout after 3000ms
+2026-08-02 13:03:04.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000092 attempt=3 timeout after 3000ms
+2026-08-02 13:03:05.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000092 retries exhausted
+2026-08-02 13:03:06.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000093 attempt=1 timeout after 3000ms
+2026-08-02 13:03:08.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000094 attempt=2 timeout after 3000ms
+2026-08-02 13:03:10.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000095 attempt=3 timeout after 3000ms
+2026-08-02 13:03:11.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000095 retries exhausted
+2026-08-02 13:03:12.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000096 attempt=1 timeout after 3000ms
+2026-08-02 13:03:14.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000097 attempt=2 timeout after 3000ms
+2026-08-02 13:03:16.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000098 attempt=3 timeout after 3000ms
+2026-08-02 13:03:17.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000098 retries exhausted
+2026-08-02 13:03:18.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000099 attempt=1 timeout after 3000ms
+2026-08-02 13:03:20.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000100 attempt=2 timeout after 3000ms
+2026-08-02 13:03:22.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000101 attempt=3 timeout after 3000ms
+2026-08-02 13:03:23.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000101 retries exhausted
+2026-08-02 13:03:24.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000102 attempt=1 timeout after 3000ms
+2026-08-02 13:03:26.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000103 attempt=2 timeout after 3000ms
+2026-08-02 13:03:28.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000104 attempt=3 timeout after 3000ms
+2026-08-02 13:03:29.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000104 retries exhausted
+2026-08-02 13:03:30.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000105 attempt=1 timeout after 3000ms
+2026-08-02 13:03:32.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000106 attempt=2 timeout after 3000ms
+2026-08-02 13:03:34.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000107 attempt=3 timeout after 3000ms
+2026-08-02 13:03:35.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000107 retries exhausted
+2026-08-02 13:03:36.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000108 attempt=1 timeout after 3000ms
+2026-08-02 13:03:38.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000109 attempt=2 timeout after 3000ms
+2026-08-02 13:03:40.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000110 attempt=3 timeout after 3000ms
+2026-08-02 13:03:41.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000110 retries exhausted
+2026-08-02 13:03:42.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000111 attempt=1 timeout after 3000ms
+2026-08-02 13:03:44.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000112 attempt=2 timeout after 3000ms
+2026-08-02 13:03:46.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000113 attempt=3 timeout after 3000ms
+2026-08-02 13:03:47.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000113 retries exhausted
+2026-08-02 13:03:48.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000114 attempt=1 timeout after 3000ms
+2026-08-02 13:03:50.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000115 attempt=2 timeout after 3000ms
+2026-08-02 13:03:52.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000116 attempt=3 timeout after 3000ms
+2026-08-02 13:03:53.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000116 retries exhausted
+2026-08-02 13:03:54.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000117 attempt=1 timeout after 3000ms
+2026-08-02 13:03:56.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000118 attempt=2 timeout after 3000ms
+2026-08-02 13:03:58.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000119 attempt=3 timeout after 3000ms
+2026-08-02 13:03:59.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000119 retries exhausted
+2026-08-02 13:04:00.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000120 attempt=1 timeout after 3000ms
+2026-08-02 13:04:02.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000121 attempt=2 timeout after 3000ms
+2026-08-02 13:04:04.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000122 attempt=3 timeout after 3000ms
+2026-08-02 13:04:05.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000122 retries exhausted
+2026-08-02 13:04:06.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000123 attempt=1 timeout after 3000ms
+2026-08-02 13:04:08.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - paymentId=P000124 attempt=2 timeout after 3000ms
+2026-08-02 13:04:10.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - paymentId=P000125 attempt=3 timeout after 3000ms
+2026-08-02 13:04:11.000 ERROR [payment-worker-6] c.s.payment.PaymentService - paymentId=P000125 retries exhausted
+2026-08-02 13:04:12.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - paymentId=P000126 attempt=1 timeout after 3000ms
+2026-08-02 13:04:14.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - paymentId=P000127 attempt=2 timeout after 3000ms
+2026-08-02 13:04:16.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - paymentId=P000128 attempt=3 timeout after 3000ms
+2026-08-02 13:04:17.000 ERROR [payment-worker-3] c.s.payment.PaymentService - paymentId=P000128 retries exhausted
+2026-08-02 13:04:18.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - paymentId=P000129 attempt=1 timeout after 3000ms
+2026-08-02 13:04:20.000 ERROR [payment-worker-1] io.github.resilience4j.circuitbreaker.CircuitBreaker - CircuitBreaker 'paymentGateway' changed state from CLOSED to OPEN
+2026-08-02 13:04:22.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:24.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:26.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:28.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:30.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:32.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:34.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:36.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:38.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:40.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:42.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:44.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:46.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:48.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:50.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:52.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:54.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:56.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:04:58.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:00.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:02.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:04.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:06.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:08.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:10.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:12.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:14.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:16.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:18.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:20.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:22.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:24.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:26.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:28.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:30.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:32.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:34.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:36.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:38.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:40.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:42.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:44.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:46.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:48.000 WARN  [payment-worker-1] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:50.000 WARN  [payment-worker-2] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:52.000 WARN  [payment-worker-3] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:54.000 WARN  [payment-worker-4] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:56.000 WARN  [payment-worker-5] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:05:58.000 WARN  [payment-worker-6] c.s.payment.PaymentClient - CallNotPermittedException: CircuitBreaker 'paymentGateway' is OPEN
+2026-08-02 13:06:00.000 INFO  [payment-worker-1] io.github.resilience4j.circuitbreaker.CircuitBreaker - CircuitBreaker 'paymentGateway' changed state from OPEN to HALF_OPEN
+2026-08-02 13:06:02.000 INFO  [payment-worker-2] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=694
+2026-08-02 13:06:04.000 INFO  [payment-worker-3] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=2777
+2026-08-02 13:06:06.000 INFO  [payment-worker-4] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=2906
+2026-08-02 13:06:08.000 INFO  [payment-worker-5] c.s.payment.PaymentClient - probeRequest=true responseStatus=504 elapsedMs=112
+2026-08-02 13:06:10.000 INFO  [payment-worker-6] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=3165
+2026-08-02 13:06:12.000 INFO  [payment-worker-1] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=526
+2026-08-02 13:06:14.000 INFO  [payment-worker-2] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=1831
+2026-08-02 13:06:16.000 INFO  [payment-worker-3] c.s.payment.PaymentClient - probeRequest=true responseStatus=504 elapsedMs=986
+2026-08-02 13:06:18.000 INFO  [payment-worker-4] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=810
+2026-08-02 13:06:20.000 INFO  [payment-worker-5] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=2940
+2026-08-02 13:06:22.000 INFO  [payment-worker-6] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=2211
+2026-08-02 13:06:24.000 INFO  [payment-worker-1] c.s.payment.PaymentClient - probeRequest=true responseStatus=504 elapsedMs=1992
+2026-08-02 13:06:26.000 INFO  [payment-worker-2] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=295
+2026-08-02 13:06:28.000 INFO  [payment-worker-3] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=2373
+2026-08-02 13:06:30.000 INFO  [payment-worker-4] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=1110
+2026-08-02 13:06:32.000 INFO  [payment-worker-5] c.s.payment.PaymentClient - probeRequest=true responseStatus=504 elapsedMs=587
+2026-08-02 13:06:34.000 INFO  [payment-worker-6] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=1959
+2026-08-02 13:06:36.000 INFO  [payment-worker-1] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=636
+2026-08-02 13:06:38.000 INFO  [payment-worker-2] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=1993
+2026-08-02 13:06:40.000 INFO  [payment-worker-3] c.s.payment.PaymentClient - probeRequest=true responseStatus=504 elapsedMs=2824
+2026-08-02 13:06:42.000 INFO  [payment-worker-4] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=2265
+2026-08-02 13:06:44.000 INFO  [payment-worker-5] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=2379
+2026-08-02 13:06:46.000 INFO  [payment-worker-6] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=2528
+2026-08-02 13:06:48.000 INFO  [payment-worker-1] c.s.payment.PaymentClient - probeRequest=true responseStatus=504 elapsedMs=1389
+2026-08-02 13:06:50.000 INFO  [payment-worker-2] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=3183
+2026-08-02 13:06:52.000 INFO  [payment-worker-3] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=1902
+2026-08-02 13:06:54.000 INFO  [payment-worker-4] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=2599
+2026-08-02 13:06:56.000 INFO  [payment-worker-5] c.s.payment.PaymentClient - probeRequest=true responseStatus=504 elapsedMs=3036
+2026-08-02 13:06:58.000 INFO  [payment-worker-6] c.s.payment.PaymentClient - probeRequest=true responseStatus=200 elapsedMs=2157
