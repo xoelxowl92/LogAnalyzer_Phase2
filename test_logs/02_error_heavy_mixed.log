@@ -1,0 +1,344 @@
+# TEST SCENARIO: 오류가 많은 혼합 장애 로그
+# Generated sample log for Dify log analyzer validation
+# Encoding: UTF-8
+
+2026-08-02 10:00:00.000 ERROR [http-nio-8080-exec-1] c.s.order.OrderService - requestId=ORD-000000 Failed to process order orderId=50000: database timeout
+2026-08-02 10:00:01.000 ERROR [http-nio-8080-exec-2] c.s.order.OrderService - requestId=ORD-000001 Failed to process order orderId=50001: database timeout
+2026-08-02 10:00:02.000 ERROR [http-nio-8080-exec-3] c.s.order.OrderService - requestId=ORD-000002 Failed to process order orderId=50002: database timeout
+2026-08-02 10:00:03.000 ERROR [http-nio-8080-exec-4] c.s.order.OrderService - requestId=ORD-000003 Failed to process order orderId=50003: database timeout
+2026-08-02 10:00:04.000 ERROR [http-nio-8080-exec-5] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:00:05.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:00:06.000 ERROR [payment-worker-7] c.s.payment.PaymentClient - paymentId=PAY-000006 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:00:07.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=REQ-000007 method=POST path=/api/orders status=500 elapsedMs=652
+2026-08-02 10:00:08.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=REQ-000008 method=POST path=/api/orders status=500 elapsedMs=357
+2026-08-02 10:00:09.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=REQ-000009 method=POST path=/api/orders status=200 elapsedMs=2806
+2026-08-02 10:00:10.000 INFO  [http-nio-8080-exec-11] c.s.api.RequestLogger - requestId=REQ-000010 method=POST path=/api/orders status=200 elapsedMs=680
+2026-08-02 10:00:11.000 INFO  [http-nio-8080-exec-12] c.s.api.RequestLogger - requestId=REQ-000011 method=POST path=/api/orders status=200 elapsedMs=4311
+2026-08-02 10:00:12.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - requestId=REQ-000012 method=POST path=/api/orders status=200 elapsedMs=2049
+2026-08-02 10:00:13.000 ERROR [http-nio-8080-exec-14] c.s.order.OrderService - requestId=ORD-000013 Failed to process order orderId=50013: database timeout
+2026-08-02 10:00:14.000 ERROR [http-nio-8080-exec-15] c.s.order.OrderService - requestId=ORD-000014 Failed to process order orderId=50014: database timeout
+2026-08-02 10:00:15.000 ERROR [http-nio-8080-exec-16] c.s.order.OrderService - requestId=ORD-000015 Failed to process order orderId=50015: database timeout
+2026-08-02 10:00:16.000 ERROR [http-nio-8080-exec-1] c.s.order.OrderService - requestId=ORD-000016 Failed to process order orderId=50016: database timeout
+2026-08-02 10:00:17.000 ERROR [http-nio-8080-exec-2] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:00:18.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:00:19.000 ERROR [payment-worker-4] c.s.payment.PaymentClient - paymentId=PAY-000019 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:00:20.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=REQ-000020 method=POST path=/api/orders status=500 elapsedMs=2381
+2026-08-02 10:00:21.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=REQ-000021 method=POST path=/api/orders status=500 elapsedMs=4076
+2026-08-02 10:00:22.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=REQ-000022 method=POST path=/api/orders status=200 elapsedMs=1855
+2026-08-02 10:00:23.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=REQ-000023 method=POST path=/api/orders status=200 elapsedMs=1183
+2026-08-02 10:00:24.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=REQ-000024 method=POST path=/api/orders status=200 elapsedMs=3972
+2026-08-02 10:00:25.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=REQ-000025 method=POST path=/api/orders status=200 elapsedMs=2090
+2026-08-02 10:00:26.000 ERROR [http-nio-8080-exec-11] c.s.order.OrderService - requestId=ORD-000026 Failed to process order orderId=50026: database timeout
+2026-08-02 10:00:27.000 ERROR [http-nio-8080-exec-12] c.s.order.OrderService - requestId=ORD-000027 Failed to process order orderId=50027: database timeout
+2026-08-02 10:00:28.000 ERROR [http-nio-8080-exec-13] c.s.order.OrderService - requestId=ORD-000028 Failed to process order orderId=50028: database timeout
+2026-08-02 10:00:29.000 ERROR [http-nio-8080-exec-14] c.s.order.OrderService - requestId=ORD-000029 Failed to process order orderId=50029: database timeout
+2026-08-02 10:00:30.000 ERROR [http-nio-8080-exec-15] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:00:31.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:00:32.000 ERROR [payment-worker-1] c.s.payment.PaymentClient - paymentId=PAY-000032 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:00:33.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=REQ-000033 method=POST path=/api/orders status=500 elapsedMs=3974
+2026-08-02 10:00:34.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=REQ-000034 method=POST path=/api/orders status=500 elapsedMs=3434
+2026-08-02 10:00:35.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=REQ-000035 method=POST path=/api/orders status=200 elapsedMs=1659
+2026-08-02 10:00:36.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=REQ-000036 method=POST path=/api/orders status=200 elapsedMs=872
+2026-08-02 10:00:37.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=REQ-000037 method=POST path=/api/orders status=200 elapsedMs=894
+2026-08-02 10:00:38.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=REQ-000038 method=POST path=/api/orders status=200 elapsedMs=3631
+2026-08-02 10:00:39.000 ERROR [http-nio-8080-exec-8] c.s.order.OrderService - requestId=ORD-000039 Failed to process order orderId=50039: database timeout
+2026-08-02 10:00:40.000 ERROR [http-nio-8080-exec-9] c.s.order.OrderService - requestId=ORD-000040 Failed to process order orderId=50040: database timeout
+2026-08-02 10:00:41.000 ERROR [http-nio-8080-exec-10] c.s.order.OrderService - requestId=ORD-000041 Failed to process order orderId=50041: database timeout
+2026-08-02 10:00:42.000 ERROR [http-nio-8080-exec-11] c.s.order.OrderService - requestId=ORD-000042 Failed to process order orderId=50042: database timeout
+2026-08-02 10:00:43.000 ERROR [http-nio-8080-exec-12] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:00:44.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:00:45.000 ERROR [payment-worker-6] c.s.payment.PaymentClient - paymentId=PAY-000045 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:00:46.000 INFO  [http-nio-8080-exec-15] c.s.api.RequestLogger - requestId=REQ-000046 method=POST path=/api/orders status=500 elapsedMs=3002
+2026-08-02 10:00:47.000 INFO  [http-nio-8080-exec-16] c.s.api.RequestLogger - requestId=REQ-000047 method=POST path=/api/orders status=500 elapsedMs=3569
+2026-08-02 10:00:48.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=REQ-000048 method=POST path=/api/orders status=200 elapsedMs=3467
+2026-08-02 10:00:49.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=REQ-000049 method=POST path=/api/orders status=200 elapsedMs=3925
+2026-08-02 10:00:50.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=REQ-000050 method=POST path=/api/orders status=200 elapsedMs=543
+2026-08-02 10:00:51.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=REQ-000051 method=POST path=/api/orders status=200 elapsedMs=906
+2026-08-02 10:00:52.000 ERROR [http-nio-8080-exec-5] c.s.order.OrderService - requestId=ORD-000052 Failed to process order orderId=50052: database timeout
+2026-08-02 10:00:53.000 ERROR [http-nio-8080-exec-6] c.s.order.OrderService - requestId=ORD-000053 Failed to process order orderId=50053: database timeout
+2026-08-02 10:00:54.000 ERROR [http-nio-8080-exec-7] c.s.order.OrderService - requestId=ORD-000054 Failed to process order orderId=50054: database timeout
+2026-08-02 10:00:55.000 ERROR [http-nio-8080-exec-8] c.s.order.OrderService - requestId=ORD-000055 Failed to process order orderId=50055: database timeout
+2026-08-02 10:00:56.000 ERROR [http-nio-8080-exec-9] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:00:57.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:00:58.000 ERROR [payment-worker-3] c.s.payment.PaymentClient - paymentId=PAY-000058 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:00:59.000 INFO  [http-nio-8080-exec-12] c.s.api.RequestLogger - requestId=REQ-000059 method=POST path=/api/orders status=500 elapsedMs=596
+2026-08-02 10:01:00.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - requestId=REQ-000060 method=POST path=/api/orders status=500 elapsedMs=3398
+2026-08-02 10:01:01.000 INFO  [http-nio-8080-exec-14] c.s.api.RequestLogger - requestId=REQ-000061 method=POST path=/api/orders status=200 elapsedMs=2879
+2026-08-02 10:01:02.000 INFO  [http-nio-8080-exec-15] c.s.api.RequestLogger - requestId=REQ-000062 method=POST path=/api/orders status=200 elapsedMs=995
+2026-08-02 10:01:03.000 INFO  [http-nio-8080-exec-16] c.s.api.RequestLogger - requestId=REQ-000063 method=POST path=/api/orders status=200 elapsedMs=2136
+2026-08-02 10:01:04.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=REQ-000064 method=POST path=/api/orders status=200 elapsedMs=1669
+2026-08-02 10:01:05.000 ERROR [http-nio-8080-exec-2] c.s.order.OrderService - requestId=ORD-000065 Failed to process order orderId=50065: database timeout
+2026-08-02 10:01:06.000 ERROR [http-nio-8080-exec-3] c.s.order.OrderService - requestId=ORD-000066 Failed to process order orderId=50066: database timeout
+2026-08-02 10:01:07.000 ERROR [http-nio-8080-exec-4] c.s.order.OrderService - requestId=ORD-000067 Failed to process order orderId=50067: database timeout
+2026-08-02 10:01:08.000 ERROR [http-nio-8080-exec-5] c.s.order.OrderService - requestId=ORD-000068 Failed to process order orderId=50068: database timeout
+2026-08-02 10:01:09.000 ERROR [http-nio-8080-exec-6] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:01:10.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:01:11.000 ERROR [payment-worker-8] c.s.payment.PaymentClient - paymentId=PAY-000071 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:01:12.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=REQ-000072 method=POST path=/api/orders status=500 elapsedMs=1658
+2026-08-02 10:01:13.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=REQ-000073 method=POST path=/api/orders status=500 elapsedMs=4493
+2026-08-02 10:01:14.000 INFO  [http-nio-8080-exec-11] c.s.api.RequestLogger - requestId=REQ-000074 method=POST path=/api/orders status=200 elapsedMs=3775
+2026-08-02 10:01:15.000 INFO  [http-nio-8080-exec-12] c.s.api.RequestLogger - requestId=REQ-000075 method=POST path=/api/orders status=200 elapsedMs=1248
+2026-08-02 10:01:16.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - requestId=REQ-000076 method=POST path=/api/orders status=200 elapsedMs=3556
+2026-08-02 10:01:17.000 INFO  [http-nio-8080-exec-14] c.s.api.RequestLogger - requestId=REQ-000077 method=POST path=/api/orders status=200 elapsedMs=1603
+2026-08-02 10:01:18.000 ERROR [http-nio-8080-exec-15] c.s.order.OrderService - requestId=ORD-000078 Failed to process order orderId=50078: database timeout
+2026-08-02 10:01:19.000 ERROR [http-nio-8080-exec-16] c.s.order.OrderService - requestId=ORD-000079 Failed to process order orderId=50079: database timeout
+2026-08-02 10:01:20.000 ERROR [http-nio-8080-exec-1] c.s.order.OrderService - requestId=ORD-000080 Failed to process order orderId=50080: database timeout
+2026-08-02 10:01:21.000 ERROR [http-nio-8080-exec-2] c.s.order.OrderService - requestId=ORD-000081 Failed to process order orderId=50081: database timeout
+2026-08-02 10:01:22.000 ERROR [http-nio-8080-exec-3] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:01:23.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:01:24.000 ERROR [payment-worker-5] c.s.payment.PaymentClient - paymentId=PAY-000084 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:01:25.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=REQ-000085 method=POST path=/api/orders status=500 elapsedMs=2381
+2026-08-02 10:01:26.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=REQ-000086 method=POST path=/api/orders status=500 elapsedMs=3889
+2026-08-02 10:01:27.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=REQ-000087 method=POST path=/api/orders status=200 elapsedMs=2146
+2026-08-02 10:01:28.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=REQ-000088 method=POST path=/api/orders status=200 elapsedMs=717
+2026-08-02 10:01:29.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=REQ-000089 method=POST path=/api/orders status=200 elapsedMs=3730
+2026-08-02 10:01:30.000 INFO  [http-nio-8080-exec-11] c.s.api.RequestLogger - requestId=REQ-000090 method=POST path=/api/orders status=200 elapsedMs=902
+2026-08-02 10:01:31.000 ERROR [http-nio-8080-exec-12] c.s.order.OrderService - requestId=ORD-000091 Failed to process order orderId=50091: database timeout
+2026-08-02 10:01:32.000 ERROR [http-nio-8080-exec-13] c.s.order.OrderService - requestId=ORD-000092 Failed to process order orderId=50092: database timeout
+2026-08-02 10:01:33.000 ERROR [http-nio-8080-exec-14] c.s.order.OrderService - requestId=ORD-000093 Failed to process order orderId=50093: database timeout
+2026-08-02 10:01:34.000 ERROR [http-nio-8080-exec-15] c.s.order.OrderService - requestId=ORD-000094 Failed to process order orderId=50094: database timeout
+2026-08-02 10:01:35.000 ERROR [http-nio-8080-exec-16] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:01:36.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:01:37.000 ERROR [payment-worker-2] c.s.payment.PaymentClient - paymentId=PAY-000097 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:01:38.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=REQ-000098 method=POST path=/api/orders status=500 elapsedMs=514
+2026-08-02 10:01:39.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=REQ-000099 method=POST path=/api/orders status=500 elapsedMs=220
+2026-08-02 10:01:40.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=REQ-000100 method=POST path=/api/orders status=200 elapsedMs=864
+2026-08-02 10:01:41.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=REQ-000101 method=POST path=/api/orders status=200 elapsedMs=2036
+2026-08-02 10:01:42.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=REQ-000102 method=POST path=/api/orders status=200 elapsedMs=1462
+2026-08-02 10:01:43.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=REQ-000103 method=POST path=/api/orders status=200 elapsedMs=3429
+2026-08-02 10:01:44.000 ERROR [http-nio-8080-exec-9] c.s.order.OrderService - requestId=ORD-000104 Failed to process order orderId=50104: database timeout
+2026-08-02 10:01:45.000 ERROR [http-nio-8080-exec-10] c.s.order.OrderService - requestId=ORD-000105 Failed to process order orderId=50105: database timeout
+2026-08-02 10:01:46.000 ERROR [http-nio-8080-exec-11] c.s.order.OrderService - requestId=ORD-000106 Failed to process order orderId=50106: database timeout
+2026-08-02 10:01:47.000 ERROR [http-nio-8080-exec-12] c.s.order.OrderService - requestId=ORD-000107 Failed to process order orderId=50107: database timeout
+2026-08-02 10:01:48.000 ERROR [http-nio-8080-exec-13] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:01:49.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:01:50.000 ERROR [payment-worker-7] c.s.payment.PaymentClient - paymentId=PAY-000110 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:01:51.000 INFO  [http-nio-8080-exec-16] c.s.api.RequestLogger - requestId=REQ-000111 method=POST path=/api/orders status=500 elapsedMs=4078
+2026-08-02 10:01:52.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=REQ-000112 method=POST path=/api/orders status=500 elapsedMs=4043
+2026-08-02 10:01:53.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=REQ-000113 method=POST path=/api/orders status=200 elapsedMs=1851
+2026-08-02 10:01:54.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=REQ-000114 method=POST path=/api/orders status=200 elapsedMs=3385
+2026-08-02 10:01:55.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=REQ-000115 method=POST path=/api/orders status=200 elapsedMs=580
+2026-08-02 10:01:56.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=REQ-000116 method=POST path=/api/orders status=200 elapsedMs=1448
+2026-08-02 10:01:57.000 ERROR [http-nio-8080-exec-6] c.s.order.OrderService - requestId=ORD-000117 Failed to process order orderId=50117: database timeout
+2026-08-02 10:01:58.000 ERROR [http-nio-8080-exec-7] c.s.order.OrderService - requestId=ORD-000118 Failed to process order orderId=50118: database timeout
+2026-08-02 10:01:59.000 ERROR [http-nio-8080-exec-8] c.s.order.OrderService - requestId=ORD-000119 Failed to process order orderId=50119: database timeout
+2026-08-02 10:02:00.000 ERROR [http-nio-8080-exec-9] c.s.order.OrderService - requestId=ORD-000120 Failed to process order orderId=50120: database timeout
+2026-08-02 10:02:01.000 ERROR [http-nio-8080-exec-10] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:02:02.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:02:03.000 ERROR [payment-worker-4] c.s.payment.PaymentClient - paymentId=PAY-000123 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:02:04.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - requestId=REQ-000124 method=POST path=/api/orders status=500 elapsedMs=3204
+2026-08-02 10:02:05.000 INFO  [http-nio-8080-exec-14] c.s.api.RequestLogger - requestId=REQ-000125 method=POST path=/api/orders status=500 elapsedMs=117
+2026-08-02 10:02:06.000 INFO  [http-nio-8080-exec-15] c.s.api.RequestLogger - requestId=REQ-000126 method=POST path=/api/orders status=200 elapsedMs=3298
+2026-08-02 10:02:07.000 INFO  [http-nio-8080-exec-16] c.s.api.RequestLogger - requestId=REQ-000127 method=POST path=/api/orders status=200 elapsedMs=2272
+2026-08-02 10:02:08.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=REQ-000128 method=POST path=/api/orders status=200 elapsedMs=3827
+2026-08-02 10:02:09.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=REQ-000129 method=POST path=/api/orders status=200 elapsedMs=2436
+2026-08-02 10:02:10.000 ERROR [http-nio-8080-exec-3] c.s.order.OrderService - requestId=ORD-000130 Failed to process order orderId=50130: database timeout
+2026-08-02 10:02:11.000 ERROR [http-nio-8080-exec-4] c.s.order.OrderService - requestId=ORD-000131 Failed to process order orderId=50131: database timeout
+2026-08-02 10:02:12.000 ERROR [http-nio-8080-exec-5] c.s.order.OrderService - requestId=ORD-000132 Failed to process order orderId=50132: database timeout
+2026-08-02 10:02:13.000 ERROR [http-nio-8080-exec-6] c.s.order.OrderService - requestId=ORD-000133 Failed to process order orderId=50133: database timeout
+2026-08-02 10:02:14.000 ERROR [http-nio-8080-exec-7] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:02:15.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:02:16.000 ERROR [payment-worker-1] c.s.payment.PaymentClient - paymentId=PAY-000136 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:02:17.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=REQ-000137 method=POST path=/api/orders status=500 elapsedMs=3565
+2026-08-02 10:02:18.000 INFO  [http-nio-8080-exec-11] c.s.api.RequestLogger - requestId=REQ-000138 method=POST path=/api/orders status=500 elapsedMs=4086
+2026-08-02 10:02:19.000 INFO  [http-nio-8080-exec-12] c.s.api.RequestLogger - requestId=REQ-000139 method=POST path=/api/orders status=200 elapsedMs=1368
+2026-08-02 10:02:20.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - requestId=REQ-000140 method=POST path=/api/orders status=200 elapsedMs=1655
+2026-08-02 10:02:21.000 INFO  [http-nio-8080-exec-14] c.s.api.RequestLogger - requestId=REQ-000141 method=POST path=/api/orders status=200 elapsedMs=2530
+2026-08-02 10:02:22.000 INFO  [http-nio-8080-exec-15] c.s.api.RequestLogger - requestId=REQ-000142 method=POST path=/api/orders status=200 elapsedMs=1883
+2026-08-02 10:02:23.000 ERROR [http-nio-8080-exec-16] c.s.order.OrderService - requestId=ORD-000143 Failed to process order orderId=50143: database timeout
+2026-08-02 10:02:24.000 ERROR [http-nio-8080-exec-1] c.s.order.OrderService - requestId=ORD-000144 Failed to process order orderId=50144: database timeout
+2026-08-02 10:02:25.000 ERROR [http-nio-8080-exec-2] c.s.order.OrderService - requestId=ORD-000145 Failed to process order orderId=50145: database timeout
+2026-08-02 10:02:26.000 ERROR [http-nio-8080-exec-3] c.s.order.OrderService - requestId=ORD-000146 Failed to process order orderId=50146: database timeout
+2026-08-02 10:02:27.000 ERROR [http-nio-8080-exec-4] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:02:28.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:02:29.000 ERROR [payment-worker-6] c.s.payment.PaymentClient - paymentId=PAY-000149 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:02:30.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=REQ-000150 method=POST path=/api/orders status=500 elapsedMs=579
+2026-08-02 10:02:31.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=REQ-000151 method=POST path=/api/orders status=500 elapsedMs=599
+2026-08-02 10:02:32.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=REQ-000152 method=POST path=/api/orders status=200 elapsedMs=2669
+2026-08-02 10:02:33.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=REQ-000153 method=POST path=/api/orders status=200 elapsedMs=568
+2026-08-02 10:02:34.000 INFO  [http-nio-8080-exec-11] c.s.api.RequestLogger - requestId=REQ-000154 method=POST path=/api/orders status=200 elapsedMs=510
+2026-08-02 10:02:35.000 INFO  [http-nio-8080-exec-12] c.s.api.RequestLogger - requestId=REQ-000155 method=POST path=/api/orders status=200 elapsedMs=4005
+2026-08-02 10:02:36.000 ERROR [http-nio-8080-exec-13] c.s.order.OrderService - requestId=ORD-000156 Failed to process order orderId=50156: database timeout
+2026-08-02 10:02:37.000 ERROR [http-nio-8080-exec-14] c.s.order.OrderService - requestId=ORD-000157 Failed to process order orderId=50157: database timeout
+2026-08-02 10:02:38.000 ERROR [http-nio-8080-exec-15] c.s.order.OrderService - requestId=ORD-000158 Failed to process order orderId=50158: database timeout
+2026-08-02 10:02:39.000 ERROR [http-nio-8080-exec-16] c.s.order.OrderService - requestId=ORD-000159 Failed to process order orderId=50159: database timeout
+2026-08-02 10:02:40.000 ERROR [http-nio-8080-exec-1] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:02:41.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:02:42.000 ERROR [payment-worker-3] c.s.payment.PaymentClient - paymentId=PAY-000162 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:02:43.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=REQ-000163 method=POST path=/api/orders status=500 elapsedMs=4219
+2026-08-02 10:02:44.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=REQ-000164 method=POST path=/api/orders status=500 elapsedMs=4450
+2026-08-02 10:02:45.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=REQ-000165 method=POST path=/api/orders status=200 elapsedMs=1389
+2026-08-02 10:02:46.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=REQ-000166 method=POST path=/api/orders status=200 elapsedMs=565
+2026-08-02 10:02:47.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=REQ-000167 method=POST path=/api/orders status=200 elapsedMs=4260
+2026-08-02 10:02:48.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=REQ-000168 method=POST path=/api/orders status=200 elapsedMs=756
+2026-08-02 10:02:49.000 ERROR [http-nio-8080-exec-10] c.s.order.OrderService - requestId=ORD-000169 Failed to process order orderId=50169: database timeout
+2026-08-02 10:02:50.000 ERROR [http-nio-8080-exec-11] c.s.order.OrderService - requestId=ORD-000170 Failed to process order orderId=50170: database timeout
+2026-08-02 10:02:51.000 ERROR [http-nio-8080-exec-12] c.s.order.OrderService - requestId=ORD-000171 Failed to process order orderId=50171: database timeout
+2026-08-02 10:02:52.000 ERROR [http-nio-8080-exec-13] c.s.order.OrderService - requestId=ORD-000172 Failed to process order orderId=50172: database timeout
+2026-08-02 10:02:53.000 ERROR [http-nio-8080-exec-14] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:02:54.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:02:55.000 ERROR [payment-worker-8] c.s.payment.PaymentClient - paymentId=PAY-000175 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:02:56.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=REQ-000176 method=POST path=/api/orders status=500 elapsedMs=1622
+2026-08-02 10:02:57.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=REQ-000177 method=POST path=/api/orders status=500 elapsedMs=661
+2026-08-02 10:02:58.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=REQ-000178 method=POST path=/api/orders status=200 elapsedMs=656
+2026-08-02 10:02:59.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=REQ-000179 method=POST path=/api/orders status=200 elapsedMs=2026
+2026-08-02 10:03:00.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=REQ-000180 method=POST path=/api/orders status=200 elapsedMs=3407
+2026-08-02 10:03:01.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=REQ-000181 method=POST path=/api/orders status=200 elapsedMs=1082
+2026-08-02 10:03:02.000 ERROR [http-nio-8080-exec-7] c.s.order.OrderService - requestId=ORD-000182 Failed to process order orderId=50182: database timeout
+2026-08-02 10:03:03.000 ERROR [http-nio-8080-exec-8] c.s.order.OrderService - requestId=ORD-000183 Failed to process order orderId=50183: database timeout
+2026-08-02 10:03:04.000 ERROR [http-nio-8080-exec-9] c.s.order.OrderService - requestId=ORD-000184 Failed to process order orderId=50184: database timeout
+2026-08-02 10:03:05.000 ERROR [http-nio-8080-exec-10] c.s.order.OrderService - requestId=ORD-000185 Failed to process order orderId=50185: database timeout
+2026-08-02 10:03:06.000 ERROR [http-nio-8080-exec-11] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:03:07.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:03:08.000 ERROR [payment-worker-5] c.s.payment.PaymentClient - paymentId=PAY-000188 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:03:09.000 INFO  [http-nio-8080-exec-14] c.s.api.RequestLogger - requestId=REQ-000189 method=POST path=/api/orders status=500 elapsedMs=2116
+2026-08-02 10:03:10.000 INFO  [http-nio-8080-exec-15] c.s.api.RequestLogger - requestId=REQ-000190 method=POST path=/api/orders status=500 elapsedMs=425
+2026-08-02 10:03:11.000 INFO  [http-nio-8080-exec-16] c.s.api.RequestLogger - requestId=REQ-000191 method=POST path=/api/orders status=200 elapsedMs=771
+2026-08-02 10:03:12.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=REQ-000192 method=POST path=/api/orders status=200 elapsedMs=3534
+2026-08-02 10:03:13.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=REQ-000193 method=POST path=/api/orders status=200 elapsedMs=4382
+2026-08-02 10:03:14.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=REQ-000194 method=POST path=/api/orders status=200 elapsedMs=2691
+2026-08-02 10:03:15.000 ERROR [http-nio-8080-exec-4] c.s.order.OrderService - requestId=ORD-000195 Failed to process order orderId=50195: database timeout
+2026-08-02 10:03:16.000 ERROR [http-nio-8080-exec-5] c.s.order.OrderService - requestId=ORD-000196 Failed to process order orderId=50196: database timeout
+2026-08-02 10:03:17.000 ERROR [http-nio-8080-exec-6] c.s.order.OrderService - requestId=ORD-000197 Failed to process order orderId=50197: database timeout
+2026-08-02 10:03:18.000 ERROR [http-nio-8080-exec-7] c.s.order.OrderService - requestId=ORD-000198 Failed to process order orderId=50198: database timeout
+2026-08-02 10:03:19.000 ERROR [http-nio-8080-exec-8] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:03:20.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:03:21.000 ERROR [payment-worker-2] c.s.payment.PaymentClient - paymentId=PAY-000201 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:03:22.000 INFO  [http-nio-8080-exec-11] c.s.api.RequestLogger - requestId=REQ-000202 method=POST path=/api/orders status=500 elapsedMs=2236
+2026-08-02 10:03:23.000 INFO  [http-nio-8080-exec-12] c.s.api.RequestLogger - requestId=REQ-000203 method=POST path=/api/orders status=500 elapsedMs=1773
+2026-08-02 10:03:24.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - requestId=REQ-000204 method=POST path=/api/orders status=200 elapsedMs=2673
+2026-08-02 10:03:25.000 INFO  [http-nio-8080-exec-14] c.s.api.RequestLogger - requestId=REQ-000205 method=POST path=/api/orders status=200 elapsedMs=2055
+2026-08-02 10:03:26.000 INFO  [http-nio-8080-exec-15] c.s.api.RequestLogger - requestId=REQ-000206 method=POST path=/api/orders status=200 elapsedMs=2275
+2026-08-02 10:03:27.000 INFO  [http-nio-8080-exec-16] c.s.api.RequestLogger - requestId=REQ-000207 method=POST path=/api/orders status=200 elapsedMs=3342
+2026-08-02 10:03:28.000 ERROR [http-nio-8080-exec-1] c.s.order.OrderService - requestId=ORD-000208 Failed to process order orderId=50208: database timeout
+2026-08-02 10:03:29.000 ERROR [http-nio-8080-exec-2] c.s.order.OrderService - requestId=ORD-000209 Failed to process order orderId=50209: database timeout
+2026-08-02 10:03:30.000 ERROR [http-nio-8080-exec-3] c.s.order.OrderService - requestId=ORD-000210 Failed to process order orderId=50210: database timeout
+2026-08-02 10:03:31.000 ERROR [http-nio-8080-exec-4] c.s.order.OrderService - requestId=ORD-000211 Failed to process order orderId=50211: database timeout
+2026-08-02 10:03:32.000 ERROR [http-nio-8080-exec-5] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:03:33.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:03:34.000 ERROR [payment-worker-7] c.s.payment.PaymentClient - paymentId=PAY-000214 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:03:35.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=REQ-000215 method=POST path=/api/orders status=500 elapsedMs=1172
+2026-08-02 10:03:36.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=REQ-000216 method=POST path=/api/orders status=500 elapsedMs=2557
+2026-08-02 10:03:37.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=REQ-000217 method=POST path=/api/orders status=200 elapsedMs=3845
+2026-08-02 10:03:38.000 INFO  [http-nio-8080-exec-11] c.s.api.RequestLogger - requestId=REQ-000218 method=POST path=/api/orders status=200 elapsedMs=2690
+2026-08-02 10:03:39.000 INFO  [http-nio-8080-exec-12] c.s.api.RequestLogger - requestId=REQ-000219 method=POST path=/api/orders status=200 elapsedMs=694
+2026-08-02 10:03:40.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - requestId=REQ-000220 method=POST path=/api/orders status=200 elapsedMs=176
+2026-08-02 10:03:41.000 ERROR [http-nio-8080-exec-14] c.s.order.OrderService - requestId=ORD-000221 Failed to process order orderId=50221: database timeout
+2026-08-02 10:03:42.000 ERROR [http-nio-8080-exec-15] c.s.order.OrderService - requestId=ORD-000222 Failed to process order orderId=50222: database timeout
+2026-08-02 10:03:43.000 ERROR [http-nio-8080-exec-16] c.s.order.OrderService - requestId=ORD-000223 Failed to process order orderId=50223: database timeout
+2026-08-02 10:03:44.000 ERROR [http-nio-8080-exec-1] c.s.order.OrderService - requestId=ORD-000224 Failed to process order orderId=50224: database timeout
+2026-08-02 10:03:45.000 ERROR [http-nio-8080-exec-2] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:03:46.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:03:47.000 ERROR [payment-worker-4] c.s.payment.PaymentClient - paymentId=PAY-000227 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:03:48.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=REQ-000228 method=POST path=/api/orders status=500 elapsedMs=3854
+2026-08-02 10:03:49.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=REQ-000229 method=POST path=/api/orders status=500 elapsedMs=919
+2026-08-02 10:03:50.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=REQ-000230 method=POST path=/api/orders status=200 elapsedMs=700
+2026-08-02 10:03:51.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=REQ-000231 method=POST path=/api/orders status=200 elapsedMs=1846
+2026-08-02 10:03:52.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=REQ-000232 method=POST path=/api/orders status=200 elapsedMs=4244
+2026-08-02 10:03:53.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=REQ-000233 method=POST path=/api/orders status=200 elapsedMs=2272
+2026-08-02 10:03:54.000 ERROR [http-nio-8080-exec-11] c.s.order.OrderService - requestId=ORD-000234 Failed to process order orderId=50234: database timeout
+2026-08-02 10:03:55.000 ERROR [http-nio-8080-exec-12] c.s.order.OrderService - requestId=ORD-000235 Failed to process order orderId=50235: database timeout
+2026-08-02 10:03:56.000 ERROR [http-nio-8080-exec-13] c.s.order.OrderService - requestId=ORD-000236 Failed to process order orderId=50236: database timeout
+2026-08-02 10:03:57.000 ERROR [http-nio-8080-exec-14] c.s.order.OrderService - requestId=ORD-000237 Failed to process order orderId=50237: database timeout
+2026-08-02 10:03:58.000 ERROR [http-nio-8080-exec-15] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:03:59.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:04:00.000 ERROR [payment-worker-1] c.s.payment.PaymentClient - paymentId=PAY-000240 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:04:01.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=REQ-000241 method=POST path=/api/orders status=500 elapsedMs=1185
+2026-08-02 10:04:02.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=REQ-000242 method=POST path=/api/orders status=500 elapsedMs=2959
+2026-08-02 10:04:03.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=REQ-000243 method=POST path=/api/orders status=200 elapsedMs=663
+2026-08-02 10:04:04.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=REQ-000244 method=POST path=/api/orders status=200 elapsedMs=2101
+2026-08-02 10:04:05.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=REQ-000245 method=POST path=/api/orders status=200 elapsedMs=3127
+2026-08-02 10:04:06.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=REQ-000246 method=POST path=/api/orders status=200 elapsedMs=2434
+2026-08-02 10:04:07.000 ERROR [http-nio-8080-exec-8] c.s.order.OrderService - requestId=ORD-000247 Failed to process order orderId=50247: database timeout
+2026-08-02 10:04:08.000 ERROR [http-nio-8080-exec-9] c.s.order.OrderService - requestId=ORD-000248 Failed to process order orderId=50248: database timeout
+2026-08-02 10:04:09.000 ERROR [http-nio-8080-exec-10] c.s.order.OrderService - requestId=ORD-000249 Failed to process order orderId=50249: database timeout
+2026-08-02 10:04:10.000 ERROR [http-nio-8080-exec-11] c.s.order.OrderService - requestId=ORD-000250 Failed to process order orderId=50250: database timeout
+2026-08-02 10:04:11.000 ERROR [http-nio-8080-exec-12] c.s.order.OrderController - Unhandled exception
+java.sql.SQLTimeoutException: Query timed out after 3000 ms
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java:52)
+	at com.shinhandssample.order.OrderRepository.findById(OrderRepository.java:118)
+	at com.shinhandssample.order.OrderService.process(OrderService.java:204)
+2026-08-02 10:04:12.000 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - Thread starvation or clock leap detected
+2026-08-02 10:04:13.000 ERROR [payment-worker-6] c.s.payment.PaymentClient - paymentId=PAY-000253 HTTP 504 Gateway Timeout from payment-gateway
+2026-08-02 10:04:14.000 INFO  [http-nio-8080-exec-15] c.s.api.RequestLogger - requestId=REQ-000254 method=POST path=/api/orders status=500 elapsedMs=1392
+2026-08-02 10:04:15.000 INFO  [http-nio-8080-exec-16] c.s.api.RequestLogger - requestId=REQ-000255 method=POST path=/api/orders status=500 elapsedMs=3689
+2026-08-02 10:04:16.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=REQ-000256 method=POST path=/api/orders status=200 elapsedMs=2578
+2026-08-02 10:04:17.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=REQ-000257 method=POST path=/api/orders status=200 elapsedMs=4433
+2026-08-02 10:04:18.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=REQ-000258 method=POST path=/api/orders status=200 elapsedMs=164
+2026-08-02 10:04:19.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=REQ-000259 method=POST path=/api/orders status=200 elapsedMs=2552

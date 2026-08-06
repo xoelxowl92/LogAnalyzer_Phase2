@@ -1,0 +1,264 @@
+# TEST SCENARIO: 장애 발생부터 복구까지의 전체 흐름 로그
+# Generated sample log for Dify log analyzer validation
+# Encoding: UTF-8
+
+2026-08-02 18:00:00.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00000 status=200 elapsedMs=112
+2026-08-02 18:00:02.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00001 status=200 elapsedMs=72
+2026-08-02 18:00:04.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00002 status=200 elapsedMs=46
+2026-08-02 18:00:06.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00003 status=200 elapsedMs=115
+2026-08-02 18:00:08.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00004 status=200 elapsedMs=119
+2026-08-02 18:00:10.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00005 status=200 elapsedMs=117
+2026-08-02 18:00:12.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00006 status=200 elapsedMs=97
+2026-08-02 18:00:14.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00007 status=200 elapsedMs=41
+2026-08-02 18:00:16.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00008 status=200 elapsedMs=112
+2026-08-02 18:00:18.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00009 status=200 elapsedMs=115
+2026-08-02 18:00:20.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00010 status=200 elapsedMs=84
+2026-08-02 18:00:22.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00011 status=200 elapsedMs=95
+2026-08-02 18:00:24.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00012 status=200 elapsedMs=76
+2026-08-02 18:00:26.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00013 status=200 elapsedMs=32
+2026-08-02 18:00:28.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00014 status=200 elapsedMs=76
+2026-08-02 18:00:30.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00015 status=200 elapsedMs=69
+2026-08-02 18:00:32.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00016 status=200 elapsedMs=53
+2026-08-02 18:00:34.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00017 status=200 elapsedMs=57
+2026-08-02 18:00:36.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00018 status=200 elapsedMs=73
+2026-08-02 18:00:38.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00019 status=200 elapsedMs=92
+2026-08-02 18:00:40.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00020 status=200 elapsedMs=54
+2026-08-02 18:00:42.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00021 status=200 elapsedMs=58
+2026-08-02 18:00:44.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00022 status=200 elapsedMs=47
+2026-08-02 18:00:46.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00023 status=200 elapsedMs=49
+2026-08-02 18:00:48.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00024 status=200 elapsedMs=39
+2026-08-02 18:00:50.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00025 status=200 elapsedMs=67
+2026-08-02 18:00:52.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00026 status=200 elapsedMs=42
+2026-08-02 18:00:54.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00027 status=200 elapsedMs=94
+2026-08-02 18:00:56.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00028 status=200 elapsedMs=99
+2026-08-02 18:00:58.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00029 status=200 elapsedMs=97
+2026-08-02 18:01:00.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00030 status=200 elapsedMs=34
+2026-08-02 18:01:02.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00031 status=200 elapsedMs=114
+2026-08-02 18:01:04.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00032 status=200 elapsedMs=73
+2026-08-02 18:01:06.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00033 status=200 elapsedMs=109
+2026-08-02 18:01:08.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00034 status=200 elapsedMs=46
+2026-08-02 18:01:10.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00035 status=200 elapsedMs=106
+2026-08-02 18:01:12.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00036 status=200 elapsedMs=78
+2026-08-02 18:01:14.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00037 status=200 elapsedMs=49
+2026-08-02 18:01:16.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00038 status=200 elapsedMs=50
+2026-08-02 18:01:18.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00039 status=200 elapsedMs=53
+2026-08-02 18:01:20.000 ERROR [db-worker-1] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:01:22.000 WARN  [db-worker-2] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:01:24.000 WARN  [db-worker-3] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:01:26.000 WARN  [db-worker-4] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:01:28.000 WARN  [db-worker-5] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:01:30.000 ERROR [db-worker-6] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:01:32.000 WARN  [db-worker-7] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:01:34.000 WARN  [db-worker-8] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:01:36.000 WARN  [db-worker-1] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:01:38.000 WARN  [db-worker-2] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:01:40.000 ERROR [db-worker-3] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:01:42.000 WARN  [db-worker-4] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:01:44.000 WARN  [db-worker-5] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:01:46.000 WARN  [db-worker-6] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:01:48.000 WARN  [db-worker-7] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:01:50.000 ERROR [db-worker-8] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:01:52.000 WARN  [db-worker-1] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:01:54.000 WARN  [db-worker-2] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:01:56.000 WARN  [db-worker-3] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:01:58.000 WARN  [db-worker-4] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:02:00.000 ERROR [db-worker-5] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:02:02.000 WARN  [db-worker-6] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:02:04.000 WARN  [db-worker-7] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:02:06.000 WARN  [db-worker-8] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:02:08.000 WARN  [db-worker-1] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:02:10.000 ERROR [db-worker-2] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:02:12.000 WARN  [db-worker-3] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:02:14.000 WARN  [db-worker-4] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:02:16.000 WARN  [db-worker-5] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:02:18.000 WARN  [db-worker-6] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:02:20.000 ERROR [db-worker-7] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:02:22.000 WARN  [db-worker-8] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:02:24.000 WARN  [db-worker-1] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:02:26.000 WARN  [db-worker-2] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:02:28.000 WARN  [db-worker-3] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:02:30.000 ERROR [db-worker-4] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:02:32.000 WARN  [db-worker-5] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:02:34.000 WARN  [db-worker-6] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:02:36.000 WARN  [db-worker-7] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:02:38.000 WARN  [db-worker-8] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:02:40.000 ERROR [db-worker-1] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:02:42.000 WARN  [db-worker-2] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:02:44.000 WARN  [db-worker-3] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:02:46.000 WARN  [db-worker-4] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:02:48.000 WARN  [db-worker-5] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:02:50.000 ERROR [db-worker-6] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:02:52.000 WARN  [db-worker-7] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:02:54.000 WARN  [db-worker-8] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:02:56.000 WARN  [db-worker-1] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:02:58.000 WARN  [db-worker-2] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:03:00.000 ERROR [db-worker-3] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:03:02.000 WARN  [db-worker-4] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:03:04.000 WARN  [db-worker-5] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:03:06.000 WARN  [db-worker-6] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:03:08.000 WARN  [db-worker-7] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:03:10.000 ERROR [db-worker-8] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:03:12.000 WARN  [db-worker-1] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:03:14.000 WARN  [db-worker-2] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:03:16.000 WARN  [db-worker-3] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:03:18.000 WARN  [db-worker-4] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:03:20.000 ERROR [db-worker-5] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:03:22.000 WARN  [db-worker-6] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:03:24.000 WARN  [db-worker-7] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:03:26.000 WARN  [db-worker-8] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:03:28.000 WARN  [db-worker-1] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:03:30.000 ERROR [db-worker-2] c.s.db.DatabaseClient - connection reset by peer host=db-primary port=5432
+2026-08-02 18:03:32.000 WARN  [db-worker-3] c.s.db.DatabaseClient - retrying connection attempt=2
+2026-08-02 18:03:34.000 WARN  [db-worker-4] c.s.db.DatabaseClient - retrying connection attempt=3
+2026-08-02 18:03:36.000 WARN  [db-worker-5] c.s.db.DatabaseClient - retrying connection attempt=4
+2026-08-02 18:03:38.000 WARN  [db-worker-6] c.s.db.DatabaseClient - retrying connection attempt=5
+2026-08-02 18:03:40.000 ERROR [health-check] c.s.health.DbHealthIndicator - database health DOWN
+2026-08-02 18:03:42.000 ERROR [http-nio-8080-exec-12] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=809
+2026-08-02 18:03:44.000 ERROR [http-nio-8080-exec-13] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=889
+2026-08-02 18:03:46.000 ERROR [http-nio-8080-exec-14] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=739
+2026-08-02 18:03:48.000 ERROR [http-nio-8080-exec-15] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=269
+2026-08-02 18:03:50.000 ERROR [http-nio-8080-exec-16] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=838
+2026-08-02 18:03:52.000 ERROR [http-nio-8080-exec-17] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=548
+2026-08-02 18:03:54.000 ERROR [http-nio-8080-exec-18] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=144
+2026-08-02 18:03:56.000 ERROR [http-nio-8080-exec-19] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=520
+2026-08-02 18:03:58.000 ERROR [http-nio-8080-exec-20] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=473
+2026-08-02 18:04:00.000 ERROR [http-nio-8080-exec-1] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=792
+2026-08-02 18:04:02.000 ERROR [http-nio-8080-exec-2] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=836
+2026-08-02 18:04:04.000 ERROR [http-nio-8080-exec-3] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=343
+2026-08-02 18:04:06.000 ERROR [http-nio-8080-exec-4] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=554
+2026-08-02 18:04:08.000 ERROR [http-nio-8080-exec-5] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=725
+2026-08-02 18:04:10.000 ERROR [http-nio-8080-exec-6] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=391
+2026-08-02 18:04:12.000 ERROR [http-nio-8080-exec-7] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=870
+2026-08-02 18:04:14.000 ERROR [http-nio-8080-exec-8] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=866
+2026-08-02 18:04:16.000 ERROR [http-nio-8080-exec-9] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=559
+2026-08-02 18:04:18.000 ERROR [http-nio-8080-exec-10] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=339
+2026-08-02 18:04:20.000 ERROR [http-nio-8080-exec-11] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=646
+2026-08-02 18:04:22.000 ERROR [http-nio-8080-exec-12] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=344
+2026-08-02 18:04:24.000 ERROR [http-nio-8080-exec-13] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=416
+2026-08-02 18:04:26.000 ERROR [http-nio-8080-exec-14] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=580
+2026-08-02 18:04:28.000 ERROR [http-nio-8080-exec-15] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=298
+2026-08-02 18:04:30.000 ERROR [http-nio-8080-exec-16] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=476
+2026-08-02 18:04:32.000 ERROR [http-nio-8080-exec-17] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=794
+2026-08-02 18:04:34.000 ERROR [http-nio-8080-exec-18] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=684
+2026-08-02 18:04:36.000 ERROR [http-nio-8080-exec-19] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=551
+2026-08-02 18:04:38.000 ERROR [http-nio-8080-exec-20] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=572
+2026-08-02 18:04:40.000 ERROR [http-nio-8080-exec-1] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=887
+2026-08-02 18:04:42.000 ERROR [http-nio-8080-exec-2] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=388
+2026-08-02 18:04:44.000 ERROR [http-nio-8080-exec-3] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=896
+2026-08-02 18:04:46.000 ERROR [http-nio-8080-exec-4] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=491
+2026-08-02 18:04:48.000 ERROR [http-nio-8080-exec-5] c.s.api.RequestLogger - path=/api/accounts status=503 elapsedMs=614
+2026-08-02 18:04:50.000 INFO  [ops] c.s.ops.FailoverManager - switching datasource from db-primary to db-standby
+2026-08-02 18:04:52.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=2
+2026-08-02 18:04:54.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=3
+2026-08-02 18:04:56.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=4
+2026-08-02 18:04:58.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=5
+2026-08-02 18:05:00.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=6
+2026-08-02 18:05:02.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=7
+2026-08-02 18:05:04.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=8
+2026-08-02 18:05:06.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=9
+2026-08-02 18:05:08.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=10
+2026-08-02 18:05:10.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=11
+2026-08-02 18:05:12.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=12
+2026-08-02 18:05:14.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=13
+2026-08-02 18:05:16.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=14
+2026-08-02 18:05:18.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=15
+2026-08-02 18:05:20.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=16
+2026-08-02 18:05:22.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=17
+2026-08-02 18:05:24.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=18
+2026-08-02 18:05:26.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=19
+2026-08-02 18:05:28.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=20
+2026-08-02 18:05:30.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=21
+2026-08-02 18:05:32.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=22
+2026-08-02 18:05:34.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=23
+2026-08-02 18:05:36.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=24
+2026-08-02 18:05:38.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=25
+2026-08-02 18:05:40.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=26
+2026-08-02 18:05:42.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=27
+2026-08-02 18:05:44.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=28
+2026-08-02 18:05:46.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=29
+2026-08-02 18:05:48.000 WARN  [ops] c.s.ops.FailoverManager - failover in progress validationAttempt=30
+2026-08-02 18:05:50.000 INFO  [health-check] c.s.health.DbHealthIndicator - database health UP datasource=db-standby
+2026-08-02 18:05:52.000 INFO  [http-nio-8080-exec-17] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=690
+2026-08-02 18:05:54.000 INFO  [http-nio-8080-exec-18] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=578
+2026-08-02 18:05:56.000 INFO  [http-nio-8080-exec-19] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=315
+2026-08-02 18:05:58.000 INFO  [http-nio-8080-exec-20] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=354
+2026-08-02 18:06:00.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=291
+2026-08-02 18:06:02.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=406
+2026-08-02 18:06:04.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=203
+2026-08-02 18:06:06.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=642
+2026-08-02 18:06:08.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=530
+2026-08-02 18:06:10.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=255
+2026-08-02 18:06:12.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=678
+2026-08-02 18:06:14.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=277
+2026-08-02 18:06:16.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=441
+2026-08-02 18:06:18.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=235
+2026-08-02 18:06:20.000 INFO  [http-nio-8080-exec-11] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=314
+2026-08-02 18:06:22.000 INFO  [http-nio-8080-exec-12] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=429
+2026-08-02 18:06:24.000 INFO  [http-nio-8080-exec-13] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=610
+2026-08-02 18:06:26.000 INFO  [http-nio-8080-exec-14] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=675
+2026-08-02 18:06:28.000 INFO  [http-nio-8080-exec-15] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=300
+2026-08-02 18:06:30.000 INFO  [http-nio-8080-exec-16] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=597
+2026-08-02 18:06:32.000 INFO  [http-nio-8080-exec-17] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=243
+2026-08-02 18:06:34.000 INFO  [http-nio-8080-exec-18] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=377
+2026-08-02 18:06:36.000 INFO  [http-nio-8080-exec-19] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=611
+2026-08-02 18:06:38.000 INFO  [http-nio-8080-exec-20] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=507
+2026-08-02 18:06:40.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=177
+2026-08-02 18:06:42.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=574
+2026-08-02 18:06:44.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=204
+2026-08-02 18:06:46.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=555
+2026-08-02 18:06:48.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - recoveryTraffic=true status=200 elapsedMs=664
+2026-08-02 18:06:50.000 INFO  [ops] c.s.ops.FailoverManager - traffic fully restored; errorRate=0.3%
+2026-08-02 18:06:52.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00206 status=200 elapsedMs=82
+2026-08-02 18:06:54.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00207 status=200 elapsedMs=65
+2026-08-02 18:06:56.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00208 status=200 elapsedMs=84
+2026-08-02 18:06:58.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00209 status=200 elapsedMs=45
+2026-08-02 18:07:00.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00210 status=200 elapsedMs=82
+2026-08-02 18:07:02.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00211 status=200 elapsedMs=63
+2026-08-02 18:07:04.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00212 status=200 elapsedMs=38
+2026-08-02 18:07:06.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00213 status=200 elapsedMs=75
+2026-08-02 18:07:08.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00214 status=200 elapsedMs=47
+2026-08-02 18:07:10.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00215 status=200 elapsedMs=126
+2026-08-02 18:07:12.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00216 status=200 elapsedMs=118
+2026-08-02 18:07:14.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00217 status=200 elapsedMs=77
+2026-08-02 18:07:16.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00218 status=200 elapsedMs=53
+2026-08-02 18:07:18.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00219 status=200 elapsedMs=52
+2026-08-02 18:07:20.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00220 status=200 elapsedMs=39
+2026-08-02 18:07:22.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00221 status=200 elapsedMs=71
+2026-08-02 18:07:24.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00222 status=200 elapsedMs=95
+2026-08-02 18:07:26.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00223 status=200 elapsedMs=124
+2026-08-02 18:07:28.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00224 status=200 elapsedMs=52
+2026-08-02 18:07:30.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00225 status=200 elapsedMs=125
+2026-08-02 18:07:32.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00226 status=200 elapsedMs=95
+2026-08-02 18:07:34.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00227 status=200 elapsedMs=92
+2026-08-02 18:07:36.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00228 status=200 elapsedMs=113
+2026-08-02 18:07:38.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00229 status=200 elapsedMs=35
+2026-08-02 18:07:40.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00230 status=200 elapsedMs=45
+2026-08-02 18:07:42.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00231 status=200 elapsedMs=37
+2026-08-02 18:07:44.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00232 status=200 elapsedMs=67
+2026-08-02 18:07:46.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00233 status=200 elapsedMs=62
+2026-08-02 18:07:48.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00234 status=200 elapsedMs=54
+2026-08-02 18:07:50.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00235 status=200 elapsedMs=105
+2026-08-02 18:07:52.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00236 status=200 elapsedMs=128
+2026-08-02 18:07:54.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00237 status=200 elapsedMs=112
+2026-08-02 18:07:56.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00238 status=200 elapsedMs=102
+2026-08-02 18:07:58.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00239 status=200 elapsedMs=89
+2026-08-02 18:08:00.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00240 status=200 elapsedMs=49
+2026-08-02 18:08:02.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00241 status=200 elapsedMs=71
+2026-08-02 18:08:04.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00242 status=200 elapsedMs=65
+2026-08-02 18:08:06.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00243 status=200 elapsedMs=73
+2026-08-02 18:08:08.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00244 status=200 elapsedMs=50
+2026-08-02 18:08:10.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00245 status=200 elapsedMs=41
+2026-08-02 18:08:12.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00246 status=200 elapsedMs=65
+2026-08-02 18:08:14.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00247 status=200 elapsedMs=88
+2026-08-02 18:08:16.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00248 status=200 elapsedMs=116
+2026-08-02 18:08:18.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00249 status=200 elapsedMs=114
+2026-08-02 18:08:20.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00250 status=200 elapsedMs=93
+2026-08-02 18:08:22.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00251 status=200 elapsedMs=43
+2026-08-02 18:08:24.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00252 status=200 elapsedMs=49
+2026-08-02 18:08:26.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00253 status=200 elapsedMs=98
+2026-08-02 18:08:28.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00254 status=200 elapsedMs=111
+2026-08-02 18:08:30.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00255 status=200 elapsedMs=103
+2026-08-02 18:08:32.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00256 status=200 elapsedMs=37
+2026-08-02 18:08:34.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00257 status=200 elapsedMs=115
+2026-08-02 18:08:36.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00258 status=200 elapsedMs=100
+2026-08-02 18:08:38.000 INFO  [app] c.s.api.RequestLogger - requestId=REC-00259 status=200 elapsedMs=108

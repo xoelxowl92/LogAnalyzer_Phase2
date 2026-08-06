@@ -1,0 +1,304 @@
+# TEST SCENARIO: WAS Thread Pool 포화 및 HTTP 5xx 로그
+# Generated sample log for Dify log analyzer validation
+# Encoding: UTF-8
+
+2026-08-02 17:00:00.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=30 maxThreads=200 currentThreadCount=45
+2026-08-02 17:00:01.000 INFO  [access] ACCESS - ip=10.10.1.2 "GET /api/dashboard HTTP/1.1" 200 612 "-" "Mozilla/5.0" responseTimeMs=605
+2026-08-02 17:00:02.000 INFO  [access] ACCESS - ip=10.10.2.3 "GET /api/dashboard HTTP/1.1" 200 3842 "-" "Mozilla/5.0" responseTimeMs=135
+2026-08-02 17:00:03.000 INFO  [access] ACCESS - ip=10.10.3.4 "GET /api/dashboard HTTP/1.1" 200 2340 "-" "Mozilla/5.0" responseTimeMs=156
+2026-08-02 17:00:04.000 INFO  [access] ACCESS - ip=10.10.4.5 "GET /api/dashboard HTTP/1.1" 200 4280 "-" "Mozilla/5.0" responseTimeMs=160
+2026-08-02 17:00:05.000 INFO  [access] ACCESS - ip=10.10.5.6 "GET /api/dashboard HTTP/1.1" 200 1761 "-" "Mozilla/5.0" responseTimeMs=550
+2026-08-02 17:00:06.000 INFO  [access] ACCESS - ip=10.10.6.7 "GET /api/dashboard HTTP/1.1" 200 2890 "-" "Mozilla/5.0" responseTimeMs=561
+2026-08-02 17:00:07.000 INFO  [access] ACCESS - ip=10.10.7.8 "GET /api/dashboard HTTP/1.1" 200 2739 "-" "Mozilla/5.0" responseTimeMs=465
+2026-08-02 17:00:08.000 INFO  [access] ACCESS - ip=10.10.8.9 "GET /api/dashboard HTTP/1.1" 200 4452 "-" "Mozilla/5.0" responseTimeMs=523
+2026-08-02 17:00:09.000 INFO  [access] ACCESS - ip=10.10.9.10 "GET /api/dashboard HTTP/1.1" 200 2496 "-" "Mozilla/5.0" responseTimeMs=507
+2026-08-02 17:00:10.000 INFO  [access] ACCESS - ip=10.10.10.11 "GET /api/dashboard HTTP/1.1" 200 1684 "-" "Mozilla/5.0" responseTimeMs=432
+2026-08-02 17:00:11.000 INFO  [access] ACCESS - ip=10.10.11.12 "GET /api/dashboard HTTP/1.1" 200 2061 "-" "Mozilla/5.0" responseTimeMs=653
+2026-08-02 17:00:12.000 INFO  [access] ACCESS - ip=10.10.12.13 "GET /api/dashboard HTTP/1.1" 200 4663 "-" "Mozilla/5.0" responseTimeMs=179
+2026-08-02 17:00:13.000 INFO  [access] ACCESS - ip=10.10.13.14 "GET /api/dashboard HTTP/1.1" 200 1071 "-" "Mozilla/5.0" responseTimeMs=322
+2026-08-02 17:00:14.000 INFO  [access] ACCESS - ip=10.10.14.15 "GET /api/dashboard HTTP/1.1" 200 3899 "-" "Mozilla/5.0" responseTimeMs=388
+2026-08-02 17:00:15.000 INFO  [access] ACCESS - ip=10.10.15.16 "GET /api/dashboard HTTP/1.1" 200 4659 "-" "Mozilla/5.0" responseTimeMs=313
+2026-08-02 17:00:16.000 INFO  [access] ACCESS - ip=10.10.16.17 "GET /api/dashboard HTTP/1.1" 200 521 "-" "Mozilla/5.0" responseTimeMs=329
+2026-08-02 17:00:17.000 INFO  [access] ACCESS - ip=10.10.17.18 "GET /api/dashboard HTTP/1.1" 200 2945 "-" "Mozilla/5.0" responseTimeMs=641
+2026-08-02 17:00:18.000 INFO  [access] ACCESS - ip=10.10.18.19 "GET /api/dashboard HTTP/1.1" 200 4511 "-" "Mozilla/5.0" responseTimeMs=192
+2026-08-02 17:00:19.000 INFO  [access] ACCESS - ip=10.10.19.20 "GET /api/dashboard HTTP/1.1" 200 4158 "-" "Mozilla/5.0" responseTimeMs=591
+2026-08-02 17:00:20.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=40 maxThreads=200 currentThreadCount=55
+2026-08-02 17:00:21.000 INFO  [access] ACCESS - ip=10.10.1.22 "GET /api/dashboard HTTP/1.1" 200 4467 "-" "Mozilla/5.0" responseTimeMs=393
+2026-08-02 17:00:22.000 INFO  [access] ACCESS - ip=10.10.2.23 "GET /api/dashboard HTTP/1.1" 200 3223 "-" "Mozilla/5.0" responseTimeMs=605
+2026-08-02 17:00:23.000 INFO  [access] ACCESS - ip=10.10.3.24 "GET /api/dashboard HTTP/1.1" 200 4951 "-" "Mozilla/5.0" responseTimeMs=426
+2026-08-02 17:00:24.000 INFO  [access] ACCESS - ip=10.10.4.25 "GET /api/dashboard HTTP/1.1" 200 4230 "-" "Mozilla/5.0" responseTimeMs=369
+2026-08-02 17:00:25.000 INFO  [access] ACCESS - ip=10.10.5.26 "GET /api/dashboard HTTP/1.1" 200 2045 "-" "Mozilla/5.0" responseTimeMs=754
+2026-08-02 17:00:26.000 INFO  [access] ACCESS - ip=10.10.6.27 "GET /api/dashboard HTTP/1.1" 200 2456 "-" "Mozilla/5.0" responseTimeMs=625
+2026-08-02 17:00:27.000 INFO  [access] ACCESS - ip=10.10.7.28 "GET /api/dashboard HTTP/1.1" 200 3637 "-" "Mozilla/5.0" responseTimeMs=279
+2026-08-02 17:00:28.000 INFO  [access] ACCESS - ip=10.10.8.29 "GET /api/dashboard HTTP/1.1" 200 3865 "-" "Mozilla/5.0" responseTimeMs=84
+2026-08-02 17:00:29.000 INFO  [access] ACCESS - ip=10.10.9.30 "GET /api/dashboard HTTP/1.1" 200 3106 "-" "Mozilla/5.0" responseTimeMs=524
+2026-08-02 17:00:30.000 INFO  [access] ACCESS - ip=10.10.10.31 "GET /api/dashboard HTTP/1.1" 200 3623 "-" "Mozilla/5.0" responseTimeMs=435
+2026-08-02 17:00:31.000 INFO  [access] ACCESS - ip=10.10.11.32 "GET /api/dashboard HTTP/1.1" 200 1746 "-" "Mozilla/5.0" responseTimeMs=547
+2026-08-02 17:00:32.000 INFO  [access] ACCESS - ip=10.10.12.33 "GET /api/dashboard HTTP/1.1" 200 803 "-" "Mozilla/5.0" responseTimeMs=169
+2026-08-02 17:00:33.000 INFO  [access] ACCESS - ip=10.10.13.34 "GET /api/dashboard HTTP/1.1" 200 4614 "-" "Mozilla/5.0" responseTimeMs=644
+2026-08-02 17:00:34.000 INFO  [access] ACCESS - ip=10.10.14.35 "GET /api/dashboard HTTP/1.1" 200 3219 "-" "Mozilla/5.0" responseTimeMs=142
+2026-08-02 17:00:35.000 INFO  [access] ACCESS - ip=10.10.15.36 "GET /api/dashboard HTTP/1.1" 200 4106 "-" "Mozilla/5.0" responseTimeMs=142
+2026-08-02 17:00:36.000 INFO  [access] ACCESS - ip=10.10.16.37 "GET /api/dashboard HTTP/1.1" 200 4808 "-" "Mozilla/5.0" responseTimeMs=507
+2026-08-02 17:00:37.000 INFO  [access] ACCESS - ip=10.10.17.38 "GET /api/dashboard HTTP/1.1" 200 625 "-" "Mozilla/5.0" responseTimeMs=779
+2026-08-02 17:00:38.000 INFO  [access] ACCESS - ip=10.10.18.39 "GET /api/dashboard HTTP/1.1" 200 1680 "-" "Mozilla/5.0" responseTimeMs=459
+2026-08-02 17:00:39.000 INFO  [access] ACCESS - ip=10.10.19.40 "GET /api/dashboard HTTP/1.1" 200 1764 "-" "Mozilla/5.0" responseTimeMs=116
+2026-08-02 17:00:40.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=50 maxThreads=200 currentThreadCount=65
+2026-08-02 17:00:41.000 INFO  [access] ACCESS - ip=10.10.1.42 "GET /api/dashboard HTTP/1.1" 200 4346 "-" "Mozilla/5.0" responseTimeMs=311
+2026-08-02 17:00:42.000 INFO  [access] ACCESS - ip=10.10.2.43 "GET /api/dashboard HTTP/1.1" 200 3273 "-" "Mozilla/5.0" responseTimeMs=678
+2026-08-02 17:00:43.000 INFO  [access] ACCESS - ip=10.10.3.44 "GET /api/dashboard HTTP/1.1" 200 3756 "-" "Mozilla/5.0" responseTimeMs=705
+2026-08-02 17:00:44.000 INFO  [access] ACCESS - ip=10.10.4.45 "GET /api/dashboard HTTP/1.1" 200 1157 "-" "Mozilla/5.0" responseTimeMs=376
+2026-08-02 17:00:45.000 INFO  [access] ACCESS - ip=10.10.5.46 "GET /api/dashboard HTTP/1.1" 200 4871 "-" "Mozilla/5.0" responseTimeMs=429
+2026-08-02 17:00:46.000 INFO  [access] ACCESS - ip=10.10.6.47 "GET /api/dashboard HTTP/1.1" 200 3094 "-" "Mozilla/5.0" responseTimeMs=681
+2026-08-02 17:00:47.000 INFO  [access] ACCESS - ip=10.10.7.48 "GET /api/dashboard HTTP/1.1" 200 4497 "-" "Mozilla/5.0" responseTimeMs=594
+2026-08-02 17:00:48.000 INFO  [access] ACCESS - ip=10.10.8.49 "GET /api/dashboard HTTP/1.1" 200 794 "-" "Mozilla/5.0" responseTimeMs=672
+2026-08-02 17:00:49.000 INFO  [access] ACCESS - ip=10.10.9.50 "GET /api/dashboard HTTP/1.1" 200 1060 "-" "Mozilla/5.0" responseTimeMs=280
+2026-08-02 17:00:50.000 INFO  [access] ACCESS - ip=10.10.10.51 "GET /api/dashboard HTTP/1.1" 200 2854 "-" "Mozilla/5.0" responseTimeMs=272
+2026-08-02 17:00:51.000 INFO  [access] ACCESS - ip=10.10.11.52 "GET /api/dashboard HTTP/1.1" 200 1240 "-" "Mozilla/5.0" responseTimeMs=484
+2026-08-02 17:00:52.000 INFO  [access] ACCESS - ip=10.10.12.53 "GET /api/dashboard HTTP/1.1" 200 1306 "-" "Mozilla/5.0" responseTimeMs=688
+2026-08-02 17:00:53.000 INFO  [access] ACCESS - ip=10.10.13.54 "GET /api/dashboard HTTP/1.1" 200 1323 "-" "Mozilla/5.0" responseTimeMs=494
+2026-08-02 17:00:54.000 INFO  [access] ACCESS - ip=10.10.14.55 "GET /api/dashboard HTTP/1.1" 200 1862 "-" "Mozilla/5.0" responseTimeMs=750
+2026-08-02 17:00:55.000 INFO  [access] ACCESS - ip=10.10.15.56 "GET /api/dashboard HTTP/1.1" 200 2953 "-" "Mozilla/5.0" responseTimeMs=69
+2026-08-02 17:00:56.000 INFO  [access] ACCESS - ip=10.10.16.57 "GET /api/dashboard HTTP/1.1" 200 876 "-" "Mozilla/5.0" responseTimeMs=372
+2026-08-02 17:00:57.000 INFO  [access] ACCESS - ip=10.10.17.58 "GET /api/dashboard HTTP/1.1" 200 959 "-" "Mozilla/5.0" responseTimeMs=340
+2026-08-02 17:00:58.000 INFO  [access] ACCESS - ip=10.10.18.59 "GET /api/dashboard HTTP/1.1" 200 3436 "-" "Mozilla/5.0" responseTimeMs=423
+2026-08-02 17:00:59.000 INFO  [access] ACCESS - ip=10.10.19.60 "GET /api/dashboard HTTP/1.1" 200 4028 "-" "Mozilla/5.0" responseTimeMs=189
+2026-08-02 17:01:00.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=60 maxThreads=200 currentThreadCount=75
+2026-08-02 17:01:01.000 INFO  [access] ACCESS - ip=10.10.1.62 "GET /api/dashboard HTTP/1.1" 200 2500 "-" "Mozilla/5.0" responseTimeMs=583
+2026-08-02 17:01:02.000 INFO  [access] ACCESS - ip=10.10.2.63 "GET /api/dashboard HTTP/1.1" 200 3875 "-" "Mozilla/5.0" responseTimeMs=619
+2026-08-02 17:01:03.000 INFO  [access] ACCESS - ip=10.10.3.64 "GET /api/dashboard HTTP/1.1" 200 1975 "-" "Mozilla/5.0" responseTimeMs=214
+2026-08-02 17:01:04.000 INFO  [access] ACCESS - ip=10.10.4.65 "GET /api/dashboard HTTP/1.1" 200 1934 "-" "Mozilla/5.0" responseTimeMs=120
+2026-08-02 17:01:05.000 INFO  [access] ACCESS - ip=10.10.5.66 "GET /api/dashboard HTTP/1.1" 200 3633 "-" "Mozilla/5.0" responseTimeMs=674
+2026-08-02 17:01:06.000 INFO  [access] ACCESS - ip=10.10.6.67 "GET /api/dashboard HTTP/1.1" 200 2472 "-" "Mozilla/5.0" responseTimeMs=549
+2026-08-02 17:01:07.000 INFO  [access] ACCESS - ip=10.10.7.68 "GET /api/dashboard HTTP/1.1" 200 1672 "-" "Mozilla/5.0" responseTimeMs=277
+2026-08-02 17:01:08.000 INFO  [access] ACCESS - ip=10.10.8.69 "GET /api/dashboard HTTP/1.1" 200 4277 "-" "Mozilla/5.0" responseTimeMs=693
+2026-08-02 17:01:09.000 INFO  [access] ACCESS - ip=10.10.9.70 "GET /api/dashboard HTTP/1.1" 200 2580 "-" "Mozilla/5.0" responseTimeMs=510
+2026-08-02 17:01:10.000 INFO  [access] ACCESS - ip=10.10.10.71 "GET /api/dashboard HTTP/1.1" 200 2591 "-" "Mozilla/5.0" responseTimeMs=722
+2026-08-02 17:01:11.000 INFO  [access] ACCESS - ip=10.10.11.72 "GET /api/dashboard HTTP/1.1" 200 576 "-" "Mozilla/5.0" responseTimeMs=516
+2026-08-02 17:01:12.000 INFO  [access] ACCESS - ip=10.10.12.73 "GET /api/dashboard HTTP/1.1" 200 2856 "-" "Mozilla/5.0" responseTimeMs=733
+2026-08-02 17:01:13.000 INFO  [access] ACCESS - ip=10.10.13.74 "GET /api/dashboard HTTP/1.1" 200 4977 "-" "Mozilla/5.0" responseTimeMs=201
+2026-08-02 17:01:14.000 INFO  [access] ACCESS - ip=10.10.14.75 "GET /api/dashboard HTTP/1.1" 200 1105 "-" "Mozilla/5.0" responseTimeMs=492
+2026-08-02 17:01:15.000 INFO  [access] ACCESS - ip=10.10.15.76 "GET /api/dashboard HTTP/1.1" 200 3330 "-" "Mozilla/5.0" responseTimeMs=641
+2026-08-02 17:01:16.000 INFO  [access] ACCESS - ip=10.10.16.77 "GET /api/dashboard HTTP/1.1" 200 2950 "-" "Mozilla/5.0" responseTimeMs=694
+2026-08-02 17:01:17.000 INFO  [access] ACCESS - ip=10.10.17.78 "GET /api/dashboard HTTP/1.1" 200 3975 "-" "Mozilla/5.0" responseTimeMs=746
+2026-08-02 17:01:18.000 INFO  [access] ACCESS - ip=10.10.18.79 "GET /api/dashboard HTTP/1.1" 200 2548 "-" "Mozilla/5.0" responseTimeMs=507
+2026-08-02 17:01:19.000 INFO  [access] ACCESS - ip=10.10.19.80 "GET /api/dashboard HTTP/1.1" 200 2974 "-" "Mozilla/5.0" responseTimeMs=243
+2026-08-02 17:01:20.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=70 maxThreads=200 currentThreadCount=85
+2026-08-02 17:01:21.000 INFO  [access] ACCESS - ip=10.10.1.82 "GET /api/dashboard HTTP/1.1" 200 3651 "-" "Mozilla/5.0" responseTimeMs=534
+2026-08-02 17:01:22.000 INFO  [access] ACCESS - ip=10.10.2.83 "GET /api/dashboard HTTP/1.1" 200 1373 "-" "Mozilla/5.0" responseTimeMs=282
+2026-08-02 17:01:23.000 INFO  [access] ACCESS - ip=10.10.3.84 "GET /api/dashboard HTTP/1.1" 200 3624 "-" "Mozilla/5.0" responseTimeMs=625
+2026-08-02 17:01:24.000 INFO  [access] ACCESS - ip=10.10.4.85 "GET /api/dashboard HTTP/1.1" 200 3440 "-" "Mozilla/5.0" responseTimeMs=628
+2026-08-02 17:01:25.000 INFO  [access] ACCESS - ip=10.10.5.86 "GET /api/dashboard HTTP/1.1" 200 2923 "-" "Mozilla/5.0" responseTimeMs=756
+2026-08-02 17:01:26.000 INFO  [access] ACCESS - ip=10.10.6.87 "GET /api/dashboard HTTP/1.1" 200 2918 "-" "Mozilla/5.0" responseTimeMs=62
+2026-08-02 17:01:27.000 INFO  [access] ACCESS - ip=10.10.7.88 "GET /api/dashboard HTTP/1.1" 200 3742 "-" "Mozilla/5.0" responseTimeMs=321
+2026-08-02 17:01:28.000 INFO  [access] ACCESS - ip=10.10.8.89 "GET /api/dashboard HTTP/1.1" 200 566 "-" "Mozilla/5.0" responseTimeMs=619
+2026-08-02 17:01:29.000 INFO  [access] ACCESS - ip=10.10.9.90 "GET /api/dashboard HTTP/1.1" 200 901 "-" "Mozilla/5.0" responseTimeMs=660
+2026-08-02 17:01:30.000 INFO  [access] ACCESS - ip=10.10.10.91 "GET /api/dashboard HTTP/1.1" 200 4569 "-" "Mozilla/5.0" responseTimeMs=333
+2026-08-02 17:01:31.000 INFO  [access] ACCESS - ip=10.10.11.92 "GET /api/dashboard HTTP/1.1" 200 2385 "-" "Mozilla/5.0" responseTimeMs=661
+2026-08-02 17:01:32.000 INFO  [access] ACCESS - ip=10.10.12.93 "GET /api/dashboard HTTP/1.1" 200 3386 "-" "Mozilla/5.0" responseTimeMs=264
+2026-08-02 17:01:33.000 INFO  [access] ACCESS - ip=10.10.13.94 "GET /api/dashboard HTTP/1.1" 200 2057 "-" "Mozilla/5.0" responseTimeMs=675
+2026-08-02 17:01:34.000 INFO  [access] ACCESS - ip=10.10.14.95 "GET /api/dashboard HTTP/1.1" 200 2553 "-" "Mozilla/5.0" responseTimeMs=734
+2026-08-02 17:01:35.000 INFO  [access] ACCESS - ip=10.10.15.96 "GET /api/dashboard HTTP/1.1" 200 1620 "-" "Mozilla/5.0" responseTimeMs=683
+2026-08-02 17:01:36.000 INFO  [access] ACCESS - ip=10.10.16.97 "GET /api/dashboard HTTP/1.1" 200 1295 "-" "Mozilla/5.0" responseTimeMs=682
+2026-08-02 17:01:37.000 INFO  [access] ACCESS - ip=10.10.17.98 "GET /api/dashboard HTTP/1.1" 200 822 "-" "Mozilla/5.0" responseTimeMs=356
+2026-08-02 17:01:38.000 INFO  [access] ACCESS - ip=10.10.18.99 "GET /api/dashboard HTTP/1.1" 200 4111 "-" "Mozilla/5.0" responseTimeMs=74
+2026-08-02 17:01:39.000 INFO  [access] ACCESS - ip=10.10.19.100 "GET /api/dashboard HTTP/1.1" 200 3488 "-" "Mozilla/5.0" responseTimeMs=789
+2026-08-02 17:01:40.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=80 maxThreads=200 currentThreadCount=95
+2026-08-02 17:01:41.000 INFO  [access] ACCESS - ip=10.10.1.102 "GET /api/dashboard HTTP/1.1" 200 1576 "-" "Mozilla/5.0" responseTimeMs=132
+2026-08-02 17:01:42.000 INFO  [access] ACCESS - ip=10.10.2.103 "GET /api/dashboard HTTP/1.1" 200 2917 "-" "Mozilla/5.0" responseTimeMs=374
+2026-08-02 17:01:43.000 INFO  [access] ACCESS - ip=10.10.3.104 "GET /api/dashboard HTTP/1.1" 200 3903 "-" "Mozilla/5.0" responseTimeMs=219
+2026-08-02 17:01:44.000 INFO  [access] ACCESS - ip=10.10.4.105 "GET /api/dashboard HTTP/1.1" 200 2144 "-" "Mozilla/5.0" responseTimeMs=175
+2026-08-02 17:01:45.000 INFO  [access] ACCESS - ip=10.10.5.106 "GET /api/dashboard HTTP/1.1" 200 4918 "-" "Mozilla/5.0" responseTimeMs=414
+2026-08-02 17:01:46.000 INFO  [access] ACCESS - ip=10.10.6.107 "GET /api/dashboard HTTP/1.1" 200 4848 "-" "Mozilla/5.0" responseTimeMs=553
+2026-08-02 17:01:47.000 INFO  [access] ACCESS - ip=10.10.7.108 "GET /api/dashboard HTTP/1.1" 200 2732 "-" "Mozilla/5.0" responseTimeMs=208
+2026-08-02 17:01:48.000 INFO  [access] ACCESS - ip=10.10.8.109 "GET /api/dashboard HTTP/1.1" 200 2605 "-" "Mozilla/5.0" responseTimeMs=533
+2026-08-02 17:01:49.000 INFO  [access] ACCESS - ip=10.10.9.110 "GET /api/dashboard HTTP/1.1" 200 2917 "-" "Mozilla/5.0" responseTimeMs=386
+2026-08-02 17:01:50.000 INFO  [access] ACCESS - ip=10.10.10.111 "GET /api/dashboard HTTP/1.1" 200 1443 "-" "Mozilla/5.0" responseTimeMs=519
+2026-08-02 17:01:51.000 INFO  [access] ACCESS - ip=10.10.11.112 "GET /api/dashboard HTTP/1.1" 200 1116 "-" "Mozilla/5.0" responseTimeMs=184
+2026-08-02 17:01:52.000 INFO  [access] ACCESS - ip=10.10.12.113 "GET /api/dashboard HTTP/1.1" 200 2348 "-" "Mozilla/5.0" responseTimeMs=732
+2026-08-02 17:01:53.000 INFO  [access] ACCESS - ip=10.10.13.114 "GET /api/dashboard HTTP/1.1" 200 3755 "-" "Mozilla/5.0" responseTimeMs=610
+2026-08-02 17:01:54.000 INFO  [access] ACCESS - ip=10.10.14.115 "GET /api/dashboard HTTP/1.1" 200 3496 "-" "Mozilla/5.0" responseTimeMs=132
+2026-08-02 17:01:55.000 INFO  [access] ACCESS - ip=10.10.15.116 "GET /api/dashboard HTTP/1.1" 200 3732 "-" "Mozilla/5.0" responseTimeMs=54
+2026-08-02 17:01:56.000 INFO  [access] ACCESS - ip=10.10.16.117 "GET /api/dashboard HTTP/1.1" 200 2666 "-" "Mozilla/5.0" responseTimeMs=589
+2026-08-02 17:01:57.000 INFO  [access] ACCESS - ip=10.10.17.118 "GET /api/dashboard HTTP/1.1" 200 1512 "-" "Mozilla/5.0" responseTimeMs=505
+2026-08-02 17:01:58.000 INFO  [access] ACCESS - ip=10.10.18.119 "GET /api/dashboard HTTP/1.1" 200 3519 "-" "Mozilla/5.0" responseTimeMs=728
+2026-08-02 17:01:59.000 INFO  [access] ACCESS - ip=10.10.19.120 "GET /api/dashboard HTTP/1.1" 200 2647 "-" "Mozilla/5.0" responseTimeMs=638
+2026-08-02 17:02:00.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=90 maxThreads=200 currentThreadCount=105
+2026-08-02 17:02:01.000 INFO  [access] ACCESS - ip=10.10.1.122 "GET /api/dashboard HTTP/1.1" 200 3621 "-" "Mozilla/5.0" responseTimeMs=693
+2026-08-02 17:02:02.000 INFO  [access] ACCESS - ip=10.10.2.123 "GET /api/dashboard HTTP/1.1" 200 3543 "-" "Mozilla/5.0" responseTimeMs=150
+2026-08-02 17:02:03.000 INFO  [access] ACCESS - ip=10.10.3.124 "GET /api/dashboard HTTP/1.1" 200 2415 "-" "Mozilla/5.0" responseTimeMs=522
+2026-08-02 17:02:04.000 INFO  [access] ACCESS - ip=10.10.4.125 "GET /api/dashboard HTTP/1.1" 200 705 "-" "Mozilla/5.0" responseTimeMs=674
+2026-08-02 17:02:05.000 INFO  [access] ACCESS - ip=10.10.5.126 "GET /api/dashboard HTTP/1.1" 200 3187 "-" "Mozilla/5.0" responseTimeMs=664
+2026-08-02 17:02:06.000 INFO  [access] ACCESS - ip=10.10.6.127 "GET /api/dashboard HTTP/1.1" 200 2313 "-" "Mozilla/5.0" responseTimeMs=703
+2026-08-02 17:02:07.000 INFO  [access] ACCESS - ip=10.10.7.128 "GET /api/dashboard HTTP/1.1" 200 1017 "-" "Mozilla/5.0" responseTimeMs=690
+2026-08-02 17:02:08.000 INFO  [access] ACCESS - ip=10.10.8.129 "GET /api/dashboard HTTP/1.1" 200 4303 "-" "Mozilla/5.0" responseTimeMs=757
+2026-08-02 17:02:09.000 INFO  [access] ACCESS - ip=10.10.9.130 "GET /api/dashboard HTTP/1.1" 200 2975 "-" "Mozilla/5.0" responseTimeMs=704
+2026-08-02 17:02:10.000 INFO  [access] ACCESS - ip=10.10.10.131 "GET /api/dashboard HTTP/1.1" 200 3844 "-" "Mozilla/5.0" responseTimeMs=159
+2026-08-02 17:02:11.000 INFO  [access] ACCESS - ip=10.10.11.132 "GET /api/dashboard HTTP/1.1" 200 1645 "-" "Mozilla/5.0" responseTimeMs=86
+2026-08-02 17:02:12.000 INFO  [access] ACCESS - ip=10.10.12.133 "GET /api/dashboard HTTP/1.1" 200 804 "-" "Mozilla/5.0" responseTimeMs=351
+2026-08-02 17:02:13.000 INFO  [access] ACCESS - ip=10.10.13.134 "GET /api/dashboard HTTP/1.1" 200 4535 "-" "Mozilla/5.0" responseTimeMs=158
+2026-08-02 17:02:14.000 INFO  [access] ACCESS - ip=10.10.14.135 "GET /api/dashboard HTTP/1.1" 200 1296 "-" "Mozilla/5.0" responseTimeMs=280
+2026-08-02 17:02:15.000 INFO  [access] ACCESS - ip=10.10.15.136 "GET /api/dashboard HTTP/1.1" 200 4903 "-" "Mozilla/5.0" responseTimeMs=178
+2026-08-02 17:02:16.000 INFO  [access] ACCESS - ip=10.10.16.137 "GET /api/dashboard HTTP/1.1" 200 3683 "-" "Mozilla/5.0" responseTimeMs=504
+2026-08-02 17:02:17.000 INFO  [access] ACCESS - ip=10.10.17.138 "GET /api/dashboard HTTP/1.1" 200 3539 "-" "Mozilla/5.0" responseTimeMs=726
+2026-08-02 17:02:18.000 INFO  [access] ACCESS - ip=10.10.18.139 "GET /api/dashboard HTTP/1.1" 200 4925 "-" "Mozilla/5.0" responseTimeMs=469
+2026-08-02 17:02:19.000 INFO  [access] ACCESS - ip=10.10.19.140 "GET /api/dashboard HTTP/1.1" 200 1765 "-" "Mozilla/5.0" responseTimeMs=464
+2026-08-02 17:02:20.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=100 maxThreads=200 currentThreadCount=115
+2026-08-02 17:02:21.000 INFO  [access] ACCESS - ip=10.10.1.142 "GET /api/dashboard HTTP/1.1" 200 1311 "-" "Mozilla/5.0" responseTimeMs=541
+2026-08-02 17:02:22.000 INFO  [access] ACCESS - ip=10.10.2.143 "GET /api/dashboard HTTP/1.1" 200 3843 "-" "Mozilla/5.0" responseTimeMs=326
+2026-08-02 17:02:23.000 INFO  [access] ACCESS - ip=10.10.3.144 "GET /api/dashboard HTTP/1.1" 200 768 "-" "Mozilla/5.0" responseTimeMs=746
+2026-08-02 17:02:24.000 INFO  [access] ACCESS - ip=10.10.4.145 "GET /api/dashboard HTTP/1.1" 200 3535 "-" "Mozilla/5.0" responseTimeMs=262
+2026-08-02 17:02:25.000 INFO  [access] ACCESS - ip=10.10.5.146 "GET /api/dashboard HTTP/1.1" 200 4132 "-" "Mozilla/5.0" responseTimeMs=495
+2026-08-02 17:02:26.000 INFO  [access] ACCESS - ip=10.10.6.147 "GET /api/dashboard HTTP/1.1" 200 2434 "-" "Mozilla/5.0" responseTimeMs=411
+2026-08-02 17:02:27.000 INFO  [access] ACCESS - ip=10.10.7.148 "GET /api/dashboard HTTP/1.1" 200 1313 "-" "Mozilla/5.0" responseTimeMs=742
+2026-08-02 17:02:28.000 INFO  [access] ACCESS - ip=10.10.8.149 "GET /api/dashboard HTTP/1.1" 200 3509 "-" "Mozilla/5.0" responseTimeMs=597
+2026-08-02 17:02:29.000 INFO  [access] ACCESS - ip=10.10.9.150 "GET /api/dashboard HTTP/1.1" 200 3438 "-" "Mozilla/5.0" responseTimeMs=102
+2026-08-02 17:02:30.000 INFO  [access] ACCESS - ip=10.10.10.151 "GET /api/dashboard HTTP/1.1" 200 3761 "-" "Mozilla/5.0" responseTimeMs=322
+2026-08-02 17:02:31.000 INFO  [access] ACCESS - ip=10.10.11.152 "GET /api/dashboard HTTP/1.1" 200 2054 "-" "Mozilla/5.0" responseTimeMs=165
+2026-08-02 17:02:32.000 INFO  [access] ACCESS - ip=10.10.12.153 "GET /api/dashboard HTTP/1.1" 200 4225 "-" "Mozilla/5.0" responseTimeMs=133
+2026-08-02 17:02:33.000 INFO  [access] ACCESS - ip=10.10.13.154 "GET /api/dashboard HTTP/1.1" 200 2237 "-" "Mozilla/5.0" responseTimeMs=697
+2026-08-02 17:02:34.000 INFO  [access] ACCESS - ip=10.10.14.155 "GET /api/dashboard HTTP/1.1" 200 674 "-" "Mozilla/5.0" responseTimeMs=91
+2026-08-02 17:02:35.000 INFO  [access] ACCESS - ip=10.10.15.156 "GET /api/dashboard HTTP/1.1" 200 3232 "-" "Mozilla/5.0" responseTimeMs=289
+2026-08-02 17:02:36.000 INFO  [access] ACCESS - ip=10.10.16.157 "GET /api/dashboard HTTP/1.1" 200 1531 "-" "Mozilla/5.0" responseTimeMs=618
+2026-08-02 17:02:37.000 INFO  [access] ACCESS - ip=10.10.17.158 "GET /api/dashboard HTTP/1.1" 200 2181 "-" "Mozilla/5.0" responseTimeMs=110
+2026-08-02 17:02:38.000 INFO  [access] ACCESS - ip=10.10.18.159 "GET /api/dashboard HTTP/1.1" 200 2197 "-" "Mozilla/5.0" responseTimeMs=640
+2026-08-02 17:02:39.000 INFO  [access] ACCESS - ip=10.10.19.160 "GET /api/dashboard HTTP/1.1" 200 2269 "-" "Mozilla/5.0" responseTimeMs=278
+2026-08-02 17:02:40.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=110 maxThreads=200 currentThreadCount=125
+2026-08-02 17:02:41.000 INFO  [access] ACCESS - ip=10.10.1.162 "GET /api/dashboard HTTP/1.1" 200 3191 "-" "Mozilla/5.0" responseTimeMs=191
+2026-08-02 17:02:42.000 INFO  [access] ACCESS - ip=10.10.2.163 "GET /api/dashboard HTTP/1.1" 200 523 "-" "Mozilla/5.0" responseTimeMs=323
+2026-08-02 17:02:43.000 INFO  [access] ACCESS - ip=10.10.3.164 "GET /api/dashboard HTTP/1.1" 200 1685 "-" "Mozilla/5.0" responseTimeMs=173
+2026-08-02 17:02:44.000 INFO  [access] ACCESS - ip=10.10.4.165 "GET /api/dashboard HTTP/1.1" 200 4925 "-" "Mozilla/5.0" responseTimeMs=296
+2026-08-02 17:02:45.000 INFO  [access] ACCESS - ip=10.10.5.166 "GET /api/dashboard HTTP/1.1" 200 1929 "-" "Mozilla/5.0" responseTimeMs=152
+2026-08-02 17:02:46.000 INFO  [access] ACCESS - ip=10.10.6.167 "GET /api/dashboard HTTP/1.1" 200 711 "-" "Mozilla/5.0" responseTimeMs=174
+2026-08-02 17:02:47.000 INFO  [access] ACCESS - ip=10.10.7.168 "GET /api/dashboard HTTP/1.1" 200 621 "-" "Mozilla/5.0" responseTimeMs=406
+2026-08-02 17:02:48.000 INFO  [access] ACCESS - ip=10.10.8.169 "GET /api/dashboard HTTP/1.1" 200 2449 "-" "Mozilla/5.0" responseTimeMs=642
+2026-08-02 17:02:49.000 INFO  [access] ACCESS - ip=10.10.9.170 "GET /api/dashboard HTTP/1.1" 200 3152 "-" "Mozilla/5.0" responseTimeMs=56
+2026-08-02 17:02:50.000 INFO  [access] ACCESS - ip=10.10.10.171 "GET /api/dashboard HTTP/1.1" 200 1927 "-" "Mozilla/5.0" responseTimeMs=311
+2026-08-02 17:02:51.000 INFO  [access] ACCESS - ip=10.10.11.172 "GET /api/dashboard HTTP/1.1" 200 929 "-" "Mozilla/5.0" responseTimeMs=169
+2026-08-02 17:02:52.000 INFO  [access] ACCESS - ip=10.10.12.173 "GET /api/dashboard HTTP/1.1" 200 3948 "-" "Mozilla/5.0" responseTimeMs=578
+2026-08-02 17:02:53.000 INFO  [access] ACCESS - ip=10.10.13.174 "GET /api/dashboard HTTP/1.1" 200 1431 "-" "Mozilla/5.0" responseTimeMs=105
+2026-08-02 17:02:54.000 ERROR [http-nio-8080-exec-175] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:02:55.000 INFO  [access] ACCESS - ip=10.10.15.176 "GET /api/dashboard HTTP/1.1" 200 4401 "-" "Mozilla/5.0" responseTimeMs=499
+2026-08-02 17:02:56.000 INFO  [access] ACCESS - ip=10.10.16.177 "GET /api/dashboard HTTP/1.1" 200 3465 "-" "Mozilla/5.0" responseTimeMs=565
+2026-08-02 17:02:57.000 INFO  [access] ACCESS - ip=10.10.17.178 "GET /api/dashboard HTTP/1.1" 200 1393 "-" "Mozilla/5.0" responseTimeMs=502
+2026-08-02 17:02:58.000 INFO  [access] ACCESS - ip=10.10.18.179 "GET /api/dashboard HTTP/1.1" 200 4627 "-" "Mozilla/5.0" responseTimeMs=266
+2026-08-02 17:02:59.000 INFO  [access] ACCESS - ip=10.10.19.180 "GET /api/dashboard HTTP/1.1" 200 855 "-" "Mozilla/5.0" responseTimeMs=784
+2026-08-02 17:03:00.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=120 maxThreads=200 currentThreadCount=135
+2026-08-02 17:03:01.000 INFO  [access] ACCESS - ip=10.10.1.182 "GET /api/dashboard HTTP/1.1" 200 4771 "-" "Mozilla/5.0" responseTimeMs=348
+2026-08-02 17:03:02.000 INFO  [access] ACCESS - ip=10.10.2.183 "GET /api/dashboard HTTP/1.1" 200 4252 "-" "Mozilla/5.0" responseTimeMs=698
+2026-08-02 17:03:03.000 INFO  [access] ACCESS - ip=10.10.3.184 "GET /api/dashboard HTTP/1.1" 200 755 "-" "Mozilla/5.0" responseTimeMs=102
+2026-08-02 17:03:04.000 INFO  [access] ACCESS - ip=10.10.4.185 "GET /api/dashboard HTTP/1.1" 200 4423 "-" "Mozilla/5.0" responseTimeMs=451
+2026-08-02 17:03:05.000 INFO  [access] ACCESS - ip=10.10.5.186 "GET /api/dashboard HTTP/1.1" 200 3992 "-" "Mozilla/5.0" responseTimeMs=742
+2026-08-02 17:03:06.000 ERROR [http-nio-8080-exec-187] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:03:07.000 INFO  [access] ACCESS - ip=10.10.7.188 "GET /api/dashboard HTTP/1.1" 200 1384 "-" "Mozilla/5.0" responseTimeMs=542
+2026-08-02 17:03:08.000 INFO  [access] ACCESS - ip=10.10.8.189 "GET /api/dashboard HTTP/1.1" 200 4133 "-" "Mozilla/5.0" responseTimeMs=115
+2026-08-02 17:03:09.000 INFO  [access] ACCESS - ip=10.10.9.190 "GET /api/dashboard HTTP/1.1" 200 1161 "-" "Mozilla/5.0" responseTimeMs=369
+2026-08-02 17:03:10.000 INFO  [access] ACCESS - ip=10.10.10.191 "GET /api/dashboard HTTP/1.1" 200 1715 "-" "Mozilla/5.0" responseTimeMs=107
+2026-08-02 17:03:11.000 INFO  [access] ACCESS - ip=10.10.11.192 "GET /api/dashboard HTTP/1.1" 502 481 "-" "Mozilla/5.0" responseTimeMs=13655
+2026-08-02 17:03:12.000 ERROR [http-nio-8080-exec-193] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:03:13.000 INFO  [access] ACCESS - ip=10.10.13.194 "GET /api/dashboard HTTP/1.1" 504 811 "-" "Mozilla/5.0" responseTimeMs=12663
+2026-08-02 17:03:14.000 INFO  [access] ACCESS - ip=10.10.14.195 "GET /api/dashboard HTTP/1.1" 504 717 "-" "Mozilla/5.0" responseTimeMs=17096
+2026-08-02 17:03:15.000 INFO  [access] ACCESS - ip=10.10.15.196 "GET /api/dashboard HTTP/1.1" 500 317 "-" "Mozilla/5.0" responseTimeMs=10045
+2026-08-02 17:03:16.000 INFO  [access] ACCESS - ip=10.10.16.197 "GET /api/dashboard HTTP/1.1" 504 662 "-" "Mozilla/5.0" responseTimeMs=10487
+2026-08-02 17:03:17.000 INFO  [access] ACCESS - ip=10.10.17.198 "GET /api/dashboard HTTP/1.1" 504 547 "-" "Mozilla/5.0" responseTimeMs=17860
+2026-08-02 17:03:18.000 ERROR [http-nio-8080-exec-199] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:03:19.000 INFO  [access] ACCESS - ip=10.10.19.200 "GET /api/dashboard HTTP/1.1" 504 625 "-" "Mozilla/5.0" responseTimeMs=6115
+2026-08-02 17:03:20.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=130 maxThreads=200 currentThreadCount=145
+2026-08-02 17:03:21.000 INFO  [access] ACCESS - ip=10.10.1.202 "GET /api/dashboard HTTP/1.1" 503 637 "-" "Mozilla/5.0" responseTimeMs=13240
+2026-08-02 17:03:22.000 INFO  [access] ACCESS - ip=10.10.2.203 "GET /api/dashboard HTTP/1.1" 503 583 "-" "Mozilla/5.0" responseTimeMs=8001
+2026-08-02 17:03:23.000 INFO  [access] ACCESS - ip=10.10.3.204 "GET /api/dashboard HTTP/1.1" 504 268 "-" "Mozilla/5.0" responseTimeMs=5989
+2026-08-02 17:03:24.000 ERROR [http-nio-8080-exec-5] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:03:25.000 INFO  [access] ACCESS - ip=10.10.5.206 "GET /api/dashboard HTTP/1.1" 500 295 "-" "Mozilla/5.0" responseTimeMs=17151
+2026-08-02 17:03:26.000 INFO  [access] ACCESS - ip=10.10.6.207 "GET /api/dashboard HTTP/1.1" 500 581 "-" "Mozilla/5.0" responseTimeMs=7263
+2026-08-02 17:03:27.000 INFO  [access] ACCESS - ip=10.10.7.208 "GET /api/dashboard HTTP/1.1" 500 800 "-" "Mozilla/5.0" responseTimeMs=13801
+2026-08-02 17:03:28.000 INFO  [access] ACCESS - ip=10.10.8.209 "GET /api/dashboard HTTP/1.1" 500 620 "-" "Mozilla/5.0" responseTimeMs=14586
+2026-08-02 17:03:29.000 INFO  [access] ACCESS - ip=10.10.9.210 "GET /api/dashboard HTTP/1.1" 504 252 "-" "Mozilla/5.0" responseTimeMs=12425
+2026-08-02 17:03:30.000 ERROR [http-nio-8080-exec-11] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:03:31.000 INFO  [access] ACCESS - ip=10.10.11.212 "GET /api/dashboard HTTP/1.1" 503 560 "-" "Mozilla/5.0" responseTimeMs=6394
+2026-08-02 17:03:32.000 INFO  [access] ACCESS - ip=10.10.12.213 "GET /api/dashboard HTTP/1.1" 502 358 "-" "Mozilla/5.0" responseTimeMs=18800
+2026-08-02 17:03:33.000 INFO  [access] ACCESS - ip=10.10.13.214 "GET /api/dashboard HTTP/1.1" 502 310 "-" "Mozilla/5.0" responseTimeMs=14472
+2026-08-02 17:03:34.000 INFO  [access] ACCESS - ip=10.10.14.215 "GET /api/dashboard HTTP/1.1" 503 317 "-" "Mozilla/5.0" responseTimeMs=12128
+2026-08-02 17:03:35.000 INFO  [access] ACCESS - ip=10.10.15.216 "GET /api/dashboard HTTP/1.1" 502 639 "-" "Mozilla/5.0" responseTimeMs=3860
+2026-08-02 17:03:36.000 ERROR [http-nio-8080-exec-17] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:03:37.000 INFO  [access] ACCESS - ip=10.10.17.218 "GET /api/dashboard HTTP/1.1" 503 229 "-" "Mozilla/5.0" responseTimeMs=8911
+2026-08-02 17:03:38.000 INFO  [access] ACCESS - ip=10.10.18.219 "GET /api/dashboard HTTP/1.1" 503 516 "-" "Mozilla/5.0" responseTimeMs=14135
+2026-08-02 17:03:39.000 INFO  [access] ACCESS - ip=10.10.19.220 "GET /api/dashboard HTTP/1.1" 503 206 "-" "Mozilla/5.0" responseTimeMs=8944
+2026-08-02 17:03:40.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=140 maxThreads=200 currentThreadCount=155
+2026-08-02 17:03:41.000 INFO  [access] ACCESS - ip=10.10.1.222 "GET /api/dashboard HTTP/1.1" 502 779 "-" "Mozilla/5.0" responseTimeMs=16132
+2026-08-02 17:03:42.000 ERROR [http-nio-8080-exec-23] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:03:43.000 INFO  [access] ACCESS - ip=10.10.3.224 "GET /api/dashboard HTTP/1.1" 500 345 "-" "Mozilla/5.0" responseTimeMs=4004
+2026-08-02 17:03:44.000 INFO  [access] ACCESS - ip=10.10.4.225 "GET /api/dashboard HTTP/1.1" 500 743 "-" "Mozilla/5.0" responseTimeMs=10049
+2026-08-02 17:03:45.000 INFO  [access] ACCESS - ip=10.10.5.226 "GET /api/dashboard HTTP/1.1" 504 629 "-" "Mozilla/5.0" responseTimeMs=17865
+2026-08-02 17:03:46.000 INFO  [access] ACCESS - ip=10.10.6.227 "GET /api/dashboard HTTP/1.1" 503 361 "-" "Mozilla/5.0" responseTimeMs=15125
+2026-08-02 17:03:47.000 INFO  [access] ACCESS - ip=10.10.7.228 "GET /api/dashboard HTTP/1.1" 503 532 "-" "Mozilla/5.0" responseTimeMs=5783
+2026-08-02 17:03:48.000 ERROR [http-nio-8080-exec-29] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:03:49.000 INFO  [access] ACCESS - ip=10.10.9.230 "GET /api/dashboard HTTP/1.1" 500 359 "-" "Mozilla/5.0" responseTimeMs=8158
+2026-08-02 17:03:50.000 INFO  [access] ACCESS - ip=10.10.10.231 "GET /api/dashboard HTTP/1.1" 500 890 "-" "Mozilla/5.0" responseTimeMs=5673
+2026-08-02 17:03:51.000 INFO  [access] ACCESS - ip=10.10.11.232 "GET /api/dashboard HTTP/1.1" 503 653 "-" "Mozilla/5.0" responseTimeMs=16894
+2026-08-02 17:03:52.000 INFO  [access] ACCESS - ip=10.10.12.233 "GET /api/dashboard HTTP/1.1" 504 821 "-" "Mozilla/5.0" responseTimeMs=17484
+2026-08-02 17:03:53.000 INFO  [access] ACCESS - ip=10.10.13.234 "GET /api/dashboard HTTP/1.1" 504 479 "-" "Mozilla/5.0" responseTimeMs=10063
+2026-08-02 17:03:54.000 ERROR [http-nio-8080-exec-35] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:03:55.000 INFO  [access] ACCESS - ip=10.10.15.236 "GET /api/dashboard HTTP/1.1" 500 553 "-" "Mozilla/5.0" responseTimeMs=17087
+2026-08-02 17:03:56.000 INFO  [access] ACCESS - ip=10.10.16.237 "GET /api/dashboard HTTP/1.1" 500 490 "-" "Mozilla/5.0" responseTimeMs=18945
+2026-08-02 17:03:57.000 INFO  [access] ACCESS - ip=10.10.17.238 "GET /api/dashboard HTTP/1.1" 503 246 "-" "Mozilla/5.0" responseTimeMs=10225
+2026-08-02 17:03:58.000 INFO  [access] ACCESS - ip=10.10.18.239 "GET /api/dashboard HTTP/1.1" 504 813 "-" "Mozilla/5.0" responseTimeMs=4795
+2026-08-02 17:03:59.000 INFO  [access] ACCESS - ip=10.10.19.240 "GET /api/dashboard HTTP/1.1" 500 409 "-" "Mozilla/5.0" responseTimeMs=12876
+2026-08-02 17:04:00.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=150 maxThreads=200 currentThreadCount=165
+2026-08-02 17:04:01.000 INFO  [access] ACCESS - ip=10.10.1.242 "GET /api/dashboard HTTP/1.1" 502 340 "-" "Mozilla/5.0" responseTimeMs=11372
+2026-08-02 17:04:02.000 INFO  [access] ACCESS - ip=10.10.2.243 "GET /api/dashboard HTTP/1.1" 503 535 "-" "Mozilla/5.0" responseTimeMs=6931
+2026-08-02 17:04:03.000 INFO  [access] ACCESS - ip=10.10.3.244 "GET /api/dashboard HTTP/1.1" 500 709 "-" "Mozilla/5.0" responseTimeMs=17111
+2026-08-02 17:04:04.000 INFO  [access] ACCESS - ip=10.10.4.245 "GET /api/dashboard HTTP/1.1" 502 332 "-" "Mozilla/5.0" responseTimeMs=15458
+2026-08-02 17:04:05.000 INFO  [access] ACCESS - ip=10.10.5.246 "GET /api/dashboard HTTP/1.1" 502 712 "-" "Mozilla/5.0" responseTimeMs=14605
+2026-08-02 17:04:06.000 ERROR [http-nio-8080-exec-47] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:04:07.000 INFO  [access] ACCESS - ip=10.10.7.248 "GET /api/dashboard HTTP/1.1" 500 606 "-" "Mozilla/5.0" responseTimeMs=4386
+2026-08-02 17:04:08.000 INFO  [access] ACCESS - ip=10.10.8.249 "GET /api/dashboard HTTP/1.1" 504 219 "-" "Mozilla/5.0" responseTimeMs=18065
+2026-08-02 17:04:09.000 INFO  [access] ACCESS - ip=10.10.9.250 "GET /api/dashboard HTTP/1.1" 500 520 "-" "Mozilla/5.0" responseTimeMs=17066
+2026-08-02 17:04:10.000 INFO  [access] ACCESS - ip=10.10.10.1 "GET /api/dashboard HTTP/1.1" 504 855 "-" "Mozilla/5.0" responseTimeMs=16686
+2026-08-02 17:04:11.000 INFO  [access] ACCESS - ip=10.10.11.2 "GET /api/dashboard HTTP/1.1" 503 317 "-" "Mozilla/5.0" responseTimeMs=16272
+2026-08-02 17:04:12.000 ERROR [http-nio-8080-exec-53] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:04:13.000 INFO  [access] ACCESS - ip=10.10.13.4 "GET /api/dashboard HTTP/1.1" 500 532 "-" "Mozilla/5.0" responseTimeMs=8631
+2026-08-02 17:04:14.000 INFO  [access] ACCESS - ip=10.10.14.5 "GET /api/dashboard HTTP/1.1" 504 570 "-" "Mozilla/5.0" responseTimeMs=5887
+2026-08-02 17:04:15.000 INFO  [access] ACCESS - ip=10.10.15.6 "GET /api/dashboard HTTP/1.1" 504 308 "-" "Mozilla/5.0" responseTimeMs=10972
+2026-08-02 17:04:16.000 INFO  [access] ACCESS - ip=10.10.16.7 "GET /api/dashboard HTTP/1.1" 504 803 "-" "Mozilla/5.0" responseTimeMs=16121
+2026-08-02 17:04:17.000 INFO  [access] ACCESS - ip=10.10.17.8 "GET /api/dashboard HTTP/1.1" 500 605 "-" "Mozilla/5.0" responseTimeMs=13167
+2026-08-02 17:04:18.000 ERROR [http-nio-8080-exec-59] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:04:19.000 INFO  [access] ACCESS - ip=10.10.19.10 "GET /api/dashboard HTTP/1.1" 503 426 "-" "Mozilla/5.0" responseTimeMs=13913
+2026-08-02 17:04:20.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=160 maxThreads=200 currentThreadCount=175
+2026-08-02 17:04:21.000 INFO  [access] ACCESS - ip=10.10.1.12 "GET /api/dashboard HTTP/1.1" 502 278 "-" "Mozilla/5.0" responseTimeMs=19727
+2026-08-02 17:04:22.000 INFO  [access] ACCESS - ip=10.10.2.13 "GET /api/dashboard HTTP/1.1" 500 743 "-" "Mozilla/5.0" responseTimeMs=19710
+2026-08-02 17:04:23.000 INFO  [access] ACCESS - ip=10.10.3.14 "GET /api/dashboard HTTP/1.1" 502 557 "-" "Mozilla/5.0" responseTimeMs=14504
+2026-08-02 17:04:24.000 ERROR [http-nio-8080-exec-65] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:04:25.000 INFO  [access] ACCESS - ip=10.10.5.16 "GET /api/dashboard HTTP/1.1" 502 441 "-" "Mozilla/5.0" responseTimeMs=6368
+2026-08-02 17:04:26.000 INFO  [access] ACCESS - ip=10.10.6.17 "GET /api/dashboard HTTP/1.1" 502 462 "-" "Mozilla/5.0" responseTimeMs=9464
+2026-08-02 17:04:27.000 INFO  [access] ACCESS - ip=10.10.7.18 "GET /api/dashboard HTTP/1.1" 502 816 "-" "Mozilla/5.0" responseTimeMs=8009
+2026-08-02 17:04:28.000 INFO  [access] ACCESS - ip=10.10.8.19 "GET /api/dashboard HTTP/1.1" 500 381 "-" "Mozilla/5.0" responseTimeMs=19191
+2026-08-02 17:04:29.000 INFO  [access] ACCESS - ip=10.10.9.20 "GET /api/dashboard HTTP/1.1" 504 777 "-" "Mozilla/5.0" responseTimeMs=17709
+2026-08-02 17:04:30.000 ERROR [http-nio-8080-exec-71] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:04:31.000 INFO  [access] ACCESS - ip=10.10.11.22 "GET /api/dashboard HTTP/1.1" 503 842 "-" "Mozilla/5.0" responseTimeMs=13359
+2026-08-02 17:04:32.000 INFO  [access] ACCESS - ip=10.10.12.23 "GET /api/dashboard HTTP/1.1" 502 650 "-" "Mozilla/5.0" responseTimeMs=5237
+2026-08-02 17:04:33.000 INFO  [access] ACCESS - ip=10.10.13.24 "GET /api/dashboard HTTP/1.1" 504 652 "-" "Mozilla/5.0" responseTimeMs=12922
+2026-08-02 17:04:34.000 INFO  [access] ACCESS - ip=10.10.14.25 "GET /api/dashboard HTTP/1.1" 503 805 "-" "Mozilla/5.0" responseTimeMs=4840
+2026-08-02 17:04:35.000 INFO  [access] ACCESS - ip=10.10.15.26 "GET /api/dashboard HTTP/1.1" 503 719 "-" "Mozilla/5.0" responseTimeMs=5431
+2026-08-02 17:04:36.000 ERROR [http-nio-8080-exec-77] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:04:37.000 INFO  [access] ACCESS - ip=10.10.17.28 "GET /api/dashboard HTTP/1.1" 503 672 "-" "Mozilla/5.0" responseTimeMs=17808
+2026-08-02 17:04:38.000 INFO  [access] ACCESS - ip=10.10.18.29 "GET /api/dashboard HTTP/1.1" 500 258 "-" "Mozilla/5.0" responseTimeMs=15082
+2026-08-02 17:04:39.000 INFO  [access] ACCESS - ip=10.10.19.30 "GET /api/dashboard HTTP/1.1" 503 278 "-" "Mozilla/5.0" responseTimeMs=5958
+2026-08-02 17:04:40.000 INFO  [tomcat-monitor] o.a.tomcat.util.threads.ThreadPoolExecutor - currentThreadsBusy=170 maxThreads=200 currentThreadCount=185
+2026-08-02 17:04:41.000 INFO  [access] ACCESS - ip=10.10.1.32 "GET /api/dashboard HTTP/1.1" 504 673 "-" "Mozilla/5.0" responseTimeMs=4344
+2026-08-02 17:04:42.000 ERROR [http-nio-8080-exec-83] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:04:43.000 INFO  [access] ACCESS - ip=10.10.3.34 "GET /api/dashboard HTTP/1.1" 504 785 "-" "Mozilla/5.0" responseTimeMs=9168
+2026-08-02 17:04:44.000 INFO  [access] ACCESS - ip=10.10.4.35 "GET /api/dashboard HTTP/1.1" 503 819 "-" "Mozilla/5.0" responseTimeMs=18585
+2026-08-02 17:04:45.000 INFO  [access] ACCESS - ip=10.10.5.36 "GET /api/dashboard HTTP/1.1" 502 263 "-" "Mozilla/5.0" responseTimeMs=17762
+2026-08-02 17:04:46.000 INFO  [access] ACCESS - ip=10.10.6.37 "GET /api/dashboard HTTP/1.1" 500 551 "-" "Mozilla/5.0" responseTimeMs=5763
+2026-08-02 17:04:47.000 INFO  [access] ACCESS - ip=10.10.7.38 "GET /api/dashboard HTTP/1.1" 502 240 "-" "Mozilla/5.0" responseTimeMs=11118
+2026-08-02 17:04:48.000 ERROR [http-nio-8080-exec-89] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:04:49.000 INFO  [access] ACCESS - ip=10.10.9.40 "GET /api/dashboard HTTP/1.1" 504 649 "-" "Mozilla/5.0" responseTimeMs=8201
+2026-08-02 17:04:50.000 INFO  [access] ACCESS - ip=10.10.10.41 "GET /api/dashboard HTTP/1.1" 503 581 "-" "Mozilla/5.0" responseTimeMs=12269
+2026-08-02 17:04:51.000 INFO  [access] ACCESS - ip=10.10.11.42 "GET /api/dashboard HTTP/1.1" 504 618 "-" "Mozilla/5.0" responseTimeMs=14087
+2026-08-02 17:04:52.000 INFO  [access] ACCESS - ip=10.10.12.43 "GET /api/dashboard HTTP/1.1" 500 846 "-" "Mozilla/5.0" responseTimeMs=13965
+2026-08-02 17:04:53.000 INFO  [access] ACCESS - ip=10.10.13.44 "GET /api/dashboard HTTP/1.1" 500 537 "-" "Mozilla/5.0" responseTimeMs=6096
+2026-08-02 17:04:54.000 ERROR [http-nio-8080-exec-95] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() threw exception: java.util.concurrent.RejectedExecutionException
+2026-08-02 17:04:55.000 INFO  [access] ACCESS - ip=10.10.15.46 "GET /api/dashboard HTTP/1.1" 504 490 "-" "Mozilla/5.0" responseTimeMs=11257
+2026-08-02 17:04:56.000 INFO  [access] ACCESS - ip=10.10.16.47 "GET /api/dashboard HTTP/1.1" 502 541 "-" "Mozilla/5.0" responseTimeMs=5670
+2026-08-02 17:04:57.000 INFO  [access] ACCESS - ip=10.10.17.48 "GET /api/dashboard HTTP/1.1" 502 558 "-" "Mozilla/5.0" responseTimeMs=13165
+2026-08-02 17:04:58.000 INFO  [access] ACCESS - ip=10.10.18.49 "GET /api/dashboard HTTP/1.1" 504 332 "-" "Mozilla/5.0" responseTimeMs=5776
+2026-08-02 17:04:59.000 INFO  [access] ACCESS - ip=10.10.19.50 "GET /api/dashboard HTTP/1.1" 503 772 "-" "Mozilla/5.0" responseTimeMs=15343

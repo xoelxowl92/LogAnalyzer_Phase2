@@ -1,0 +1,444 @@
+# TEST SCENARIO: Exception 및 Stack Trace 집중 로그
+# Generated sample log for Dify log analyzer validation
+# Encoding: UTF-8
+
+2026-08-02 11:00:00.000 ERROR [http-nio-8080-exec-1] c.s.common.GlobalExceptionHandler - requestId=EX-00000 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:00:01.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=EX-00000 status=500 elapsedMs=888
+2026-08-02 11:00:07.000 ERROR [http-nio-8080-exec-2] c.s.common.GlobalExceptionHandler - requestId=EX-00001 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:00:08.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=EX-00001 status=500 elapsedMs=1140
+2026-08-02 11:00:14.000 ERROR [http-nio-8080-exec-3] c.s.common.GlobalExceptionHandler - requestId=EX-00002 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:00:15.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=EX-00002 status=500 elapsedMs=2206
+2026-08-02 11:00:21.000 ERROR [http-nio-8080-exec-4] c.s.common.GlobalExceptionHandler - requestId=EX-00003 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:00:22.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=EX-00003 status=500 elapsedMs=985
+2026-08-02 11:00:28.000 ERROR [http-nio-8080-exec-5] c.s.common.GlobalExceptionHandler - requestId=EX-00004 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:00:29.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=EX-00004 status=500 elapsedMs=916
+2026-08-02 11:00:35.000 ERROR [http-nio-8080-exec-6] c.s.common.GlobalExceptionHandler - requestId=EX-00005 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:00:36.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=EX-00005 status=500 elapsedMs=4572
+2026-08-02 11:00:42.000 ERROR [http-nio-8080-exec-7] c.s.common.GlobalExceptionHandler - requestId=EX-00006 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:00:43.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=EX-00006 status=500 elapsedMs=1313
+2026-08-02 11:00:49.000 ERROR [http-nio-8080-exec-8] c.s.common.GlobalExceptionHandler - requestId=EX-00007 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:00:50.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=EX-00007 status=500 elapsedMs=2271
+2026-08-02 11:00:56.000 ERROR [http-nio-8080-exec-9] c.s.common.GlobalExceptionHandler - requestId=EX-00008 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:00:57.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=EX-00008 status=500 elapsedMs=2348
+2026-08-02 11:01:03.000 ERROR [http-nio-8080-exec-10] c.s.common.GlobalExceptionHandler - requestId=EX-00009 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:01:04.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=EX-00009 status=500 elapsedMs=4994
+2026-08-02 11:01:10.000 ERROR [http-nio-8080-exec-1] c.s.common.GlobalExceptionHandler - requestId=EX-00010 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:01:11.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=EX-00010 status=500 elapsedMs=1765
+2026-08-02 11:01:17.000 ERROR [http-nio-8080-exec-2] c.s.common.GlobalExceptionHandler - requestId=EX-00011 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:01:18.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=EX-00011 status=500 elapsedMs=2848
+2026-08-02 11:01:24.000 ERROR [http-nio-8080-exec-3] c.s.common.GlobalExceptionHandler - requestId=EX-00012 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:01:25.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=EX-00012 status=500 elapsedMs=1707
+2026-08-02 11:01:31.000 ERROR [http-nio-8080-exec-4] c.s.common.GlobalExceptionHandler - requestId=EX-00013 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:01:32.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=EX-00013 status=500 elapsedMs=2202
+2026-08-02 11:01:38.000 ERROR [http-nio-8080-exec-5] c.s.common.GlobalExceptionHandler - requestId=EX-00014 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:01:39.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=EX-00014 status=500 elapsedMs=4180
+2026-08-02 11:01:45.000 ERROR [http-nio-8080-exec-6] c.s.common.GlobalExceptionHandler - requestId=EX-00015 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:01:46.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=EX-00015 status=500 elapsedMs=4042
+2026-08-02 11:01:52.000 ERROR [http-nio-8080-exec-7] c.s.common.GlobalExceptionHandler - requestId=EX-00016 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:01:53.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=EX-00016 status=500 elapsedMs=2097
+2026-08-02 11:01:59.000 ERROR [http-nio-8080-exec-8] c.s.common.GlobalExceptionHandler - requestId=EX-00017 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:02:00.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=EX-00017 status=500 elapsedMs=456
+2026-08-02 11:02:06.000 ERROR [http-nio-8080-exec-9] c.s.common.GlobalExceptionHandler - requestId=EX-00018 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:02:07.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=EX-00018 status=500 elapsedMs=796
+2026-08-02 11:02:13.000 ERROR [http-nio-8080-exec-10] c.s.common.GlobalExceptionHandler - requestId=EX-00019 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:02:14.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=EX-00019 status=500 elapsedMs=3509
+2026-08-02 11:02:20.000 ERROR [http-nio-8080-exec-1] c.s.common.GlobalExceptionHandler - requestId=EX-00020 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:02:21.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=EX-00020 status=500 elapsedMs=2306
+2026-08-02 11:02:27.000 ERROR [http-nio-8080-exec-2] c.s.common.GlobalExceptionHandler - requestId=EX-00021 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:02:28.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=EX-00021 status=500 elapsedMs=401
+2026-08-02 11:02:34.000 ERROR [http-nio-8080-exec-3] c.s.common.GlobalExceptionHandler - requestId=EX-00022 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:02:35.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=EX-00022 status=500 elapsedMs=69
+2026-08-02 11:02:41.000 ERROR [http-nio-8080-exec-4] c.s.common.GlobalExceptionHandler - requestId=EX-00023 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:02:42.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=EX-00023 status=500 elapsedMs=2772
+2026-08-02 11:02:48.000 ERROR [http-nio-8080-exec-5] c.s.common.GlobalExceptionHandler - requestId=EX-00024 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:02:49.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=EX-00024 status=500 elapsedMs=1111
+2026-08-02 11:02:55.000 ERROR [http-nio-8080-exec-6] c.s.common.GlobalExceptionHandler - requestId=EX-00025 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:02:56.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=EX-00025 status=500 elapsedMs=2185
+2026-08-02 11:03:02.000 ERROR [http-nio-8080-exec-7] c.s.common.GlobalExceptionHandler - requestId=EX-00026 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:03:03.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=EX-00026 status=500 elapsedMs=1363
+2026-08-02 11:03:09.000 ERROR [http-nio-8080-exec-8] c.s.common.GlobalExceptionHandler - requestId=EX-00027 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:03:10.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=EX-00027 status=500 elapsedMs=3659
+2026-08-02 11:03:16.000 ERROR [http-nio-8080-exec-9] c.s.common.GlobalExceptionHandler - requestId=EX-00028 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:03:17.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=EX-00028 status=500 elapsedMs=4559
+2026-08-02 11:03:23.000 ERROR [http-nio-8080-exec-10] c.s.common.GlobalExceptionHandler - requestId=EX-00029 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:03:24.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=EX-00029 status=500 elapsedMs=3543
+2026-08-02 11:03:30.000 ERROR [http-nio-8080-exec-1] c.s.common.GlobalExceptionHandler - requestId=EX-00030 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:03:31.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=EX-00030 status=500 elapsedMs=4634
+2026-08-02 11:03:37.000 ERROR [http-nio-8080-exec-2] c.s.common.GlobalExceptionHandler - requestId=EX-00031 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:03:38.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=EX-00031 status=500 elapsedMs=119
+2026-08-02 11:03:44.000 ERROR [http-nio-8080-exec-3] c.s.common.GlobalExceptionHandler - requestId=EX-00032 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:03:45.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=EX-00032 status=500 elapsedMs=956
+2026-08-02 11:03:51.000 ERROR [http-nio-8080-exec-4] c.s.common.GlobalExceptionHandler - requestId=EX-00033 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:03:52.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=EX-00033 status=500 elapsedMs=656
+2026-08-02 11:03:58.000 ERROR [http-nio-8080-exec-5] c.s.common.GlobalExceptionHandler - requestId=EX-00034 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:03:59.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=EX-00034 status=500 elapsedMs=1261
+2026-08-02 11:04:05.000 ERROR [http-nio-8080-exec-6] c.s.common.GlobalExceptionHandler - requestId=EX-00035 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:04:06.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=EX-00035 status=500 elapsedMs=4509
+2026-08-02 11:04:12.000 ERROR [http-nio-8080-exec-7] c.s.common.GlobalExceptionHandler - requestId=EX-00036 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:04:13.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=EX-00036 status=500 elapsedMs=335
+2026-08-02 11:04:19.000 ERROR [http-nio-8080-exec-8] c.s.common.GlobalExceptionHandler - requestId=EX-00037 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:04:20.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=EX-00037 status=500 elapsedMs=3064
+2026-08-02 11:04:26.000 ERROR [http-nio-8080-exec-9] c.s.common.GlobalExceptionHandler - requestId=EX-00038 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:04:27.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=EX-00038 status=500 elapsedMs=4811
+2026-08-02 11:04:33.000 ERROR [http-nio-8080-exec-10] c.s.common.GlobalExceptionHandler - requestId=EX-00039 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:04:34.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=EX-00039 status=500 elapsedMs=4566
+2026-08-02 11:04:40.000 ERROR [http-nio-8080-exec-1] c.s.common.GlobalExceptionHandler - requestId=EX-00040 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:04:41.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=EX-00040 status=500 elapsedMs=1253
+2026-08-02 11:04:47.000 ERROR [http-nio-8080-exec-2] c.s.common.GlobalExceptionHandler - requestId=EX-00041 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:04:48.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=EX-00041 status=500 elapsedMs=3560
+2026-08-02 11:04:54.000 ERROR [http-nio-8080-exec-3] c.s.common.GlobalExceptionHandler - requestId=EX-00042 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:04:55.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=EX-00042 status=500 elapsedMs=1084
+2026-08-02 11:05:01.000 ERROR [http-nio-8080-exec-4] c.s.common.GlobalExceptionHandler - requestId=EX-00043 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:05:02.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=EX-00043 status=500 elapsedMs=382
+2026-08-02 11:05:08.000 ERROR [http-nio-8080-exec-5] c.s.common.GlobalExceptionHandler - requestId=EX-00044 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:05:09.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=EX-00044 status=500 elapsedMs=2565
+2026-08-02 11:05:15.000 ERROR [http-nio-8080-exec-6] c.s.common.GlobalExceptionHandler - requestId=EX-00045 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:05:16.000 INFO  [http-nio-8080-exec-6] c.s.api.RequestLogger - requestId=EX-00045 status=500 elapsedMs=3027
+2026-08-02 11:05:22.000 ERROR [http-nio-8080-exec-7] c.s.common.GlobalExceptionHandler - requestId=EX-00046 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:05:23.000 INFO  [http-nio-8080-exec-7] c.s.api.RequestLogger - requestId=EX-00046 status=500 elapsedMs=366
+2026-08-02 11:05:29.000 ERROR [http-nio-8080-exec-8] c.s.common.GlobalExceptionHandler - requestId=EX-00047 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:05:30.000 INFO  [http-nio-8080-exec-8] c.s.api.RequestLogger - requestId=EX-00047 status=500 elapsedMs=2971
+2026-08-02 11:05:36.000 ERROR [http-nio-8080-exec-9] c.s.common.GlobalExceptionHandler - requestId=EX-00048 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:05:37.000 INFO  [http-nio-8080-exec-9] c.s.api.RequestLogger - requestId=EX-00048 status=500 elapsedMs=1760
+2026-08-02 11:05:43.000 ERROR [http-nio-8080-exec-10] c.s.common.GlobalExceptionHandler - requestId=EX-00049 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:05:44.000 INFO  [http-nio-8080-exec-10] c.s.api.RequestLogger - requestId=EX-00049 status=500 elapsedMs=2084
+2026-08-02 11:05:50.000 ERROR [http-nio-8080-exec-1] c.s.common.GlobalExceptionHandler - requestId=EX-00050 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:05:51.000 INFO  [http-nio-8080-exec-1] c.s.api.RequestLogger - requestId=EX-00050 status=500 elapsedMs=882
+2026-08-02 11:05:57.000 ERROR [http-nio-8080-exec-2] c.s.common.GlobalExceptionHandler - requestId=EX-00051 Unhandled exception
+java.util.concurrent.TimeoutException: External credit API exceeded 5 seconds
+	at com.shinhandssample.service.CreditApiClient:121
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:05:58.000 INFO  [http-nio-8080-exec-2] c.s.api.RequestLogger - requestId=EX-00051 status=500 elapsedMs=2937
+2026-08-02 11:06:04.000 ERROR [http-nio-8080-exec-3] c.s.common.GlobalExceptionHandler - requestId=EX-00052 Unhandled exception
+java.lang.NullPointerException: Cannot invoke "Customer.getId()" because "customer" is null
+	at com.shinhandssample.service.CustomerService:87
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:06:05.000 INFO  [http-nio-8080-exec-3] c.s.api.RequestLogger - requestId=EX-00052 status=500 elapsedMs=4626
+2026-08-02 11:06:11.000 ERROR [http-nio-8080-exec-4] c.s.common.GlobalExceptionHandler - requestId=EX-00053 Unhandled exception
+java.lang.IllegalArgumentException: Invalid account number format
+	at com.shinhandssample.service.AccountValidator:44
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:06:12.000 INFO  [http-nio-8080-exec-4] c.s.api.RequestLogger - requestId=EX-00053 status=500 elapsedMs=3369
+2026-08-02 11:06:18.000 ERROR [http-nio-8080-exec-5] c.s.common.GlobalExceptionHandler - requestId=EX-00054 Unhandled exception
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; constraint [UK_TX_ID]
+	at com.shinhandssample.service.TransactionRepository:163
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+2026-08-02 11:06:19.000 INFO  [http-nio-8080-exec-5] c.s.api.RequestLogger - requestId=EX-00054 status=500 elapsedMs=5124

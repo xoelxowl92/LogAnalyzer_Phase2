@@ -1,0 +1,204 @@
+# TEST SCENARIO: 메모리 증가 및 OutOfMemoryError 로그
+# Generated sample log for Dify log analyzer validation
+# Encoding: UTF-8
+
+2026-08-02 15:00:00.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=816 heapMaxMb=4096 metaspaceMb=180 threadCount=120
+2026-08-02 15:00:03.000 DEBUG [http-nio-8080-exec-2] c.s.report.ReportService - generated report rows=36758 cacheEntries=170
+2026-08-02 15:00:06.000 DEBUG [http-nio-8080-exec-3] c.s.report.ReportService - generated report rows=22996 cacheEntries=340
+2026-08-02 15:00:09.000 DEBUG [http-nio-8080-exec-4] c.s.report.ReportService - generated report rows=10077 cacheEntries=510
+2026-08-02 15:00:12.000 DEBUG [http-nio-8080-exec-5] c.s.report.ReportService - generated report rows=20367 cacheEntries=680
+2026-08-02 15:00:15.000 DEBUG [http-nio-8080-exec-6] c.s.report.ReportService - generated report rows=27010 cacheEntries=850
+2026-08-02 15:00:18.000 DEBUG [http-nio-8080-exec-7] c.s.report.ReportService - generated report rows=40399 cacheEntries=1020
+2026-08-02 15:00:21.000 DEBUG [http-nio-8080-exec-8] c.s.report.ReportService - generated report rows=14068 cacheEntries=1190
+2026-08-02 15:00:24.000 DEBUG [http-nio-8080-exec-9] c.s.report.ReportService - generated report rows=20155 cacheEntries=1360
+2026-08-02 15:00:27.000 DEBUG [http-nio-8080-exec-10] c.s.report.ReportService - generated report rows=15014 cacheEntries=1530
+2026-08-02 15:00:30.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=984 heapMaxMb=4096 metaspaceMb=182 threadCount=121
+2026-08-02 15:00:33.000 DEBUG [http-nio-8080-exec-12] c.s.report.ReportService - generated report rows=32188 cacheEntries=1870
+2026-08-02 15:00:36.000 DEBUG [http-nio-8080-exec-13] c.s.report.ReportService - generated report rows=26684 cacheEntries=2040
+2026-08-02 15:00:39.000 DEBUG [http-nio-8080-exec-14] c.s.report.ReportService - generated report rows=32248 cacheEntries=2210
+2026-08-02 15:00:42.000 DEBUG [http-nio-8080-exec-15] c.s.report.ReportService - generated report rows=18555 cacheEntries=2380
+2026-08-02 15:00:45.000 DEBUG [http-nio-8080-exec-16] c.s.report.ReportService - generated report rows=30524 cacheEntries=2550
+2026-08-02 15:00:48.000 DEBUG [http-nio-8080-exec-17] c.s.report.ReportService - generated report rows=42728 cacheEntries=2720
+2026-08-02 15:00:51.000 DEBUG [http-nio-8080-exec-18] c.s.report.ReportService - generated report rows=36259 cacheEntries=2890
+2026-08-02 15:00:54.000 DEBUG [http-nio-8080-exec-19] c.s.report.ReportService - generated report rows=28052 cacheEntries=3060
+2026-08-02 15:00:57.000 DEBUG [http-nio-8080-exec-20] c.s.report.ReportService - generated report rows=30558 cacheEntries=3230
+2026-08-02 15:01:00.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=1141 heapMaxMb=4096 metaspaceMb=184 threadCount=122
+2026-08-02 15:01:03.000 DEBUG [http-nio-8080-exec-2] c.s.report.ReportService - generated report rows=36996 cacheEntries=3570
+2026-08-02 15:01:06.000 DEBUG [http-nio-8080-exec-3] c.s.report.ReportService - generated report rows=22887 cacheEntries=3740
+2026-08-02 15:01:09.000 DEBUG [http-nio-8080-exec-4] c.s.report.ReportService - generated report rows=36827 cacheEntries=3910
+2026-08-02 15:01:12.000 DEBUG [http-nio-8080-exec-5] c.s.report.ReportService - generated report rows=30484 cacheEntries=4080
+2026-08-02 15:01:15.000 DEBUG [http-nio-8080-exec-6] c.s.report.ReportService - generated report rows=48835 cacheEntries=4250
+2026-08-02 15:01:18.000 DEBUG [http-nio-8080-exec-7] c.s.report.ReportService - generated report rows=15816 cacheEntries=4420
+2026-08-02 15:01:21.000 DEBUG [http-nio-8080-exec-8] c.s.report.ReportService - generated report rows=13364 cacheEntries=4590
+2026-08-02 15:01:24.000 DEBUG [http-nio-8080-exec-9] c.s.report.ReportService - generated report rows=30822 cacheEntries=4760
+2026-08-02 15:01:27.000 DEBUG [http-nio-8080-exec-10] c.s.report.ReportService - generated report rows=10501 cacheEntries=4930
+2026-08-02 15:01:30.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=1297 heapMaxMb=4096 metaspaceMb=186 threadCount=123
+2026-08-02 15:01:33.000 DEBUG [http-nio-8080-exec-12] c.s.report.ReportService - generated report rows=35257 cacheEntries=5270
+2026-08-02 15:01:36.000 DEBUG [http-nio-8080-exec-13] c.s.report.ReportService - generated report rows=8295 cacheEntries=5440
+2026-08-02 15:01:39.000 DEBUG [http-nio-8080-exec-14] c.s.report.ReportService - generated report rows=29844 cacheEntries=5610
+2026-08-02 15:01:42.000 DEBUG [http-nio-8080-exec-15] c.s.report.ReportService - generated report rows=18871 cacheEntries=5780
+2026-08-02 15:01:45.000 DEBUG [http-nio-8080-exec-16] c.s.report.ReportService - generated report rows=26420 cacheEntries=5950
+2026-08-02 15:01:48.000 DEBUG [http-nio-8080-exec-17] c.s.report.ReportService - generated report rows=29846 cacheEntries=6120
+2026-08-02 15:01:51.000 DEBUG [http-nio-8080-exec-18] c.s.report.ReportService - generated report rows=32627 cacheEntries=6290
+2026-08-02 15:01:54.000 DEBUG [http-nio-8080-exec-19] c.s.report.ReportService - generated report rows=10367 cacheEntries=6460
+2026-08-02 15:01:57.000 DEBUG [http-nio-8080-exec-20] c.s.report.ReportService - generated report rows=6270 cacheEntries=6630
+2026-08-02 15:02:00.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=1460 heapMaxMb=4096 metaspaceMb=188 threadCount=125
+2026-08-02 15:02:03.000 DEBUG [http-nio-8080-exec-2] c.s.report.ReportService - generated report rows=19694 cacheEntries=6970
+2026-08-02 15:02:06.000 DEBUG [http-nio-8080-exec-3] c.s.report.ReportService - generated report rows=47713 cacheEntries=7140
+2026-08-02 15:02:09.000 DEBUG [http-nio-8080-exec-4] c.s.report.ReportService - generated report rows=7033 cacheEntries=7310
+2026-08-02 15:02:12.000 DEBUG [http-nio-8080-exec-5] c.s.report.ReportService - generated report rows=18065 cacheEntries=7480
+2026-08-02 15:02:15.000 DEBUG [http-nio-8080-exec-6] c.s.report.ReportService - generated report rows=45719 cacheEntries=7650
+2026-08-02 15:02:18.000 DEBUG [http-nio-8080-exec-7] c.s.report.ReportService - generated report rows=20633 cacheEntries=7820
+2026-08-02 15:02:21.000 DEBUG [http-nio-8080-exec-8] c.s.report.ReportService - generated report rows=36035 cacheEntries=7990
+2026-08-02 15:02:24.000 DEBUG [http-nio-8080-exec-9] c.s.report.ReportService - generated report rows=41960 cacheEntries=8160
+2026-08-02 15:02:27.000 DEBUG [http-nio-8080-exec-10] c.s.report.ReportService - generated report rows=35476 cacheEntries=8330
+2026-08-02 15:02:30.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=1586 heapMaxMb=4096 metaspaceMb=190 threadCount=126
+2026-08-02 15:02:33.000 DEBUG [http-nio-8080-exec-12] c.s.report.ReportService - generated report rows=15996 cacheEntries=8670
+2026-08-02 15:02:36.000 DEBUG [http-nio-8080-exec-13] c.s.report.ReportService - generated report rows=15732 cacheEntries=8840
+2026-08-02 15:02:39.000 DEBUG [http-nio-8080-exec-14] c.s.report.ReportService - generated report rows=12084 cacheEntries=9010
+2026-08-02 15:02:42.000 DEBUG [http-nio-8080-exec-15] c.s.report.ReportService - generated report rows=25444 cacheEntries=9180
+2026-08-02 15:02:45.000 DEBUG [http-nio-8080-exec-16] c.s.report.ReportService - generated report rows=30995 cacheEntries=9350
+2026-08-02 15:02:48.000 DEBUG [http-nio-8080-exec-17] c.s.report.ReportService - generated report rows=9980 cacheEntries=9520
+2026-08-02 15:02:51.000 DEBUG [http-nio-8080-exec-18] c.s.report.ReportService - generated report rows=11678 cacheEntries=9690
+2026-08-02 15:02:54.000 DEBUG [http-nio-8080-exec-19] c.s.report.ReportService - generated report rows=49843 cacheEntries=9860
+2026-08-02 15:02:57.000 DEBUG [http-nio-8080-exec-20] c.s.report.ReportService - generated report rows=42088 cacheEntries=10030
+2026-08-02 15:03:00.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=1727 heapMaxMb=4096 metaspaceMb=192 threadCount=127
+2026-08-02 15:03:03.000 DEBUG [http-nio-8080-exec-2] c.s.report.ReportService - generated report rows=39913 cacheEntries=10370
+2026-08-02 15:03:06.000 DEBUG [http-nio-8080-exec-3] c.s.report.ReportService - generated report rows=48353 cacheEntries=10540
+2026-08-02 15:03:09.000 DEBUG [http-nio-8080-exec-4] c.s.report.ReportService - generated report rows=9519 cacheEntries=10710
+2026-08-02 15:03:12.000 DEBUG [http-nio-8080-exec-5] c.s.report.ReportService - generated report rows=47437 cacheEntries=10880
+2026-08-02 15:03:15.000 DEBUG [http-nio-8080-exec-6] c.s.report.ReportService - generated report rows=5829 cacheEntries=11050
+2026-08-02 15:03:18.000 DEBUG [http-nio-8080-exec-7] c.s.report.ReportService - generated report rows=37125 cacheEntries=11220
+2026-08-02 15:03:21.000 DEBUG [http-nio-8080-exec-8] c.s.report.ReportService - generated report rows=33411 cacheEntries=11390
+2026-08-02 15:03:24.000 DEBUG [http-nio-8080-exec-9] c.s.report.ReportService - generated report rows=46653 cacheEntries=11560
+2026-08-02 15:03:27.000 DEBUG [http-nio-8080-exec-10] c.s.report.ReportService - generated report rows=15026 cacheEntries=11730
+2026-08-02 15:03:30.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=1922 heapMaxMb=4096 metaspaceMb=194 threadCount=128
+2026-08-02 15:03:33.000 DEBUG [http-nio-8080-exec-12] c.s.report.ReportService - generated report rows=39193 cacheEntries=12070
+2026-08-02 15:03:36.000 DEBUG [http-nio-8080-exec-13] c.s.report.ReportService - generated report rows=45364 cacheEntries=12240
+2026-08-02 15:03:39.000 DEBUG [http-nio-8080-exec-14] c.s.report.ReportService - generated report rows=35465 cacheEntries=12410
+2026-08-02 15:03:42.000 DEBUG [http-nio-8080-exec-15] c.s.report.ReportService - generated report rows=43828 cacheEntries=12580
+2026-08-02 15:03:45.000 DEBUG [http-nio-8080-exec-16] c.s.report.ReportService - generated report rows=26122 cacheEntries=12750
+2026-08-02 15:03:48.000 DEBUG [http-nio-8080-exec-17] c.s.report.ReportService - generated report rows=10679 cacheEntries=12920
+2026-08-02 15:03:51.000 DEBUG [http-nio-8080-exec-18] c.s.report.ReportService - generated report rows=34543 cacheEntries=13090
+2026-08-02 15:03:54.000 DEBUG [http-nio-8080-exec-19] c.s.report.ReportService - generated report rows=35455 cacheEntries=13260
+2026-08-02 15:03:57.000 DEBUG [http-nio-8080-exec-20] c.s.report.ReportService - generated report rows=27046 cacheEntries=13430
+2026-08-02 15:04:00.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=2085 heapMaxMb=4096 metaspaceMb=196 threadCount=130
+2026-08-02 15:04:03.000 DEBUG [http-nio-8080-exec-2] c.s.report.ReportService - generated report rows=26300 cacheEntries=13770
+2026-08-02 15:04:06.000 DEBUG [http-nio-8080-exec-3] c.s.report.ReportService - generated report rows=36952 cacheEntries=13940
+2026-08-02 15:04:09.000 DEBUG [http-nio-8080-exec-4] c.s.report.ReportService - generated report rows=28253 cacheEntries=14110
+2026-08-02 15:04:12.000 DEBUG [http-nio-8080-exec-5] c.s.report.ReportService - generated report rows=27304 cacheEntries=14280
+2026-08-02 15:04:15.000 DEBUG [http-nio-8080-exec-6] c.s.report.ReportService - generated report rows=44069 cacheEntries=14450
+2026-08-02 15:04:18.000 DEBUG [http-nio-8080-exec-7] c.s.report.ReportService - generated report rows=41424 cacheEntries=14620
+2026-08-02 15:04:21.000 DEBUG [http-nio-8080-exec-8] c.s.report.ReportService - generated report rows=38857 cacheEntries=14790
+2026-08-02 15:04:24.000 DEBUG [http-nio-8080-exec-9] c.s.report.ReportService - generated report rows=10610 cacheEntries=14960
+2026-08-02 15:04:27.000 DEBUG [http-nio-8080-exec-10] c.s.report.ReportService - generated report rows=31635 cacheEntries=15130
+2026-08-02 15:04:30.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=2243 heapMaxMb=4096 metaspaceMb=198 threadCount=131
+2026-08-02 15:04:33.000 DEBUG [http-nio-8080-exec-12] c.s.report.ReportService - generated report rows=36201 cacheEntries=15470
+2026-08-02 15:04:36.000 DEBUG [http-nio-8080-exec-13] c.s.report.ReportService - generated report rows=34371 cacheEntries=15640
+2026-08-02 15:04:39.000 DEBUG [http-nio-8080-exec-14] c.s.report.ReportService - generated report rows=11098 cacheEntries=15810
+2026-08-02 15:04:42.000 DEBUG [http-nio-8080-exec-15] c.s.report.ReportService - generated report rows=19522 cacheEntries=15980
+2026-08-02 15:04:45.000 DEBUG [http-nio-8080-exec-16] c.s.report.ReportService - generated report rows=20945 cacheEntries=16150
+2026-08-02 15:04:48.000 DEBUG [http-nio-8080-exec-17] c.s.report.ReportService - generated report rows=48513 cacheEntries=16320
+2026-08-02 15:04:51.000 DEBUG [http-nio-8080-exec-18] c.s.report.ReportService - generated report rows=36015 cacheEntries=16490
+2026-08-02 15:04:54.000 DEBUG [http-nio-8080-exec-19] c.s.report.ReportService - generated report rows=27528 cacheEntries=16660
+2026-08-02 15:04:57.000 DEBUG [http-nio-8080-exec-20] c.s.report.ReportService - generated report rows=41070 cacheEntries=16830
+2026-08-02 15:05:00.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=2425 heapMaxMb=4096 metaspaceMb=200 threadCount=132
+2026-08-02 15:05:03.000 DEBUG [http-nio-8080-exec-2] c.s.report.ReportService - generated report rows=34736 cacheEntries=17170
+2026-08-02 15:05:06.000 DEBUG [http-nio-8080-exec-3] c.s.report.ReportService - generated report rows=25094 cacheEntries=17340
+2026-08-02 15:05:09.000 DEBUG [http-nio-8080-exec-4] c.s.report.ReportService - generated report rows=20108 cacheEntries=17510
+2026-08-02 15:05:12.000 DEBUG [http-nio-8080-exec-5] c.s.report.ReportService - generated report rows=17621 cacheEntries=17680
+2026-08-02 15:05:15.000 DEBUG [http-nio-8080-exec-6] c.s.report.ReportService - generated report rows=12835 cacheEntries=17850
+2026-08-02 15:05:18.000 DEBUG [http-nio-8080-exec-7] c.s.report.ReportService - generated report rows=17552 cacheEntries=18020
+2026-08-02 15:05:21.000 DEBUG [http-nio-8080-exec-8] c.s.report.ReportService - generated report rows=36732 cacheEntries=18190
+2026-08-02 15:05:24.000 DEBUG [http-nio-8080-exec-9] c.s.report.ReportService - generated report rows=43639 cacheEntries=18360
+2026-08-02 15:05:27.000 DEBUG [http-nio-8080-exec-10] c.s.report.ReportService - generated report rows=44111 cacheEntries=18530
+2026-08-02 15:05:30.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=2589 heapMaxMb=4096 metaspaceMb=202 threadCount=133
+2026-08-02 15:05:33.000 DEBUG [http-nio-8080-exec-12] c.s.report.ReportService - generated report rows=17721 cacheEntries=18870
+2026-08-02 15:05:36.000 DEBUG [http-nio-8080-exec-13] c.s.report.ReportService - generated report rows=19908 cacheEntries=19040
+2026-08-02 15:05:39.000 DEBUG [http-nio-8080-exec-14] c.s.report.ReportService - generated report rows=16759 cacheEntries=19210
+2026-08-02 15:05:42.000 DEBUG [http-nio-8080-exec-15] c.s.report.ReportService - generated report rows=5927 cacheEntries=19380
+2026-08-02 15:05:45.000 DEBUG [http-nio-8080-exec-16] c.s.report.ReportService - generated report rows=22977 cacheEntries=19550
+2026-08-02 15:05:48.000 DEBUG [http-nio-8080-exec-17] c.s.report.ReportService - generated report rows=8573 cacheEntries=19720
+2026-08-02 15:05:51.000 DEBUG [http-nio-8080-exec-18] c.s.report.ReportService - generated report rows=13275 cacheEntries=19890
+2026-08-02 15:05:54.000 DEBUG [http-nio-8080-exec-19] c.s.report.ReportService - generated report rows=11723 cacheEntries=20060
+2026-08-02 15:05:57.000 DEBUG [http-nio-8080-exec-20] c.s.report.ReportService - generated report rows=42621 cacheEntries=20230
+2026-08-02 15:06:00.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=2739 heapMaxMb=4096 metaspaceMb=204 threadCount=135
+2026-08-02 15:06:03.000 DEBUG [http-nio-8080-exec-2] c.s.report.ReportService - generated report rows=36373 cacheEntries=20570
+2026-08-02 15:06:06.000 DEBUG [http-nio-8080-exec-3] c.s.report.ReportService - generated report rows=27328 cacheEntries=20740
+2026-08-02 15:06:09.000 DEBUG [http-nio-8080-exec-4] c.s.report.ReportService - generated report rows=8367 cacheEntries=20910
+2026-08-02 15:06:12.000 DEBUG [http-nio-8080-exec-5] c.s.report.ReportService - generated report rows=36308 cacheEntries=21080
+2026-08-02 15:06:15.000 DEBUG [http-nio-8080-exec-6] c.s.report.ReportService - generated report rows=9282 cacheEntries=21250
+2026-08-02 15:06:18.000 DEBUG [http-nio-8080-exec-7] c.s.report.ReportService - generated report rows=37227 cacheEntries=21420
+2026-08-02 15:06:21.000 DEBUG [http-nio-8080-exec-8] c.s.report.ReportService - generated report rows=42815 cacheEntries=21590
+2026-08-02 15:06:24.000 DEBUG [http-nio-8080-exec-9] c.s.report.ReportService - generated report rows=14943 cacheEntries=21760
+2026-08-02 15:06:27.000 DEBUG [http-nio-8080-exec-10] c.s.report.ReportService - generated report rows=41886 cacheEntries=21930
+2026-08-02 15:06:30.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=2892 heapMaxMb=4096 metaspaceMb=206 threadCount=136
+2026-08-02 15:06:33.000 DEBUG [http-nio-8080-exec-12] c.s.report.ReportService - generated report rows=21265 cacheEntries=22270
+2026-08-02 15:06:36.000 DEBUG [http-nio-8080-exec-13] c.s.report.ReportService - generated report rows=41573 cacheEntries=22440
+2026-08-02 15:06:39.000 DEBUG [http-nio-8080-exec-14] c.s.report.ReportService - generated report rows=44735 cacheEntries=22610
+2026-08-02 15:06:42.000 DEBUG [http-nio-8080-exec-15] c.s.report.ReportService - generated report rows=39247 cacheEntries=22780
+2026-08-02 15:06:45.000 DEBUG [http-nio-8080-exec-16] c.s.report.ReportService - generated report rows=34524 cacheEntries=22950
+2026-08-02 15:06:48.000 DEBUG [http-nio-8080-exec-17] c.s.report.ReportService - generated report rows=24487 cacheEntries=23120
+2026-08-02 15:06:51.000 DEBUG [http-nio-8080-exec-18] c.s.report.ReportService - generated report rows=25013 cacheEntries=23290
+2026-08-02 15:06:54.000 DEBUG [http-nio-8080-exec-19] c.s.report.ReportService - generated report rows=44952 cacheEntries=23460
+2026-08-02 15:06:57.000 DEBUG [http-nio-8080-exec-20] c.s.report.ReportService - generated report rows=18617 cacheEntries=23630
+2026-08-02 15:07:00.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=3046 heapMaxMb=4096 metaspaceMb=208 threadCount=137
+2026-08-02 15:07:03.000 DEBUG [http-nio-8080-exec-2] c.s.report.ReportService - generated report rows=48281 cacheEntries=23970
+2026-08-02 15:07:06.000 DEBUG [http-nio-8080-exec-3] c.s.report.ReportService - generated report rows=15292 cacheEntries=24140
+2026-08-02 15:07:09.000 DEBUG [http-nio-8080-exec-4] c.s.report.ReportService - generated report rows=16391 cacheEntries=24310
+2026-08-02 15:07:12.000 DEBUG [http-nio-8080-exec-5] c.s.report.ReportService - generated report rows=15258 cacheEntries=24480
+2026-08-02 15:07:15.000 DEBUG [http-nio-8080-exec-6] c.s.report.ReportService - generated report rows=31772 cacheEntries=24650
+2026-08-02 15:07:18.000 DEBUG [http-nio-8080-exec-7] c.s.report.ReportService - generated report rows=43916 cacheEntries=24820
+2026-08-02 15:07:21.000 DEBUG [http-nio-8080-exec-8] c.s.report.ReportService - generated report rows=24087 cacheEntries=24990
+2026-08-02 15:07:24.000 DEBUG [http-nio-8080-exec-9] c.s.report.ReportService - generated report rows=20170 cacheEntries=25160
+2026-08-02 15:07:27.000 DEBUG [http-nio-8080-exec-10] c.s.report.ReportService - generated report rows=23528 cacheEntries=25330
+2026-08-02 15:07:30.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=3198 heapMaxMb=4096 metaspaceMb=210 threadCount=138
+2026-08-02 15:07:33.000 DEBUG [http-nio-8080-exec-12] c.s.report.ReportService - generated report rows=20297 cacheEntries=25670
+2026-08-02 15:07:36.000 DEBUG [http-nio-8080-exec-13] c.s.report.ReportService - generated report rows=45963 cacheEntries=25840
+2026-08-02 15:07:39.000 DEBUG [http-nio-8080-exec-14] c.s.report.ReportService - generated report rows=32861 cacheEntries=26010
+2026-08-02 15:07:42.000 DEBUG [http-nio-8080-exec-15] c.s.report.ReportService - generated report rows=40688 cacheEntries=26180
+2026-08-02 15:07:45.000 DEBUG [http-nio-8080-exec-16] c.s.report.ReportService - generated report rows=47443 cacheEntries=26350
+2026-08-02 15:07:48.000 DEBUG [http-nio-8080-exec-17] c.s.report.ReportService - generated report rows=22408 cacheEntries=26520
+2026-08-02 15:07:51.000 DEBUG [http-nio-8080-exec-18] c.s.report.ReportService - generated report rows=9679 cacheEntries=26690
+2026-08-02 15:07:54.000 DEBUG [http-nio-8080-exec-19] c.s.report.ReportService - generated report rows=15873 cacheEntries=26860
+2026-08-02 15:07:57.000 DEBUG [http-nio-8080-exec-20] c.s.report.ReportService - generated report rows=43996 cacheEntries=27030
+2026-08-02 15:08:00.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=3331 heapMaxMb=4096 metaspaceMb=212 threadCount=140
+2026-08-02 15:08:03.000 DEBUG [http-nio-8080-exec-2] c.s.report.ReportService - generated report rows=13149 cacheEntries=27370
+2026-08-02 15:08:06.000 DEBUG [http-nio-8080-exec-3] c.s.report.ReportService - generated report rows=24928 cacheEntries=27540
+2026-08-02 15:08:09.000 DEBUG [http-nio-8080-exec-4] c.s.report.ReportService - generated report rows=22841 cacheEntries=27710
+2026-08-02 15:08:12.000 DEBUG [http-nio-8080-exec-5] c.s.report.ReportService - generated report rows=40388 cacheEntries=27880
+2026-08-02 15:08:15.000 DEBUG [http-nio-8080-exec-6] c.s.report.ReportService - generated report rows=33688 cacheEntries=28050
+2026-08-02 15:08:18.000 DEBUG [http-nio-8080-exec-7] c.s.report.ReportService - generated report rows=44192 cacheEntries=28220
+2026-08-02 15:08:21.000 DEBUG [http-nio-8080-exec-8] c.s.report.ReportService - generated report rows=33313 cacheEntries=28390
+2026-08-02 15:08:24.000 DEBUG [http-nio-8080-exec-9] c.s.report.ReportService - generated report rows=44564 cacheEntries=28560
+2026-08-02 15:08:27.000 DEBUG [http-nio-8080-exec-10] c.s.report.ReportService - generated report rows=6695 cacheEntries=28730
+2026-08-02 15:08:30.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=3505 heapMaxMb=4096 metaspaceMb=214 threadCount=141
+2026-08-02 15:08:33.000 ERROR [http-nio-8080-exec-12] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=27848
+2026-08-02 15:08:36.000 ERROR [http-nio-8080-exec-13] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=17831
+2026-08-02 15:08:39.000 ERROR [http-nio-8080-exec-14] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=14740
+2026-08-02 15:08:42.000 ERROR [http-nio-8080-exec-15] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=26005
+2026-08-02 15:08:45.000 ERROR [http-nio-8080-exec-16] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=18114
+2026-08-02 15:08:48.000 ERROR [http-nio-8080-exec-17] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=28180
+2026-08-02 15:08:51.000 ERROR [http-nio-8080-exec-18] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=29800
+2026-08-02 15:08:54.000 ERROR [http-nio-8080-exec-19] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=11989
+2026-08-02 15:08:57.000 ERROR [http-nio-8080-exec-20] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=20401
+2026-08-02 15:09:00.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=3683 heapMaxMb=4096 metaspaceMb=216 threadCount=142
+2026-08-02 15:09:03.000 ERROR [http-nio-8080-exec-2] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=19520
+2026-08-02 15:09:06.000 ERROR [http-nio-8080-exec-3] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=14269
+2026-08-02 15:09:09.000 ERROR [http-nio-8080-exec-4] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=22488
+2026-08-02 15:09:12.000 ERROR [http-nio-8080-exec-5] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=18444
+2026-08-02 15:09:15.000 ERROR [http-nio-8080-exec-6] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=27025
+2026-08-02 15:09:18.000 ERROR [http-nio-8080-exec-7] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=23903
+2026-08-02 15:09:21.000 ERROR [http-nio-8080-exec-8] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=19306
+2026-08-02 15:09:24.000 ERROR [http-nio-8080-exec-9] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=19593
+2026-08-02 15:09:27.000 ERROR [http-nio-8080-exec-10] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=22244
+2026-08-02 15:09:30.000 INFO  [memory-monitor] c.s.monitor.JvmMonitor - heapUsedMb=3843 heapMaxMb=4096 metaspaceMb=218 threadCount=143
+2026-08-02 15:09:33.000 ERROR [http-nio-8080-exec-12] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=26779
+2026-08-02 15:09:36.000 ERROR [http-nio-8080-exec-13] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=22541
+2026-08-02 15:09:39.000 ERROR [http-nio-8080-exec-14] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=15146
+2026-08-02 15:09:42.000 ERROR [http-nio-8080-exec-15] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=20854
+2026-08-02 15:09:45.000 ERROR [http-nio-8080-exec-16] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=29493
+2026-08-02 15:09:48.000 ERROR [http-nio-8080-exec-17] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=10691
+2026-08-02 15:09:51.000 ERROR [http-nio-8080-exec-18] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=17750
+2026-08-02 15:09:54.000 ERROR [http-nio-8080-exec-19] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=18438
+2026-08-02 15:09:57.000 ERROR [http-nio-8080-exec-20] c.s.api.RequestLogger - path=/api/reports status=500 elapsedMs=24883
