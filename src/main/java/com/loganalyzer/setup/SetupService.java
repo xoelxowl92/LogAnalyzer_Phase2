@@ -109,6 +109,10 @@ public class SetupService {
         int maxAttempts = difyProperties.getMaxRetries();
         Exception lastFailure = null;
 
+        log.info("[Setup] Dify 날짜 형식 추론 요청 시작");
+        // TODO: [Dify 연동 시] API key 공백 여부를 fast-fail로 검증 필요 (현재는 401 후 재시도 소진)
+        ObjectMapper mapper = new ObjectMapper();
+
         for (int attempt = 1; attempt <= maxAttempts; attempt++) {
             try {
                 URL url = new URL(difyProperties.getBaseUrl() + "/v1/workflows/run");
@@ -120,7 +124,6 @@ public class SetupService {
                 conn.setRequestProperty("Authorization", "Bearer " + difyProperties.getWorkflow().getDateFormat().getApiKey());
                 conn.setRequestProperty("Content-Type", "application/json");
 
-                ObjectMapper mapper = new ObjectMapper();
                 ObjectNode inputs = mapper.createObjectNode();
                 inputs.put("sample_log", sampleLogContent);
                 ObjectNode root = mapper.createObjectNode();
@@ -133,6 +136,7 @@ public class SetupService {
                 }
 
                 int statusCode = conn.getResponseCode();
+                // TODO: [Dify 연동 시] getErrorStream()이 null을 반환할 수 있음 — null 체크 후 기본 문자열 처리 필요
                 InputStream responseStream = statusCode >= 400 ? conn.getErrorStream() : conn.getInputStream();
                 String response = new String(responseStream.readAllBytes(), StandardCharsets.UTF_8);
                 log.debug("[Setup] Dify 응답: {}", response);
@@ -167,7 +171,7 @@ public class SetupService {
                 throw e;
             } catch (Exception e) {
                 lastFailure = e;
-                log.warn("[Setup] Dify 호출 실패 (attempt {}/{}): {}", attempt, maxAttempts, e.getMessage());
+                log.warn("[Setup] Dify 호출 실패 (attempt {}/{}): {}", attempt, maxAttempts, e.getMessage(), e);
             }
         }
 
