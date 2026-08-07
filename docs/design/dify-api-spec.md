@@ -97,10 +97,10 @@ log-analyzer.dify.workflow.daily-optimization.api-key=
 
 | 필드명 | 타입 | 설명 | 예시 |
 |--------|------|------|------|
-| `date_format` | String | 추론된 날짜 형식 패턴 (Java SimpleDateFormat 형식) | `yyyy-MM-dd HH:mm:ss` |
+| `date_format` | String | 추론된 날짜 형식 패턴 (Java DateTimeFormatter 형식) | `yyyy-MM-dd HH:mm:ss` |
 
 **프롬프트 제약**
-- 반드시 Java `SimpleDateFormat` 호환 패턴으로만 응답할 것
+- 반드시 Java `DateTimeFormatter` 호환 패턴으로만 응답할 것
 - 날짜 형식을 추론할 수 없는 경우 빈 문자열 반환
 
 ---

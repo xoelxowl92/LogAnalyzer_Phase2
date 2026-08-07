@@ -200,7 +200,7 @@ public String requestDateFormatToDify(String sampleLogContent)
 1. sampleLogContent를 Dify Workflow API 요청 페이로드로 구성
 2. Dify에 POST 요청 전송
 3. 응답에서 날짜 형식 패턴 추출
-4. 추출된 패턴이 유효한 SimpleDateFormat 형식인지 검증
+4. 추출된 패턴이 유효한 DateTimeFormatter 형식인지 검증
 5. 반환
 ```
 
