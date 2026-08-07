@@ -90,6 +90,12 @@ public class HourlyMonitorService {
         log.info("[HourlyMonitor] 실행 완료");
     }
 
+    /**
+     * config/setup.properties를 읽어 SetupConfig로 반환한다.
+     * <p>
+     * MinuteMonitorService와 동일한 로직이지만 공통 부모 없이 복제하여 유지한다.
+     * 두 서비스를 공통 부모로 묶으면 배치 실행 주기·책임이 다른 서비스 간 결합도가 생기기 때문이다.
+     */
     public SetupConfig loadSetupConfig() {
         // 공용 메서드 - MinuteMonitorService와 동일
 
@@ -122,6 +128,11 @@ public class HourlyMonitorService {
         return config;
     }
 
+    /**
+     * setup.properties의 dateFormat·encoding 기준으로 최근 1시간 구간 로그 라인을 추출한다.
+     * <p>
+     * 타임스탬프 파싱에 실패한 라인(멀티라인 스택트레이스 등)은 무시하고 계속 진행한다.
+     */
     public String readLastHourLog(SetupConfig config) {
 
         StringBuilder result = new StringBuilder();
@@ -210,6 +221,11 @@ public class HourlyMonitorService {
         return result.toString();
     }
 
+    /**
+     * 이상 패턴 분석 워크플로우를 Dify에 요청하고 결과를 반환한다.
+     * <p>
+     * 로그가 비어있으면 Dify를 호출하지 않고 빈 content를 가진 결과를 즉시 반환한다.
+     */
     public AnomalyAnalysisResult requestAnomalyAnalysisToDify(String logContent) {
 
         if (logContent == null || logContent.isBlank()) {
@@ -225,6 +241,11 @@ public class HourlyMonitorService {
         return AnomalyAnalysisResult.builder().content(content).build();
     }
 
+    /**
+     * 최적화 인사이트 분석 워크플로우를 Dify에 요청하고 결과를 반환한다.
+     * <p>
+     * 로그가 비어있으면 Dify를 호출하지 않고 빈 content를 가진 결과를 즉시 반환한다.
+     */
     public OptimizationAnalysisResult requestOptimizationAnalysisToDify(String logContent) {
 
         if (logContent == null || logContent.isBlank()) {
@@ -357,10 +378,12 @@ public class HourlyMonitorService {
         );
     }
 
+    /** output/hourly/anomaly/yyyy-MM-dd_HH.dat 경로에 이상 패턴 분석 결과를 저장한다. */
     public void saveAnomalyResult(AnomalyAnalysisResult result, LocalDateTime batchTime) {
         saveResultContent(ANOMALY_RESULT_DIR, result.getContent(), batchTime, "anomaly");
     }
 
+    /** output/hourly/optimization/yyyy-MM-dd_HH.dat 경로에 최적화 인사이트 분석 결과를 저장한다. */
     public void saveOptimizationResult(OptimizationAnalysisResult result, LocalDateTime batchTime) {
         saveResultContent(OPTIMIZATION_RESULT_DIR, result.getContent(), batchTime, "optimization");
     }

@@ -29,6 +29,7 @@ public class BatchConfig {
     private final MinuteMonitorService minuteMonitorService;
     private final HourlyMonitorService hourlyMonitorService;
 
+    /** 최초 1회 실행. logFilePath를 JobParameter로 전달받아 인코딩/날짜형식/타임존을 자동 탐지 후 config/setup.properties에 저장한다. */
     @Bean
     public Job setupJob() {
         return jobBuilderFactory.get("setupJob")
@@ -68,6 +69,7 @@ public class BatchConfig {
 
     // ── 이하 배치는 실제 구현 전 placeholder ────────────────────────────
 
+    /** 1분 단위 실행. 최근 로그를 Dify에 전달하여 장애 여부를 판단한다. */
     @Bean
     public Job minuteMonitorJob() {
         return jobBuilderFactory.get("minuteMonitorJob")
@@ -89,6 +91,7 @@ public class BatchConfig {
 
 
 
+    /** 1시간 단위 실행. 이상 패턴·최적화 인사이트 분석 결과를 파일로 저장한다. */
     @Bean
     public Job hourlyMonitorJob() {
         return jobBuilderFactory.get("hourlyMonitorJob")
@@ -108,6 +111,7 @@ public class BatchConfig {
                 .build();
     }
 
+    /** 1일 단위 실행. hourly 결과를 취합하여 Dify에 일간 보고를 요청한다. */
     @Bean
     public Job dailyMonitorJob() {
         return jobBuilderFactory.get("dailyMonitorJob")

@@ -29,24 +29,28 @@ public class DifyProperties {
         private OptimizationAnalysis optimizationAnalysis = new OptimizationAnalysis();
     }
 
+    // 시스템 설치 시 날짜 형식 추론 워크플로우 (dify-api-spec.md 2.1)
     @Getter
     @Setter
     public static class DateFormat {
         private String apiKey;
     }
 
+    // 1분 배치 장애 판단 워크플로우 (dify-api-spec.md 2.2)
     @Getter
     @Setter
     public static class FaultCheck {
         private String apiKey;
     }
 
+    // 1시간 배치 이상 패턴 분석 워크플로우 (dify-api-spec.md 2.3)
     @Getter
     @Setter
     public static class AnomalyAnalysis {
         private String apiKey;
     }
 
+    // 1시간 배치 최적화 인사이트 분석 워크플로우 (dify-api-spec.md 2.4)
     @Getter
     @Setter
     public static class OptimizationAnalysis {
