@@ -1,13 +1,23 @@
 package com.loganalyzer.setup;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.loganalyzer.dify.DifyApiException;
+import com.loganalyzer.dify.DifyProperties;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -17,7 +27,10 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class SetupService {
+
+    private final DifyProperties difyProperties;
 
     /**
      * 로그 파일 경로 유효성 검증 후 절대 경로 반환.
@@ -89,11 +102,76 @@ public class SetupService {
     }
 
     /**
-     * TODO: Dify Workflow API 호출하여 날짜 형식 패턴 추론.
-     * Dify 연동 전까지 BatchConfig에서 고정값("yyyy-MM-dd HH:mm:ss")으로 대체.
+     * 샘플 로그를 Dify Workflow API에 전달하여 날짜 형식 패턴을 추론받는다.
+     * 네트워크/IO 오류는 maxRetries만큼 재시도하며, API 오류 및 파싱 실패는 즉시 중단.
      */
     public String requestDateFormatToDify(String sampleLogContent) {
-        throw new UnsupportedOperationException("Dify 연동 후 구현 예정");
+        int maxAttempts = difyProperties.getMaxRetries();
+        Exception lastFailure = null;
+
+        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+            try {
+                URL url = new URL(difyProperties.getBaseUrl() + "/v1/workflows/run");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+                conn.setConnectTimeout(difyProperties.getTimeoutSeconds() * 1000);
+                conn.setReadTimeout(difyProperties.getTimeoutSeconds() * 1000);
+                conn.setRequestProperty("Authorization", "Bearer " + difyProperties.getWorkflow().getDateFormat().getApiKey());
+                conn.setRequestProperty("Content-Type", "application/json");
+
+                ObjectMapper mapper = new ObjectMapper();
+                ObjectNode inputs = mapper.createObjectNode();
+                inputs.put("sample_log", sampleLogContent);
+                ObjectNode root = mapper.createObjectNode();
+                root.set("inputs", inputs);
+                root.put("response_mode", "blocking");
+                root.put("user", difyProperties.getUser());
+
+                try (OutputStream os = conn.getOutputStream()) {
+                    os.write(mapper.writeValueAsString(root).getBytes(StandardCharsets.UTF_8));
+                }
+
+                int statusCode = conn.getResponseCode();
+                InputStream responseStream = statusCode >= 400 ? conn.getErrorStream() : conn.getInputStream();
+                String response = new String(responseStream.readAllBytes(), StandardCharsets.UTF_8);
+                log.debug("[Setup] Dify 응답: {}", response);
+
+                if (statusCode >= 400) {
+                    JsonNode errorJson = mapper.readTree(response);
+                    throw new DifyApiException("Dify API 오류 (" + statusCode + "): " + errorJson.path("message").asText(response));
+                }
+
+                JsonNode json = mapper.readTree(response);
+                String status = json.path("data").path("status").asText("");
+                if (!"succeeded".equals(status)) {
+                    String error = json.path("data").path("error").asText("unknown");
+                    throw new DifyApiException("Dify 워크플로우 실패 - status=" + status + ", error=" + error);
+                }
+
+                String dateFormat = json.path("data").path("outputs").path("date_format").asText("").trim();
+                if (dateFormat.isBlank()) {
+                    throw new DifyApiException("날짜 형식을 추론할 수 없습니다 (빈 응답)");
+                }
+
+                try {
+                    DateTimeFormatter.ofPattern(dateFormat, Locale.ENGLISH);
+                } catch (IllegalArgumentException e) {
+                    throw new DifyApiException("유효하지 않은 DateTimeFormatter 패턴: " + dateFormat);
+                }
+
+                log.info("[Setup] 날짜 형식 탐지 완료: {}", dateFormat);
+                return dateFormat;
+
+            } catch (DifyApiException e) {
+                throw e;
+            } catch (Exception e) {
+                lastFailure = e;
+                log.warn("[Setup] Dify 호출 실패 (attempt {}/{}): {}", attempt, maxAttempts, e.getMessage());
+            }
+        }
+
+        throw new DifyApiException("Dify 호출 " + maxAttempts + "회 재시도 후 실패", lastFailure);
     }
 
     /**

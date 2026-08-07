@@ -48,8 +48,7 @@ public class BatchConfig {
                     String encoding     = setupService.detectEncoding(validatedPath);
                     String sampleLog    = setupService.readSampleLog(validatedPath, encoding, 100);
 
-                    // Dify 연동 전 임시 고정값. 실제 로그 형식: "yyyy-MM-dd HH:mm:ss"
-                    // String dateFormat = setupService.requestDateFormatToDify(sampleLog); // TODO: Dify 연동 후 활성화
+                    // String dateFormat = setupService.requestDateFormatToDify(sampleLog); // TODO: Dify API key 설정 후 활성화
                     String dateFormat = "yyyy-MM-dd HH:mm:ss";
 
                     String timezone = setupService.detectTimezone(sampleLog, dateFormat);

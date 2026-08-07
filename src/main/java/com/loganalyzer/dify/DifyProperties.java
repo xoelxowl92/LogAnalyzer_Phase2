@@ -23,9 +23,16 @@ public class DifyProperties {
     @Getter
     @Setter
     public static class Workflow {
+        private DateFormat dateFormat = new DateFormat();
         private FaultCheck faultCheck = new FaultCheck();
         private AnomalyAnalysis anomalyAnalysis = new AnomalyAnalysis();
         private OptimizationAnalysis optimizationAnalysis = new OptimizationAnalysis();
+    }
+
+    @Getter
+    @Setter
+    public static class DateFormat {
+        private String apiKey;
     }
 
     @Getter
