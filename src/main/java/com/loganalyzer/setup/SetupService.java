@@ -183,7 +183,7 @@ public class SetupService {
         for (String line : lines) {
             if (line.isBlank()) continue;
             try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat, Locale.ENGLISH);
                 ZonedDateTime zdt = ZonedDateTime.parse(line.substring(0, Math.min(line.length(), 35)).trim(), formatter);
                 String zoneId = zdt.getZone().getId();
                 log.info("[Setup] 타임존 탐지 성공: {}", zoneId);

@@ -57,7 +57,7 @@ public class InfoController {
             String dateFormat  = props.getProperty("setup.date-format");
             int formatLen      = dateFormat.length();
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat, Locale.ENGLISH);
             List<String> reservoir = new ArrayList<>(5);
             int count = 0;
             Random random = new Random();
