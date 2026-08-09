@@ -231,7 +231,7 @@ public class MinuteMonitorService {
 
             try {
 
-                URL url = new URL(difyProperties.getBaseUrl() + "/v1/chat-messages");
+                URL url = new URL(difyProperties.getBaseUrl() + "/v1/workflows/run");
 
                 HttpURLConnection conn =
                         (HttpURLConnection) url.openConnection();
@@ -252,11 +252,12 @@ public class MinuteMonitorService {
 
                 ObjectMapper mapper = new ObjectMapper();
 
+                ObjectNode inputs = mapper.createObjectNode();
+                inputs.put("log_content", logContent);
+
                 ObjectNode root = mapper.createObjectNode();
-                root.set("inputs", mapper.createObjectNode());
-                root.put("query", logContent);
+                root.set("inputs", inputs);
                 root.put("response_mode", "blocking");
-                root.put("conversation_id", "");
                 root.put("user", difyProperties.getUser());
 
                 String requestBody =
@@ -292,11 +293,19 @@ public class MinuteMonitorService {
                     );
                 }
 
-                String answer = json.path("answer").asText("").trim();
+                String status = json.path("data").path("status").asText("");
 
-                // 챗플로우가 JSON이 아닌 리포트 텍스트를 반환하므로, "이상 없음" 문구 포함 여부로 장애 여부를 판단
-                result.setFault(!answer.contains("이상 없음"));
-                result.setSummary(answer);
+                if (!"succeeded".equals(status)) {
+                    String error = json.path("data").path("error").asText("unknown");
+                    throw new DifyApiException(
+                            "Dify 워크플로우 실패 - status=" + status + ", error=" + error
+                    );
+                }
+
+                JsonNode outputs = json.path("data").path("outputs");
+
+                result.setFault(outputs.path("is_fault").asBoolean(false));
+                result.setSummary(outputs.path("summary").asText(""));
 
                 return result;
 
