@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class LogAnalyzerApplication {
 
     public static void main(String[] args) {
+        //main - test commit
         SpringApplication.run(LogAnalyzerApplication.class, args);
     }
 }
