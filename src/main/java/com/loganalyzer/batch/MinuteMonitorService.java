@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.loganalyzer.dify.DifyApiException;
+import com.loganalyzer.dify.DifyClientErrorException;
 import com.loganalyzer.dify.DifyProperties;
 import com.loganalyzer.setup.SetupConfig;
 import lombok.RequiredArgsConstructor;
@@ -314,21 +315,29 @@ public class MinuteMonitorService {
 
                 JsonNode json = mapper.readTree(response);
 
-                // HTTP 레벨 오류 (인증 실패, 필수 파라미터 누락 등)
-                if (statusCode >= 400) {
-                    throw new DifyApiException(
-                            "Dify API 오류 (" + statusCode + ") : "
+                // 4xx 클라이언트 오류(인증 실패, 필수 파라미터 누락 등)는 동일 요청을 다시 보내도
+                // 결과가 같으므로 즉시 중단한다. 5xx는 서버 측 일시 장애일 수 있어 재시도 대상으로 남긴다.
+                if (statusCode >= 400 && statusCode < 500) {
+                    throw new DifyClientErrorException(
+                            "Dify API 클라이언트 오류 (" + statusCode + ") : "
                                     + json.path("message").asText(response)
                     );
                 }
 
-                // HTTP는 200이어도 워크플로우 내부 실행이 실패할 수 있다
-                // (예: 연결된 LLM 모델의 크레딧 소진 등) - data.status로 별도 확인
+                if (statusCode >= 500) {
+                    throw new DifyApiException(
+                            "Dify API 서버 오류 (" + statusCode + ") : "
+                                    + json.path("message").asText(response)
+                    );
+                }
+
+                // HTTP는 200이어도 워크플로우 내부 실행이 실패할 수 있다 (예: 연결된 LLM 모델의 크레딧 소진 등).
+                // 같은 입력으로 재시도해도 동일하게 실패하므로 즉시 중단한다.
                 String status = json.path("data").path("status").asText("");
 
                 if (!"succeeded".equals(status)) {
                     String error = json.path("data").path("error").asText("unknown");
-                    throw new DifyApiException(
+                    throw new DifyClientErrorException(
                             "Dify 워크플로우 실패 - status=" + status + ", error=" + error
                     );
                 }
@@ -340,9 +349,14 @@ public class MinuteMonitorService {
 
                 return result;
 
+            } catch (DifyClientErrorException e) {
+
+                // 재시도로 해결되지 않는 오류이므로 즉시 전파
+                throw e;
+
             } catch (Exception e) {
 
-                // 재시도로 회복 가능한 실패로 간주하고 다음 attempt로 넘어감
+                // 네트워크/IO 오류, 5xx 서버 오류 등 재시도로 회복 가능한 실패로 간주하고 다음 attempt로 넘어감
                 lastFailure = e;
 
                 log.warn(
