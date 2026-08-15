@@ -261,6 +261,10 @@ public class HourlyMonitorService {
         return OptimizationAnalysisResult.builder().content(content).build();
     }
 
+    /**
+     * anomaly-analysis/optimization-analysis 공용 Dify Workflow 호출.
+     * 네트워크/일시적 오류는 maxRetries만큼 재시도하고, 모두 실패하면 DifyApiException을 던진다.
+     */
     private String requestDifyWorkflowContent(String logContent, String apiKey, String workflowLabel) {
 
         int maxAttempts = difyProperties.getMaxRetries();
@@ -270,10 +274,7 @@ public class HourlyMonitorService {
 
             try {
 
-                // TODO-TEST: anomaly-analysis/optimization-analysis 전용 Dify Workflow 앱이 아직 없어
-                // fault-check와 동일한 Chatflow 앱(/v1/chat-messages)으로 임시 테스트 중.
-                // 실제 Workflow 앱 발급 후에는 반드시 "/v1/workflows/run" + inputs.log_content 방식으로 되돌릴 것.
-                URL url = new URL(difyProperties.getBaseUrl() + "/v1/chat-messages");
+                URL url = new URL(difyProperties.getBaseUrl() + "/v1/workflows/run");
 
                 HttpURLConnection conn =
                         (HttpURLConnection) url.openConnection();
@@ -294,11 +295,13 @@ public class HourlyMonitorService {
 
                 ObjectMapper mapper = new ObjectMapper();
 
+                // Dify 워크플로우 입력 폼 변수 구성 (실제 앱의 입력 변수명과 일치해야 함)
+                ObjectNode inputs = mapper.createObjectNode();
+                inputs.put("log_content", logContent);
+
                 ObjectNode root = mapper.createObjectNode();
-                root.set("inputs", mapper.createObjectNode());
-                root.put("query", logContent);
-                root.put("response_mode", "blocking");
-                root.put("conversation_id", "");
+                root.set("inputs", inputs);
+                root.put("response_mode", "blocking"); // 응답이 완료될 때까지 동기 대기
                 root.put("user", difyProperties.getUser());
 
                 String requestBody =
@@ -312,6 +315,7 @@ public class HourlyMonitorService {
 
                 int statusCode = conn.getResponseCode();
 
+                // 4xx/5xx면 에러 바디는 getInputStream()이 아닌 getErrorStream()에 담겨 온다.
                 InputStream is =
                         statusCode >= 400
                                 ? conn.getErrorStream()
@@ -327,6 +331,7 @@ public class HourlyMonitorService {
 
                 JsonNode json = mapper.readTree(response);
 
+                // HTTP 레벨 오류 (인증 실패, 필수 파라미터 누락 등)
                 if (statusCode >= 400) {
                     throw new DifyApiException(
                             "[" + workflowLabel + "] Dify API 오류 (" + statusCode + ") : "
@@ -334,11 +339,24 @@ public class HourlyMonitorService {
                     );
                 }
 
-                String content = json.path("answer").asText("").trim();
+                // HTTP는 200이어도 워크플로우 내부 실행이 실패할 수 있다
+                // (예: 연결된 LLM 모델의 크레딧 소진 등) - data.status로 별도 확인
+                String status = json.path("data").path("status").asText("");
+
+                if (!"succeeded".equals(status)) {
+                    String error = json.path("data").path("error").asText("unknown");
+                    throw new DifyApiException(
+                            "[" + workflowLabel + "] Dify 워크플로우 실패 - status=" + status + ", error=" + error
+                    );
+                }
+
+                JsonNode outputs = json.path("data").path("outputs");
+
+                String content = outputs.path("content").asText("").trim();
 
                 if (content.isBlank()) {
                     throw new ResponseMappingException(
-                            "[" + workflowLabel + "] 응답에 answer가 없습니다 : " + response
+                            "[" + workflowLabel + "] 응답에 outputs.content가 없습니다 : " + response
                     );
                 }
 
@@ -360,6 +378,7 @@ public class HourlyMonitorService {
 
             } catch (Exception e) {
 
+                
                 lastFailure = e;
 
                 log.warn(
@@ -378,12 +397,12 @@ public class HourlyMonitorService {
         );
     }
 
-    /** output/hourly/anomaly/yyyy-MM-dd_HH.dat 경로에 이상 패턴 분석 결과를 저장한다. */
+    
     public void saveAnomalyResult(AnomalyAnalysisResult result, LocalDateTime batchTime) {
         saveResultContent(ANOMALY_RESULT_DIR, result.getContent(), batchTime, "anomaly");
     }
 
-    /** output/hourly/optimization/yyyy-MM-dd_HH.dat 경로에 최적화 인사이트 분석 결과를 저장한다. */
+    
     public void saveOptimizationResult(OptimizationAnalysisResult result, LocalDateTime batchTime) {
         saveResultContent(OPTIMIZATION_RESULT_DIR, result.getContent(), batchTime, "optimization");
     }
