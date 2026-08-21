@@ -31,6 +31,7 @@ import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 
 @Slf4j
 @Service
@@ -65,7 +66,7 @@ public class HourlyMonitorService {
 
         // 3. 해당 구간 로그가 0건이면 Dify 호출 없이 종료
         if (logContent == null ||
-            logContent.isBlank()) {
+            logContent.trim().isEmpty()) {
             log.info(
                 "[HourlyMonitor] 분석 대상 로그 없음"
             );
@@ -247,7 +248,7 @@ public class HourlyMonitorService {
      */
     public AnomalyAnalysisResult requestAnomalyAnalysisToDify(String logContent) {
 
-        if (logContent == null || logContent.isBlank()) {
+        if (logContent == null || logContent.trim().isEmpty()) {
             return AnomalyAnalysisResult.builder().content("").build();
         }
 
@@ -267,7 +268,7 @@ public class HourlyMonitorService {
      */
     public OptimizationAnalysisResult requestOptimizationAnalysisToDify(String logContent) {
 
-        if (logContent == null || logContent.isBlank()) {
+        if (logContent == null || logContent.trim().isEmpty()) {
             return OptimizationAnalysisResult.builder().content("").build();
         }
 
@@ -342,7 +343,7 @@ public class HourlyMonitorService {
 
                 String response =
                         new String(
-                                is.readAllBytes(),
+                                StreamUtils.copyToByteArray(is),
                                 StandardCharsets.UTF_8
                         );
 
@@ -381,7 +382,7 @@ public class HourlyMonitorService {
 
                 String content = outputs.path("content").asText("").trim();
 
-                if (content.isBlank()) {
+                if (content.trim().isEmpty()) {
                     throw new ResponseMappingException(
                             "[" + workflowLabel + "] 응답에 outputs.content가 없습니다 : " + response
                     );

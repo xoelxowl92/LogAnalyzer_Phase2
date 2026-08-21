@@ -106,8 +106,10 @@ public class InfoController {
 
         } catch (Exception e) {
             log.error("[InfoController] 타임스탬프 조회 실패", e);
-            return ResponseEntity.internalServerError()
-                    .body(Map.of("timestamps", Collections.emptyList(), "dateFormat", ""));
+            Map<String, Object> errorResult = new HashMap<>();
+            errorResult.put("timestamps", Collections.emptyList());
+            errorResult.put("dateFormat", "");
+            return ResponseEntity.internalServerError().body(errorResult);
         }
     }
 }

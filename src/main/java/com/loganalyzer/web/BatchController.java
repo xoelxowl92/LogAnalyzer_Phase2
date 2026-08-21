@@ -46,7 +46,7 @@ public class BatchController {
     public ResponseEntity<Map<String, Object>> runSetupJob(@RequestBody Map<String, String> body) {
         Map<String, Object> result = new HashMap<>();
         String logFilePath = body.get("logFilePath");
-        if (logFilePath == null || logFilePath.isBlank()) {
+        if (logFilePath == null || logFilePath.trim().isEmpty()) {
             result.put("status", "FAILED");
             result.put("error", "logFilePath는 필수입니다.");
             return ResponseEntity.badRequest().body(result);

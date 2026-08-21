@@ -8,6 +8,7 @@ import com.loganalyzer.dify.DifyProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -37,7 +38,7 @@ public class SetupService {
      * 파일 존재 여부, 디렉터리 여부, 읽기 권한을 순서대로 확인.
      */
     public String configureLogFilePath(String logFilePath) throws IOException {
-        if (logFilePath == null || logFilePath.isBlank()) {
+        if (logFilePath == null || logFilePath.trim().isEmpty()) {
             throw new IllegalArgumentException("로그 파일 경로는 필수입니다.");
         }
         File file = new File(logFilePath);
@@ -93,7 +94,7 @@ public class SetupService {
                     .limit(maxLines)
                     .collect(Collectors.joining("\n"));
 
-            if (content.isBlank()) {
+            if (content.trim().isEmpty()) {
                 throw new IOException("로그 파일이 비어있습니다: " + logFilePath);
             }
             log.info("[Setup] 샘플 로그 읽기 완료 (최대 {} 줄)", maxLines);
@@ -138,7 +139,7 @@ public class SetupService {
                 int statusCode = conn.getResponseCode();
                 // TODO: [Dify 연동 시] getErrorStream()이 null을 반환할 수 있음 — null 체크 후 기본 문자열 처리 필요
                 InputStream responseStream = statusCode >= 400 ? conn.getErrorStream() : conn.getInputStream();
-                String response = new String(responseStream.readAllBytes(), StandardCharsets.UTF_8);
+                String response = new String(StreamUtils.copyToByteArray(responseStream), StandardCharsets.UTF_8);
                 log.debug("[Setup] Dify 응답: {}", response);
 
                 if (statusCode >= 400) {
@@ -154,7 +155,7 @@ public class SetupService {
                 }
 
                 String dateFormat = json.path("data").path("outputs").path("date_format").asText("").trim();
-                if (dateFormat.isBlank()) {
+                if (dateFormat.trim().isEmpty()) {
                     throw new DifyApiException("날짜 형식을 추론할 수 없습니다 (빈 응답)");
                 }
 
@@ -185,7 +186,7 @@ public class SetupService {
     public String detectTimezone(String sampleLogContent, String dateFormat) {
         String[] lines = sampleLogContent.split("\n");
         for (String line : lines) {
-            if (line.isBlank()) continue;
+            if (line.trim().isEmpty()) continue;
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat, Locale.ENGLISH);
                 ZonedDateTime zdt = ZonedDateTime.parse(line.substring(0, Math.min(line.length(), 35)).trim(), formatter);

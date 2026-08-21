@@ -28,6 +28,7 @@ import java.util.Locale;
 import java.util.Properties;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 
 @Slf4j
 @Service
@@ -61,7 +62,7 @@ public class MinuteMonitorService {
 
             // 3. 해당 구간 로그가 0건이면 Dify 호출 없이 종료 (F-02 제약사항)
             if (logContent == null ||
-                logContent.isBlank()) {
+                logContent.trim().isEmpty()) {
                 log.info(
                     "[MinuteMonitor] 분석 대상 로그 없음"
                 );
@@ -245,7 +246,7 @@ public class MinuteMonitorService {
         FaultCheckResult result = new FaultCheckResult();
 
         // 단독으로 호출되는 경우(F-02 제약)에도 로그가 없으면 Dify를 호출하지 않는다.
-        if (logContent == null || logContent.isBlank()) {
+        if (logContent == null || logContent.trim().isEmpty()) {
             result.setFault(false);
             result.setSummary("분석할 로그가 없습니다.");
             return result;
@@ -307,7 +308,7 @@ public class MinuteMonitorService {
 
                 String response =
                         new String(
-                                is.readAllBytes(),
+                                StreamUtils.copyToByteArray(is),
                                 StandardCharsets.UTF_8
                         );
 
