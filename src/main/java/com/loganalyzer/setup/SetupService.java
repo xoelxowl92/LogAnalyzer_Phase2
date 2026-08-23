@@ -126,21 +126,24 @@ public class SetupService {
                 conn.setRequestProperty("Content-Type", "application/json");
 
                 ObjectNode inputs = mapper.createObjectNode();
-                inputs.put("sample_log", sampleLogContent);
+                inputs.put("log_sample", sampleLogContent);
                 ObjectNode root = mapper.createObjectNode();
                 root.set("inputs", inputs);
                 root.put("response_mode", "blocking");
                 root.put("user", difyProperties.getUser());
 
+                String requestBody = mapper.writeValueAsString(root);
+                log.info("[Setup] Dify 요청: url={}, body={}", url, requestBody);
+
                 try (OutputStream os = conn.getOutputStream()) {
-                    os.write(mapper.writeValueAsString(root).getBytes(StandardCharsets.UTF_8));
+                    os.write(requestBody.getBytes(StandardCharsets.UTF_8));
                 }
 
                 int statusCode = conn.getResponseCode();
                 // TODO: [Dify 연동 시] getErrorStream()이 null을 반환할 수 있음 — null 체크 후 기본 문자열 처리 필요
                 InputStream responseStream = statusCode >= 400 ? conn.getErrorStream() : conn.getInputStream();
                 String response = new String(StreamUtils.copyToByteArray(responseStream), StandardCharsets.UTF_8);
-                log.debug("[Setup] Dify 응답: {}", response);
+                log.info("[Setup] Dify 응답: statusCode={}, body={}", statusCode, response);
 
                 if (statusCode >= 400) {
                     JsonNode errorJson = mapper.readTree(response);
@@ -154,7 +157,7 @@ public class SetupService {
                     throw new DifyApiException("Dify 워크플로우 실패 - status=" + status + ", error=" + error);
                 }
 
-                String dateFormat = json.path("data").path("outputs").path("date_format").asText("").trim();
+                String dateFormat = json.path("data").path("outputs").path("datetime_format").asText("").trim();
                 if (dateFormat.trim().isEmpty()) {
                     throw new DifyApiException("날짜 형식을 추론할 수 없습니다 (빈 응답)");
                 }
@@ -163,6 +166,10 @@ public class SetupService {
                     DateTimeFormatter.ofPattern(dateFormat, Locale.ENGLISH);
                 } catch (IllegalArgumentException e) {
                     throw new DifyApiException("유효하지 않은 DateTimeFormatter 패턴: " + dateFormat);
+                }
+
+                if (!containsDateField(dateFormat)) {
+                    throw new DifyApiException("날짜 정보(연/월/일)가 없는 형식입니다 - 시각만 추론됨: " + dateFormat);
                 }
 
                 log.info("[Setup] 날짜 형식 탐지 완료: {}", dateFormat);
@@ -177,6 +184,24 @@ public class SetupService {
         }
 
         throw new DifyApiException("Dify 호출 " + maxAttempts + "회 재시도 후 실패", lastFailure);
+    }
+
+    /**
+     * DateTimeFormatter 패턴에 연/월/일 필드(y, M, d)가 포함되어 있는지 확인.
+     * 리터럴 텍스트(단일 인용부호로 감싼 부분)는 검사 대상에서 제외.
+     */
+    private boolean containsDateField(String pattern) {
+        boolean inLiteral = false;
+        for (char c : pattern.toCharArray()) {
+            if (c == '\'') {
+                inLiteral = !inLiteral;
+                continue;
+            }
+            if (!inLiteral && (c == 'y' || c == 'M' || c == 'd')) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

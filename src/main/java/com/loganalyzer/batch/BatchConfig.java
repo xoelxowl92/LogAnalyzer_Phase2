@@ -49,8 +49,7 @@ public class BatchConfig {
                     String encoding     = setupService.detectEncoding(validatedPath);
                     String sampleLog    = setupService.readSampleLog(validatedPath, encoding, 100);
 
-                    // String dateFormat = setupService.requestDateFormatToDify(sampleLog); // TODO: Dify API key 설정 후 활성화
-                    String dateFormat = "yyyy-MM-dd HH:mm:ss";
+                    String dateFormat = setupService.requestDateFormatToDify(sampleLog);
 
                     String timezone = setupService.detectTimezone(sampleLog, dateFormat);
 

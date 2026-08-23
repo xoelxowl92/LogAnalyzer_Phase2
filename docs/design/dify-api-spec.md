@@ -91,13 +91,13 @@ log-analyzer.dify.workflow.daily-optimization.api-key=
 
 | 필드명 | 타입 | 설명 |
 |--------|------|------|
-| `sample_log` | String | readSampleLog()에서 읽은 샘플 로그 (최대 100줄) |
+| `log_sample` | String | readSampleLog()에서 읽은 샘플 로그 (최대 100줄) |
 
 **응답 outputs**
 
 | 필드명 | 타입 | 설명 | 예시 |
 |--------|------|------|------|
-| `date_format` | String | 추론된 날짜 형식 패턴 (Java DateTimeFormatter 형식) | `yyyy-MM-dd HH:mm:ss` |
+| `datetime_format` | String | 추론된 날짜 형식 패턴 (Java DateTimeFormatter 형식) | `yyyy-MM-dd HH:mm:ss` |
 
 **프롬프트 제약**
 - 반드시 Java `DateTimeFormatter` 호환 패턴으로만 응답할 것
