@@ -193,7 +193,7 @@ public String requestDateFormatToDify(String sampleLogContent)
 | 상황 | Exception | 처리 방안 |
 |------|-----------|-----------|
 | Dify API 호출 실패 (timeout, 5xx) | DifyApiException | 재시도 N회 후 설치 중단 |
-| 응답에서 날짜 형식 파싱 불가 | DateFormatParseException | 설치 중단 |
+| 응답에서 날짜 형식 파싱 불가 | DifyApiException | 설치 중단 |
 
 ### 4.6 내부 처리 로직 (의사코드)
 ```
