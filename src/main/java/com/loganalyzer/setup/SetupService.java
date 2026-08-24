@@ -140,13 +140,14 @@ public class SetupService {
                 }
 
                 int statusCode = conn.getResponseCode();
-                // TODO: [Dify 연동 시] getErrorStream()이 null을 반환할 수 있음 — null 체크 후 기본 문자열 처리 필요
                 InputStream responseStream = statusCode >= 400 ? conn.getErrorStream() : conn.getInputStream();
-                String response = new String(StreamUtils.copyToByteArray(responseStream), StandardCharsets.UTF_8);
+                String response = (responseStream != null)
+                        ? new String(StreamUtils.copyToByteArray(responseStream), StandardCharsets.UTF_8)
+                        : "";
                 log.info("[Setup] Dify 응답: statusCode={}, body={}", statusCode, response);
 
                 if (statusCode >= 400) {
-                    JsonNode errorJson = mapper.readTree(response);
+                    JsonNode errorJson = response.isEmpty() ? mapper.createObjectNode() : mapper.readTree(response);
                     throw new DifyApiException("Dify API 오류 (" + statusCode + "): " + errorJson.path("message").asText(response));
                 }
 

@@ -342,14 +342,13 @@ public class HourlyMonitorService {
                                 : conn.getInputStream();
 
                 String response =
-                        new String(
-                                StreamUtils.copyToByteArray(is),
-                                StandardCharsets.UTF_8
-                        );
+                        (is != null)
+                                ? new String(StreamUtils.copyToByteArray(is), StandardCharsets.UTF_8)
+                                : "";
 
                 log.info("[HourlyMonitor] Dify 응답 ({}) : {}", workflowLabel, response);
 
-                JsonNode json = mapper.readTree(response);
+                JsonNode json = response.isEmpty() ? mapper.createObjectNode() : mapper.readTree(response);
 
                 // 4xx 클라이언트 오류(인증 실패, 필수 파라미터 누락 등)는 동일 요청을 다시 보내도
                 // 결과가 같으므로 즉시 중단한다. 5xx는 서버 측 일시 장애일 수 있어 재시도 대상으로 남긴다.
