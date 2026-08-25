@@ -9,6 +9,7 @@
 | Content-Type | `application/json` |
 | Response Mode | `blocking` (응답 완료까지 대기) |
 | 작성일 | 2026-06-22 |
+| 최종 수정일 | 2026-08-25 (통합 워크플로우 전환 반영) |
 
 ---
 
@@ -64,16 +65,13 @@ log-analyzer.dify.timeout-seconds=60
 
 ### 1.4 워크플로우별 API Key
 
-각 워크플로우는 Dify에서 별도로 발급된 API Key를 사용한다.
-
 ```properties
 log-analyzer.dify.workflow.date-format.api-key=
-log-analyzer.dify.workflow.fault-check.api-key=
-log-analyzer.dify.workflow.anomaly-analysis.api-key=
-log-analyzer.dify.workflow.optimization-analysis.api-key=
-log-analyzer.dify.workflow.daily-anomaly.api-key=
-log-analyzer.dify.workflow.daily-optimization.api-key=
+log-analyzer.dify.workflow.log-suite.api-key=
 ```
+
+- `date-format` : 시스템 설치 시 날짜 형식 추론 전용 앱 (별도 앱, 변경 없음)
+- `log-suite` : 단건분석/일일보고/이상감지가 하나로 합쳐진 통합 워크플로우 앱 (아래 2.2 참고)
 
 ---
 
@@ -105,137 +103,92 @@ log-analyzer.dify.workflow.daily-optimization.api-key=
 
 ---
 
-### 2.2 장애 판단 (fault-check)
+### 2.2 통합 워크플로우 (log-suite) — mode 파라미터로 분기
+
+> 원본: `docs/lhs_logSuite_integrated_fix.yml` (Dify DSL export, `mode: workflow`, app name `lhs_logSuite_integrated_fix`)
+
+기존에 fault-check / anomaly-analysis / daily-anomaly 3개로 나뉘어 있던 워크플로우가 **앱 하나(log-suite)**로 합쳐졌다.
+API Key도 하나만 발급되며, 요청 시 `mode` 입력값으로 동작을 분기한다.
+
+**로그 최적화 인사이트(구 optimization-analysis / daily-optimization)는 이 통합 워크플로우에 아직 추가되지 않았다.**
+추후 Dify 쪽에서 mode가 추가되면 Java 코드도 함께 대응해야 한다.
+
+#### 2.2.1 공통 요청 inputs
+
+| 필드명 | 타입 | 필수 | 설명 |
+|--------|------|------|------|
+| `mode` | String (select) | Y | `single_analyze` / `daily_report` / `anomaly` 중 하나 |
+| `log_content` | String (paragraph) | Y | 분석 대상 로그. **최대 20,000자** — 초과 시 400 오류 (Dify start 노드 max_length 제약) |
+| `prev_error_count` 외 7개 | Number | N (anomaly 전용, 기본값 0) | 아래 2.2.4 참고 |
+
+#### 2.2.2 mode=single_analyze (구 fault-check, 1분 배치)
 
 | 항목 | 내용 |
 |------|------|
-| 호출 메서드 | `requestFaultCheckToDify()` |
+| 호출 메서드 | `MinuteMonitorService.requestFaultCheckToDify()` |
 | 호출 주체 | 실시간 모니터링 배치 (1분 단위) |
 | 목적 | 최근 1분 로그에서 치명적 장애 발생 여부 판단 |
-| 부가 동작 | 장애 감지 시 Dify 워크플로우 내 MCP 서버를 통해 Swing 클라이언트에 알림 |
-
-**요청 inputs**
-
-| 필드명 | 타입 | 설명 |
-|--------|------|------|
-| `log_content` | String | 최근 1분 구간 로그 (`now-80s` ~ `now-20s`) |
 
 **응답 outputs**
 
 | 필드명 | 타입 | 설명 |
 |--------|------|------|
 | `is_fault` | boolean | 장애 감지 여부 |
-| `summary` | String | 장애 요약 (`is_fault=true`일 때만 유효) |
+| `summary` | String | 장애 분석 요약 |
 
-**프롬프트 제약**
-- "장애인가 아닌가"만 판단 — 상세 분석은 이 워크플로우의 목적이 아님
-- `is_fault=true`인 경우 MCP 서버를 통해 Swing 알림 발송
-
----
-
-### 2.3 이상 패턴 분석 (anomaly-analysis)
+#### 2.2.3 mode=daily_report (구 daily-anomaly, 1일 배치)
 
 | 항목 | 내용 |
 |------|------|
-| 호출 메서드 | `requestAnomalyAnalysisToDify()` |
-| 호출 주체 | 시간 단위 배치 |
-| 목적 | 1시간치 로그에서 이상 패턴 분석 |
-
-**요청 inputs**
-
-| 필드명 | 타입 | 설명 |
-|--------|------|------|
-| `log_content` | String | 최근 1시간 로그 |
-
-**응답 outputs**
-
-| 필드명 | 타입 | 설명 | 제한 |
-|--------|------|------|------|
-| `content` | String | 이상 패턴 분석 결과 전문 | **1MB 이하 필수** |
-
-**프롬프트 제약**
-- 응답 content는 반드시 1MB(1,048,576 bytes) 이하로 생성할 것
-- 저장 경로: `output/hourly/anomaly/yyyy-MM-dd_HH.dat`
-
----
-
-### 2.4 최적화 인사이트 분석 (optimization-analysis)
-
-| 항목 | 내용 |
-|------|------|
-| 호출 메서드 | `requestOptimizationAnalysisToDify()` |
-| 호출 주체 | 시간 단위 배치 |
-| 목적 | 1시간치 로그에서 로그 최적화 인사이트 도출 |
-
-**요청 inputs**
-
-| 필드명 | 타입 | 설명 |
-|--------|------|------|
-| `log_content` | String | 최근 1시간 로그 |
-
-**응답 outputs**
-
-| 필드명 | 타입 | 설명 | 제한 |
-|--------|------|------|------|
-| `content` | String | 최적화 인사이트 전문 | **1MB 이하 필수** |
-
-**프롬프트 제약**
-- 응답 content는 반드시 1MB(1,048,576 bytes) 이하로 생성할 것
-- 저장 경로: `output/hourly/optimization/yyyy-MM-dd_HH.dat`
-
----
-
-### 2.5 일일 이상 패턴 보고 (daily-anomaly)
-
-| 항목 | 내용 |
-|------|------|
-| 호출 메서드 | `requestDailyAnomalyToDify()` |
+| 호출 메서드 | `DailyMonitorService.requestDailyReportToDify()` |
 | 호출 주체 | 일 단위 배치 |
-| 목적 | 하루치 hourly anomaly 결과를 통합하여 이상 패턴 일일 보고 |
-| 부가 동작 | Dify 워크플로우 내 MCP 서버를 통해 알림 발송 |
+| 목적 | 하루치 로그 요약을 워크플로우 내부(dr-preprocess 코드 노드)에서 집계하여 일일 운영보고 작성 |
 
-**요청 inputs**
-
-| 필드명 | 타입 | 설명 |
-|--------|------|------|
-| `anomaly_contents` | String | hourly anomaly .dat 내용을 하나로 합친 문자열 (시각 오름차순) |
-| `target_date` | String | 보고 대상 날짜 (`yyyy-MM-dd` 형식) |
+**구 스펙과의 차이 (중요)**
+- `log_content` 필드는 원본 로그가 아니라 `HourlyMonitorService`가 이미 저장한 `output/hourly/anomaly/yyyy-MM-dd_HH.dat`의 시간대별 `message`를 시각 오름차순으로 모은 값이다 (20,000자 제한 안에 담기 위함, `4_daily-monitor-design.md` 1.3 참고).
+- 집계(ERROR/WARN 카운트, 그룹화 등)는 워크플로우 내부에서 처리한다.
 
 **응답 outputs**
 
 | 필드명 | 타입 | 설명 |
 |--------|------|------|
-| `content` | String | 일일 이상 패턴 보고 전문 (Java단에서 파일 저장에 사용) |
-| `alert_sent` | boolean | MCP 알림 발송 성공 여부 |
+| `report_text` | String | 일일 운영보고 전문 |
+| `daily_error_count` | Number | 집계된 ERROR 건수 |
+| `daily_warn_count` | Number | 집계된 WARN 건수 |
+| `daily_unique_issue_count` | Number | 그룹화된 고유 이슈 수 |
 
-**프롬프트 제약**
-- 저장 경로: `output/daily/anomaly/yyyy-MM-dd.dat`
-
----
-
-### 2.6 일일 최적화 인사이트 (daily-optimization)
+#### 2.2.4 mode=anomaly (구 anomaly-analysis, 1시간 배치)
 
 | 항목 | 내용 |
 |------|------|
-| 호출 메서드 | `requestDailyOptimizationToDify()` |
-| 호출 주체 | 일 단위 배치 |
-| 목적 | 하루치 hourly optimization 결과를 통합하여 일일 최적화 인사이트 생성 |
+| 호출 메서드 | `HourlyMonitorService.requestAnomalyAnalysisToDify()` |
+| 호출 주체 | 시간 단위 배치 |
+| 목적 | 이번 주기 로그의 카테고리별 건수를 직전 주기와 비교해 이상 증가 여부 판단 |
 
-**요청 inputs**
+**구 스펙과의 차이 (중요)**
+- 예전에는 "이상 패턴 분석 결과 전문(content, 1MB 이하)"을 그대로 저장하는 방식이었으나,
+  이제는 **직전 호출 대비 증감을 비교하는 상태 기반(stateful) 방식**으로 바뀌었다.
+- 매 호출마다 직전 호출의 카테고리별 누적 건수(`prev_*`)를 함께 보내야 하며,
+  응답으로 받은 `next_prev_*` 값을 다음 호출의 `prev_*`로 그대로 이어서 전달해야 한다.
+  (Java 쪽 구현은 `output/hourly/anomaly-state.properties` 파일에 저장해 다음 실행에 재사용한다.)
+- 결과 텍스트(`anomaly_message`)는 LLM `max_tokens=800` 제한이 걸려 있어 더 이상 1MB 크기 검증이 필요 없다.
 
-| 필드명 | 타입 | 설명 |
-|--------|------|------|
-| `optimization_contents` | String | hourly optimization .dat 내용을 하나로 합친 문자열 (시각 오름차순) |
-| `target_date` | String | 보고 대상 날짜 (`yyyy-MM-dd` 형식) |
+**요청 inputs (prev_* — anomaly 모드 전용, 기본값 0)**
+
+| 필드명 | 설명 |
+|--------|------|
+| `prev_error_count` / `prev_warn_count` / `prev_timeout_count` / `prev_http5xx_count` / `prev_db_conn_count` / `prev_login_fail_count` / `prev_batch_fail_count` / `prev_external_api_fail_count` | 직전 호출 응답의 `next_prev_*`를 그대로 전달 (최초 호출은 전부 0) |
 
 **응답 outputs**
 
 | 필드명 | 타입 | 설명 |
 |--------|------|------|
-| `content` | String | 일일 최적화 인사이트 전문 |
+| `anomaly_detected` | String ("true"/"false") | 이상 감지 여부 |
+| `anomaly_severity` | String | 치명적 / 높음 / 보통 / 낮음 |
+| `anomaly_message` | String | 이상 감지 시 알림 텍스트, 정상 시 고정 정상 응답 |
+| `next_prev_error_count` 외 7개 | Number | 다음 호출에 `prev_*`로 이어서 전달할 이번 주기 누적 건수 |
 
-**프롬프트 제약**
-- 저장 경로: `output/daily/optimization/yyyy-MM-dd.dat`
+**저장 경로**: `output/hourly/anomaly/yyyy-MM-dd_HH.dat` (anomalyDetected/severity/message 저장)
 
 ---
 
@@ -244,9 +197,10 @@ log-analyzer.dify.workflow.daily-optimization.api-key=
 | 항목 | 내용 |
 |------|------|
 | `DIFY_BASE_URL` | Dify 서버 주소 미확정 |
-| 각 워크플로우 API Key | Dify 워크플로우 생성 후 발급 필요 |
+| log-suite API Key | Dify 콘솔에서 발급 필요 |
+| 로그 최적화 인사이트 | 통합 워크플로우에 아직 mode 없음 — 추가되면 Java 쪽 연동 재개 필요 |
 | timeout 기준 | 워크플로우 복잡도에 따라 조정 필요 |
-| MCP 서버 연동 스펙 | Dify ↔ MCP 상세 연동 방식 별도 문서 필요 |
+| MCP 서버 연동 스펙 | Dify ↔ MCP 상세 연동 방식 별도 문서 필요 (통합 이후 MCP 알림 흐름 재확인 필요) |
 
 ---
 
@@ -255,3 +209,5 @@ log-analyzer.dify.workflow.daily-optimization.api-key=
 | 버전 | 날짜 | 내용 | 작성자 |
 |------|------|------|--------|
 | v1.0 | 2026-06-23 | 초안 완성 | |
+| v2.0 | 2026-08-25 | fault-check/anomaly-analysis/daily-anomaly를 log-suite 통합 워크플로우(mode 분기)로 변경. 최적화 인사이트 관련 워크플로우는 아직 미포함이라 스펙에서 제외 | |
+| v2.1 | 2026-08-25 | daily_report의 log_content를 hourly anomaly 결과 재활용 방식으로 확정, `DailyMonitorService` 구현 완료 | |
