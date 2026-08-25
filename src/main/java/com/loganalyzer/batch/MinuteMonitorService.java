@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.loganalyzer.dify.DifyApiException;
 import com.loganalyzer.dify.DifyClientErrorException;
+import com.loganalyzer.dify.DifyMode;
 import com.loganalyzer.dify.DifyProperties;
 import com.loganalyzer.setup.SetupConfig;
 import lombok.RequiredArgsConstructor;
@@ -238,7 +239,7 @@ public class MinuteMonitorService {
     }
 
     /**
-     * 최근 1분 구간 로그를 fault-check Dify Workflow에 전달해 장애 여부를 판정받는다.
+     * 최근 1분 구간 로그를 통합 Dify 워크플로우(mode=single_analyze)에 전달해 장애 여부를 판정받는다.
      * 네트워크/일시적 오류는 maxRetries만큼 재시도하고, 모두 실패하면 DifyApiException을 던진다.
      */
     public FaultCheckResult requestFaultCheckToDify(String logContent) {
@@ -250,6 +251,16 @@ public class MinuteMonitorService {
             result.setFault(false);
             result.setSummary("분석할 로그가 없습니다.");
             return result;
+        }
+
+        // 통합 워크플로우 start 노드 log_content(paragraph) 필드는 20,000자를 초과할 수 없다.
+        if (logContent.length() > DifyMode.MAX_LOG_CONTENT_LENGTH) {
+            log.warn(
+                    "[MinuteMonitor] 로그 길이 초과로 절단 : {} -> {}자",
+                    logContent.length(),
+                    DifyMode.MAX_LOG_CONTENT_LENGTH
+            );
+            logContent = logContent.substring(0, DifyMode.MAX_LOG_CONTENT_LENGTH);
         }
 
         int maxAttempts = difyProperties.getMaxRetries();
@@ -271,17 +282,24 @@ public class MinuteMonitorService {
 
                 conn.setRequestProperty(
                         "Authorization",
-                        "Bearer " + difyProperties.getWorkflow().getFaultCheck().getApiKey()
+                        "Bearer " + difyProperties.getWorkflow().getLogSuite().getApiKey()
                 );
                 conn.setRequestProperty(
                         "Content-Type",
                         "application/json"
                 );
+                // Java 기본 User-Agent("Java/1.8.0_xxx")는 Cloudflare 등 WAF가 봇으로 차단하는 경우가 많아
+                // (error code: 1010 등 비 JSON 응답 원인) 일반 클라이언트처럼 보이도록 명시적으로 지정한다.
+                conn.setRequestProperty(
+                        "User-Agent",
+                        "LogAnalyzer-Batch/1.0"
+                );
 
                 ObjectMapper mapper = new ObjectMapper();
 
-                // Dify 워크플로우 입력 폼 변수 구성 (실제 앱의 입력 변수명과 일치해야 함)
+                // 통합 워크플로우 입력 폼 변수 구성 (docs/lhs_logSuite_integrated_fix.yml 참고)
                 ObjectNode inputs = mapper.createObjectNode();
+                inputs.put("mode", DifyMode.SINGLE_ANALYZE);
                 inputs.put("log_content", logContent);
 
                 ObjectNode root = mapper.createObjectNode();

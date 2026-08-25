@@ -28,6 +28,7 @@ public class BatchConfig {
     private final SetupService setupService;
     private final MinuteMonitorService minuteMonitorService;
     private final HourlyMonitorService hourlyMonitorService;
+    private final DailyMonitorService dailyMonitorService;
 
     /** 최초 1회 실행. logFilePath를 JobParameter로 전달받아 인코딩/날짜형식/타임존을 자동 탐지 후 config/setup.properties에 저장한다. */
     @Bean
@@ -90,7 +91,7 @@ public class BatchConfig {
 
 
 
-    /** 1시간 단위 실행. 이상 패턴·최적화 인사이트 분석 결과를 파일로 저장한다. */
+    /** 1시간 단위 실행. 통합 Dify 워크플로우(mode=anomaly)로 이상 패턴 분석 결과를 파일로 저장한다. */
     @Bean
     public Job hourlyMonitorJob() {
         return jobBuilderFactory.get("hourlyMonitorJob")
@@ -110,11 +111,23 @@ public class BatchConfig {
                 .build();
     }
 
-    /** 1일 단위 실행. hourly 결과를 취합하여 Dify에 일간 보고를 요청한다. */
+    /** 1일 단위 실행. hourly anomaly 결과를 취합하여 통합 Dify 워크플로우(mode=daily_report)에 일간 보고를 요청한다. */
     @Bean
     public Job dailyMonitorJob() {
         return jobBuilderFactory.get("dailyMonitorJob")
-                .start(placeholderStep("dailyMonitorStep"))
+                .start(dailyMonitorStep())
+                .build();
+    }
+
+    @Bean
+    public Step dailyMonitorStep() {
+
+        return stepBuilderFactory
+                .get("dailyMonitorStep")
+                .tasklet((contribution, chunkContext) -> {
+                    dailyMonitorService.execute();
+                    return RepeatStatus.FINISHED;
+                })
                 .build();
     }
 

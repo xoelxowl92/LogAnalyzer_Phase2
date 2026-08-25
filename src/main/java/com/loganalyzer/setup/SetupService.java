@@ -124,6 +124,9 @@ public class SetupService {
                 conn.setReadTimeout(difyProperties.getTimeoutSeconds() * 1000);
                 conn.setRequestProperty("Authorization", "Bearer " + difyProperties.getWorkflow().getDateFormat().getApiKey());
                 conn.setRequestProperty("Content-Type", "application/json");
+                // Java 기본 User-Agent("Java/1.8.0_xxx")는 Cloudflare 등 WAF가 봇으로 차단하는 경우가 많아
+                // (error code: 1010 등 비 JSON 응답 원인) 일반 클라이언트처럼 보이도록 명시적으로 지정한다.
+                conn.setRequestProperty("User-Agent", "LogAnalyzer-Batch/1.0");
 
                 ObjectNode inputs = mapper.createObjectNode();
                 inputs.put("log_sample", sampleLogContent);

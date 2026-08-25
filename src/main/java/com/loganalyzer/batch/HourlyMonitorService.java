@@ -3,9 +3,9 @@ package com.loganalyzer.batch;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.loganalyzer.dify.AnalysisResultSizeExceededException;
 import com.loganalyzer.dify.DifyApiException;
 import com.loganalyzer.dify.DifyClientErrorException;
+import com.loganalyzer.dify.DifyMode;
 import com.loganalyzer.dify.DifyProperties;
 import com.loganalyzer.dify.ResponseMappingException;
 import com.loganalyzer.setup.SetupConfig;
@@ -28,7 +28,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Properties;
-import java.util.concurrent.CompletableFuture;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
@@ -39,15 +38,15 @@ import org.springframework.util.StreamUtils;
 public class HourlyMonitorService {
 
     private static final String ANOMALY_RESULT_DIR = "output/hourly/anomaly";
-    private static final String OPTIMIZATION_RESULT_DIR = "output/hourly/optimization";
-    private static final int MAX_CONTENT_BYTES = 1_048_576;
+    private static final String ANOMALY_STATE_FILE = "output/hourly/anomaly-state.properties";
 
     private final DifyProperties difyProperties;
 
     /**
-     * 1시간 단위로 실행되는 이상 패턴 분석 + 최적화 인사이트 배치의 진입점 (F-03 / F-04).
-     * 최근 1시간 로그를 추출 → Dify에 이상 패턴 분석/최적화 인사이트를 병렬 요청 →
-     * 각 결과를 파일로 저장하는 순서로 처리한다.
+     * 1시간 단위로 실행되는 이상 패턴 분석 배치의 진입점 (F-03).
+     * 최근 1시간 로그를 추출 → 통합 Dify 워크플로우(mode=anomaly)에 요청 → 결과를 파일로 저장하는 순서로 처리한다.
+     * <p>
+     * 로그 최적화 인사이트(F-04)는 통합 워크플로우에 아직 추가되지 않아 현재는 스킵한다.
      */
     public void execute() {
 
@@ -73,6 +72,16 @@ public class HourlyMonitorService {
             return;
         }
 
+        // 통합 워크플로우 start 노드 log_content(paragraph) 필드는 20,000자를 초과할 수 없다.
+        if (logContent.length() > DifyMode.MAX_LOG_CONTENT_LENGTH) {
+            log.warn(
+                    "[HourlyMonitor] 로그 길이 초과로 절단 : {} -> {}자",
+                    logContent.length(),
+                    DifyMode.MAX_LOG_CONTENT_LENGTH
+            );
+            logContent = logContent.substring(0, DifyMode.MAX_LOG_CONTENT_LENGTH);
+        }
+
         log.info(
             "[HourlyMonitor] Dify 요청 데이터 size={}",
             logContent.length()
@@ -80,22 +89,14 @@ public class HourlyMonitorService {
 
         LocalDateTime batchTime = LocalDateTime.now();
 
-        // 4. 이상 패턴 분석(F-03) / 최적화 인사이트(F-04) 요청
-        // 두 워크플로우는 동일한 로그를 입력으로 받되 서로 결과에 의존하지 않으므로
-        // CompletableFuture로 병렬 실행해 전체 대기 시간을 단축한다.
-        CompletableFuture<AnomalyAnalysisResult> anomalyFuture =
-                CompletableFuture.supplyAsync(() -> requestAnomalyAnalysisToDify(logContent));
+        // 4. anomaly 모드는 직전 실행의 카테고리별 누적 건수를 함께 전달해야 증감 여부를 판단할 수 있다.
+        AnomalyCounts prevCounts = loadPrevAnomalyCounts();
 
-        CompletableFuture<OptimizationAnalysisResult> optimizationFuture =
-                CompletableFuture.supplyAsync(() -> requestOptimizationAnalysisToDify(logContent));
+        AnomalyAnalysisResult result = requestAnomalyAnalysisToDify(logContent, prevCounts);
 
-        // join()은 각 future 내부에서 던져진 예외를 CompletionException으로 감싸 재던진다.
-        AnomalyAnalysisResult anomalyResult = anomalyFuture.join();
-        OptimizationAnalysisResult optimizationResult = optimizationFuture.join();
-
-        // 5. 두 결과를 각자의 디렉터리에 파일로 저장 (F-03: anomaly, F-04: optimization)
-        saveAnomalyResult(anomalyResult, batchTime);
-        saveOptimizationResult(optimizationResult, batchTime);
+        // 5. 결과 저장 + 다음 실행에서 쓸 누적 건수 갱신
+        saveAnomalyResult(result, batchTime);
+        savePrevAnomalyCounts(result.getNextCounts());
 
         log.info("[HourlyMonitor] 실행 완료");
     }
@@ -242,50 +243,22 @@ public class HourlyMonitorService {
     }
 
     /**
-     * 이상 패턴 분석 워크플로우를 Dify에 요청하고 결과를 반환한다.
+     * 이상 패턴 분석을 통합 Dify 워크플로우(mode=anomaly)에 요청한다.
      * <p>
-     * 로그가 비어있으면 Dify를 호출하지 않고 빈 content를 가진 결과를 즉시 반환한다.
-     */
-    public AnomalyAnalysisResult requestAnomalyAnalysisToDify(String logContent) {
-
-        if (logContent == null || logContent.trim().isEmpty()) {
-            return AnomalyAnalysisResult.builder().content("").build();
-        }
-
-        String content = requestDifyWorkflowContent(
-                logContent,
-                difyProperties.getWorkflow().getAnomalyAnalysis().getApiKey(),
-                "anomaly-analysis"
-        );
-
-        return AnomalyAnalysisResult.builder().content(content).build();
-    }
-
-    /**
-     * 최적화 인사이트 분석 워크플로우를 Dify에 요청하고 결과를 반환한다.
-     * <p>
-     * 로그가 비어있으면 Dify를 호출하지 않고 빈 content를 가진 결과를 즉시 반환한다.
-     */
-    public OptimizationAnalysisResult requestOptimizationAnalysisToDify(String logContent) {
-
-        if (logContent == null || logContent.trim().isEmpty()) {
-            return OptimizationAnalysisResult.builder().content("").build();
-        }
-
-        String content = requestDifyWorkflowContent(
-                logContent,
-                difyProperties.getWorkflow().getOptimizationAnalysis().getApiKey(),
-                "optimization-analysis"
-        );
-
-        return OptimizationAnalysisResult.builder().content(content).build();
-    }
-
-    /**
-     * anomaly-analysis/optimization-analysis 공용 Dify Workflow 호출.
+     * anomaly 모드는 직전 호출의 카테고리별 누적 건수(prevCounts)를 함께 전달해야 증감 여부를 판단할 수 있고,
+     * 응답의 next_prev_* 값을 다음 호출의 prevCounts로 그대로 이어서 전달해야 한다.
      * 네트워크/일시적 오류는 maxRetries만큼 재시도하고, 모두 실패하면 DifyApiException을 던진다.
      */
-    private String requestDifyWorkflowContent(String logContent, String apiKey, String workflowLabel) {
+    public AnomalyAnalysisResult requestAnomalyAnalysisToDify(String logContent, AnomalyCounts prevCounts) {
+
+        if (logContent == null || logContent.trim().isEmpty()) {
+            return AnomalyAnalysisResult.builder()
+                    .anomalyDetected(false)
+                    .severity("")
+                    .message("")
+                    .nextCounts(prevCounts)
+                    .build();
+        }
 
         int maxAttempts = difyProperties.getMaxRetries();
         Exception lastFailure = null;
@@ -306,18 +279,33 @@ public class HourlyMonitorService {
 
                 conn.setRequestProperty(
                         "Authorization",
-                        "Bearer " + apiKey
+                        "Bearer " + difyProperties.getWorkflow().getLogSuite().getApiKey()
                 );
                 conn.setRequestProperty(
                         "Content-Type",
                         "application/json"
                 );
+                // Java 기본 User-Agent("Java/1.8.0_xxx")는 Cloudflare 등 WAF가 봇으로 차단하는 경우가 많아
+                // (error code: 1010 등 비 JSON 응답 원인) 일반 클라이언트처럼 보이도록 명시적으로 지정한다.
+                conn.setRequestProperty(
+                        "User-Agent",
+                        "LogAnalyzer-Batch/1.0"
+                );
 
                 ObjectMapper mapper = new ObjectMapper();
 
-                // Dify 워크플로우 입력 폼 변수 구성 (실제 앱의 입력 변수명과 일치해야 함)
+                // 통합 워크플로우 입력 폼 변수 구성 (docs/lhs_logSuite_integrated_fix.yml 참고)
                 ObjectNode inputs = mapper.createObjectNode();
+                inputs.put("mode", DifyMode.ANOMALY);
                 inputs.put("log_content", logContent);
+                inputs.put("prev_error_count", prevCounts.getErrorCount());
+                inputs.put("prev_warn_count", prevCounts.getWarnCount());
+                inputs.put("prev_timeout_count", prevCounts.getTimeoutCount());
+                inputs.put("prev_http5xx_count", prevCounts.getHttp5xxCount());
+                inputs.put("prev_db_conn_count", prevCounts.getDbConnCount());
+                inputs.put("prev_login_fail_count", prevCounts.getLoginFailCount());
+                inputs.put("prev_batch_fail_count", prevCounts.getBatchFailCount());
+                inputs.put("prev_external_api_fail_count", prevCounts.getExternalApiFailCount());
 
                 ObjectNode root = mapper.createObjectNode();
                 root.set("inputs", inputs);
@@ -346,7 +334,7 @@ public class HourlyMonitorService {
                                 ? new String(StreamUtils.copyToByteArray(is), StandardCharsets.UTF_8)
                                 : "";
 
-                log.info("[HourlyMonitor] Dify 응답 ({}) : {}", workflowLabel, response);
+                log.info("[HourlyMonitor] Dify 응답 (anomaly) : {}", response);
 
                 JsonNode json = response.isEmpty() ? mapper.createObjectNode() : mapper.readTree(response);
 
@@ -354,14 +342,14 @@ public class HourlyMonitorService {
                 // 결과가 같으므로 즉시 중단한다. 5xx는 서버 측 일시 장애일 수 있어 재시도 대상으로 남긴다.
                 if (statusCode >= 400 && statusCode < 500) {
                     throw new DifyClientErrorException(
-                            "[" + workflowLabel + "] Dify API 클라이언트 오류 (" + statusCode + ") : "
+                            "[anomaly] Dify API 클라이언트 오류 (" + statusCode + ") : "
                                     + json.path("message").asText(response)
                     );
                 }
 
                 if (statusCode >= 500) {
                     throw new DifyApiException(
-                            "[" + workflowLabel + "] Dify API 서버 오류 (" + statusCode + ") : "
+                            "[anomaly] Dify API 서버 오류 (" + statusCode + ") : "
                                     + json.path("message").asText(response)
                     );
                 }
@@ -373,32 +361,41 @@ public class HourlyMonitorService {
                 if (!"succeeded".equals(status)) {
                     String error = json.path("data").path("error").asText("unknown");
                     throw new DifyClientErrorException(
-                            "[" + workflowLabel + "] Dify 워크플로우 실패 - status=" + status + ", error=" + error
+                            "[anomaly] Dify 워크플로우 실패 - status=" + status + ", error=" + error
                     );
                 }
 
                 JsonNode outputs = json.path("data").path("outputs");
 
-                String content = outputs.path("content").asText("").trim();
+                boolean anomalyDetected = "true".equalsIgnoreCase(outputs.path("anomaly_detected").asText("false"));
+                String severity = outputs.path("anomaly_severity").asText("");
+                String message = outputs.path("anomaly_message").asText("").trim();
 
-                if (content.trim().isEmpty()) {
+                if (message.isEmpty()) {
                     throw new ResponseMappingException(
-                            "[" + workflowLabel + "] 응답에 outputs.content가 없습니다 : " + response
+                            "[anomaly] 응답에 outputs.anomaly_message가 없습니다 : " + response
                     );
                 }
 
-                int contentBytes = content.getBytes(StandardCharsets.UTF_8).length;
+                AnomalyCounts nextCounts = AnomalyCounts.builder()
+                        .errorCount(outputs.path("next_prev_error_count").asInt(0))
+                        .warnCount(outputs.path("next_prev_warn_count").asInt(0))
+                        .timeoutCount(outputs.path("next_prev_timeout_count").asInt(0))
+                        .http5xxCount(outputs.path("next_prev_http5xx_count").asInt(0))
+                        .dbConnCount(outputs.path("next_prev_db_conn_count").asInt(0))
+                        .loginFailCount(outputs.path("next_prev_login_fail_count").asInt(0))
+                        .batchFailCount(outputs.path("next_prev_batch_fail_count").asInt(0))
+                        .externalApiFailCount(outputs.path("next_prev_external_api_fail_count").asInt(0))
+                        .build();
 
-                if (contentBytes > MAX_CONTENT_BYTES) {
-                    throw new AnalysisResultSizeExceededException(
-                            "[" + workflowLabel + "] 분석 결과 크기 초과 : " + contentBytes
-                                    + " bytes (최대 " + MAX_CONTENT_BYTES + " bytes)"
-                    );
-                }
+                return AnomalyAnalysisResult.builder()
+                        .anomalyDetected(anomalyDetected)
+                        .severity(severity)
+                        .message(message)
+                        .nextCounts(nextCounts)
+                        .build();
 
-                return content;
-
-            } catch (ResponseMappingException | AnalysisResultSizeExceededException | DifyClientErrorException e) {
+            } catch (ResponseMappingException | DifyClientErrorException e) {
 
                 // 재시도로 해결되지 않는 오류이므로 즉시 전파
                 throw e;
@@ -409,8 +406,7 @@ public class HourlyMonitorService {
                 lastFailure = e;
 
                 log.warn(
-                        "[HourlyMonitor] Dify 호출 실패 ({}) (attempt {}/{})",
-                        workflowLabel,
+                        "[HourlyMonitor] Dify 호출 실패 (anomaly) (attempt {}/{})",
                         attempt,
                         maxAttempts,
                         e
@@ -419,24 +415,14 @@ public class HourlyMonitorService {
         }
 
         throw new DifyApiException(
-                "[" + workflowLabel + "] Dify 호출 " + maxAttempts + "회 재시도 후 실패",
+                "[anomaly] Dify 호출 " + maxAttempts + "회 재시도 후 실패",
                 lastFailure
         );
     }
 
-    
     public void saveAnomalyResult(AnomalyAnalysisResult result, LocalDateTime batchTime) {
-        saveResultContent(ANOMALY_RESULT_DIR, result.getContent(), batchTime, "anomaly");
-    }
 
-    
-    public void saveOptimizationResult(OptimizationAnalysisResult result, LocalDateTime batchTime) {
-        saveResultContent(OPTIMIZATION_RESULT_DIR, result.getContent(), batchTime, "optimization");
-    }
-
-    private void saveResultContent(String dirPath, String content, LocalDateTime batchTime, String label) {
-
-        File dir = new File(dirPath);
+        File dir = new File(ANOMALY_RESULT_DIR);
 
         if (!dir.exists()) {
             dir.mkdirs();
@@ -447,12 +433,16 @@ public class HourlyMonitorService {
 
         File file = new File(dir, batchTime.format(fileFormatter) + ".dat");
 
+        String content =
+                "anomalyDetected=" + result.isAnomalyDetected() + System.lineSeparator()
+                        + "severity=" + result.getSeverity() + System.lineSeparator()
+                        + "message=" + result.getMessage();
+
         try (OutputStream os = new FileOutputStream(file)) {
             os.write(content.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             log.error(
-                    "[HourlyMonitor] {} 결과 저장 실패 : {}",
-                    label,
+                    "[HourlyMonitor] anomaly 결과 저장 실패 : {}",
                     file.getAbsolutePath(),
                     e
             );
@@ -460,9 +450,87 @@ public class HourlyMonitorService {
         }
 
         log.info(
-                "[HourlyMonitor] {} 결과 저장 완료 : {}",
-                label,
+                "[HourlyMonitor] anomaly 결과 저장 완료 : {}",
                 file.getAbsolutePath()
         );
+    }
+
+    /**
+     * 직전 실행에서 저장해 둔 카테고리별 누적 건수를 읽어온다.
+     * 상태 파일이 없으면(최초 실행) 전부 0으로 시작한다 — Dify 쪽에서도 prev_* 전부 0이면
+     * 절대 임계치(5건)만 적용하고 작은 증감으로는 이상 판정을 내리지 않는다.
+     */
+    public AnomalyCounts loadPrevAnomalyCounts() {
+
+        File file = new File(ANOMALY_STATE_FILE);
+
+        if (!file.exists()) {
+            return AnomalyCounts.builder().build();
+        }
+
+        Properties props = new Properties();
+
+        try (InputStream is = new FileInputStream(file)) {
+            props.load(is);
+        } catch (IOException e) {
+            log.warn(
+                    "[HourlyMonitor] anomaly 상태 파일 읽기 실패 - 0으로 초기화 : {}",
+                    file.getAbsolutePath(),
+                    e
+            );
+            return AnomalyCounts.builder().build();
+        }
+
+        return AnomalyCounts.builder()
+                .errorCount(parseIntProperty(props, "error_count"))
+                .warnCount(parseIntProperty(props, "warn_count"))
+                .timeoutCount(parseIntProperty(props, "timeout_count"))
+                .http5xxCount(parseIntProperty(props, "http5xx_count"))
+                .dbConnCount(parseIntProperty(props, "db_conn_count"))
+                .loginFailCount(parseIntProperty(props, "login_fail_count"))
+                .batchFailCount(parseIntProperty(props, "batch_fail_count"))
+                .externalApiFailCount(parseIntProperty(props, "external_api_fail_count"))
+                .build();
+    }
+
+    /**
+     * 이번 실행에서 받은 next_prev_* 값을 다음 실행의 prevCounts로 쓸 수 있도록 저장한다.
+     */
+    public void savePrevAnomalyCounts(AnomalyCounts counts) {
+
+        File file = new File(ANOMALY_STATE_FILE);
+        File dir = file.getParentFile();
+
+        if (dir != null && !dir.exists()) {
+            dir.mkdirs();
+        }
+
+        Properties props = new Properties();
+        props.setProperty("error_count", String.valueOf(counts.getErrorCount()));
+        props.setProperty("warn_count", String.valueOf(counts.getWarnCount()));
+        props.setProperty("timeout_count", String.valueOf(counts.getTimeoutCount()));
+        props.setProperty("http5xx_count", String.valueOf(counts.getHttp5xxCount()));
+        props.setProperty("db_conn_count", String.valueOf(counts.getDbConnCount()));
+        props.setProperty("login_fail_count", String.valueOf(counts.getLoginFailCount()));
+        props.setProperty("batch_fail_count", String.valueOf(counts.getBatchFailCount()));
+        props.setProperty("external_api_fail_count", String.valueOf(counts.getExternalApiFailCount()));
+
+        try (OutputStream os = new FileOutputStream(file)) {
+            props.store(os, "HourlyMonitor anomaly 모드 직전 카테고리별 누적 건수");
+        } catch (IOException e) {
+            log.error(
+                    "[HourlyMonitor] anomaly 상태 파일 저장 실패 : {}",
+                    file.getAbsolutePath(),
+                    e
+            );
+        }
+    }
+
+    private int parseIntProperty(Properties props, String key) {
+        try {
+            return Integer.parseInt(props.getProperty(key, "0"));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }
