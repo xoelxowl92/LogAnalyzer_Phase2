@@ -7,6 +7,7 @@ import com.loganalyzer.dify.DifyApiException;
 import com.loganalyzer.dify.DifyClientErrorException;
 import com.loganalyzer.dify.DifyMode;
 import com.loganalyzer.dify.DifyProperties;
+import com.loganalyzer.dify.ResponseMappingException;
 import com.loganalyzer.setup.SetupConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,11 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UncheckedIOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -166,10 +169,13 @@ public class MinuteMonitorService {
 
         File file = new File(config.getLogFilePath());
 
-        // 로그 파일이 없으면 예외 없이 빈 문자열 반환 → 상위(execute)에서 Dify 호출 스킵으로 처리됨
+        // 파일 없음은 정상적인 "로그 0건" 상황과 구분되는 설정/운영 오류이므로 배치를 중단시킨다.
         if (!file.exists() || !file.isFile()) {
-            log.warn("로그 파일이 없습니다 : {}", file.getAbsolutePath());
-            return "";
+            throw new UncheckedIOException(
+                    new FileNotFoundException(
+                            "로그 파일이 없습니다 : " + file.getAbsolutePath()
+                    )
+            );
         }
 
         try (BufferedReader reader =
@@ -220,10 +226,9 @@ public class MinuteMonitorService {
 
         } catch (IOException e) {
 
-            // 읽기 도중 실패해도 배치를 중단하지 않고, 그때까지 모은 결과만 반환
-            log.warn(
-                "로그 파일 읽기 실패 : {}",
-                file.getAbsolutePath(),
+            // 읽기 권한 없음 등 IO 오류는 부분 결과로 계속 진행하지 않고 배치를 중단시킨다.
+            throw new UncheckedIOException(
+                "로그 파일 읽기 실패 : " + file.getAbsolutePath(),
                 e
             );
         }
@@ -362,12 +367,28 @@ public class MinuteMonitorService {
 
                 JsonNode outputs = json.path("data").path("outputs");
 
-                result.setFault(outputs.path("is_fault").asBoolean(false));
-                result.setSummary(outputs.path("summary").asText(""));
+                if (!outputs.has("is_fault")) {
+                    throw new ResponseMappingException(
+                            "[single_analyze] 응답에 outputs.is_fault가 없습니다 : " + response
+                    );
+                }
+
+                boolean isFault = outputs.path("is_fault").asBoolean(false);
+                String summary = outputs.path("summary").asText("").trim();
+
+                // summary는 isFault=true일 때만 유효한 필드이므로, 그 경우에만 누락을 스키마 불일치로 취급한다.
+                if (isFault && summary.isEmpty()) {
+                    throw new ResponseMappingException(
+                            "[single_analyze] 장애 감지(is_fault=true)인데 outputs.summary가 없습니다 : " + response
+                    );
+                }
+
+                result.setFault(isFault);
+                result.setSummary(summary);
 
                 return result;
 
-            } catch (DifyClientErrorException e) {
+            } catch (ResponseMappingException | DifyClientErrorException e) {
 
                 // 재시도로 해결되지 않는 오류이므로 즉시 전파
                 throw e;
