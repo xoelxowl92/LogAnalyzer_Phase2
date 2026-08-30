@@ -22,6 +22,30 @@ jobs:
           remote_user: ${{ secrets.EC2_USER }}
           remote_key: ${{ secrets.EC2_SSH_KEY }}
 
+      - name: Write Dify API keys to EC2 env file
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          envs: DIFY_DATE_FORMAT_API_KEY,DIFY_LOG_SUITE_API_KEY
+          script: |
+            mkdir -p /home/ec2-user/app
+            cat > /home/ec2-user/app/loganalyzer.env <<EOF
+            DIFY_DATE_FORMAT_API_KEY=${DIFY_DATE_FORMAT_API_KEY}
+            DIFY_LOG_SUITE_API_KEY=${DIFY_LOG_SUITE_API_KEY}
+            EOF
+            chmod 600 /home/ec2-user/app/loganalyzer.env
+
+            # loganalyzer.service 에 EnvironmentFile 지정이 없으면 최초 1회 추가
+            if ! sudo grep -q '^EnvironmentFile=' /etc/systemd/system/loganalyzer.service; then
+              sudo sed -i '/\[Service\]/a EnvironmentFile=/home/ec2-user/app/loganalyzer.env' /etc/systemd/system/loganalyzer.service
+              sudo systemctl daemon-reload
+            fi
+        env:
+          DIFY_DATE_FORMAT_API_KEY: ${{ secrets.DIFY_DATE_FORMAT_API_KEY }}
+          DIFY_LOG_SUITE_API_KEY: ${{ secrets.DIFY_LOG_SUITE_API_KEY }}
+
       - name: Build & Deploy on EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
