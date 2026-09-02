@@ -10,13 +10,15 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Duration;
+import java.time.Instant;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -37,6 +39,27 @@ public class BatchController {
     private final TaskScheduler taskScheduler;
 
     private final Map<String, ScheduledFuture<?>> scheduledJobs = new ConcurrentHashMap<>();
+
+    /**
+     * 배치별 반복 실행 cron 표현식 (초 분 시 일 월 요일). toggle 대상 배치는 여기 등록되어야 한다.
+     * 매분 0초 / 매시 정각 / 매일 자정에 맞춰 벽시계 기준으로 돈다.
+     */
+    private static final Map<String, String> JOB_CRONS;
+    private static final Map<String, String> JOB_SCHEDULE_LABELS;
+
+    static {
+        Map<String, String> crons = new HashMap<>();
+        crons.put("minuteMonitorJob", "0 * * * * *");
+        crons.put("hourlyMonitorJob", "0 0 * * * *");
+        crons.put("dailyMonitorJob", "0 0 0 * * *");
+        JOB_CRONS = Collections.unmodifiableMap(crons);
+
+        Map<String, String> labels = new HashMap<>();
+        labels.put("minuteMonitorJob", "매분 0초");
+        labels.put("hourlyMonitorJob", "매시 정각");
+        labels.put("dailyMonitorJob", "매일 자정");
+        JOB_SCHEDULE_LABELS = Collections.unmodifiableMap(labels);
+    }
 
     /**
      * 초기 설정 배치 실행.
@@ -100,7 +123,9 @@ public class BatchController {
     }
 
     /**
-     * 1분 단위 반복 실행 토글. 실행 중이 아니면 시작, 실행 중이면 중지.
+     * 배치별 지정 cron(JOB_CRONS) 반복 실행 토글. 실행 중이 아니면 시작, 실행 중이면 중지.
+     * 토글 시점에 1회 즉시 실행하고, 이후에는 CronTrigger로 매분 0초/매시 정각/매일 자정 등
+     * 벽시계 기준 시각에 맞춰 반복 실행한다.
      */
     @PostMapping("/schedule/{jobName}/toggle")
     public ResponseEntity<Map<String, Object>> toggleSchedule(@PathVariable String jobName) {
@@ -116,17 +141,30 @@ public class BatchController {
             return ResponseEntity.ok(result);
         }
 
+        String cron = JOB_CRONS.get(jobName);
+
+        if (cron == null) {
+            result.put("scheduled", false);
+            result.put("error", "반복 실행을 지원하지 않는 배치입니다: " + jobName);
+            return ResponseEntity.badRequest().body(result);
+        }
+
         Job job = applicationContext.getBean(jobName, Job.class);
 
-        ScheduledFuture<?> future = taskScheduler.scheduleAtFixedRate(
+        // 토글 누른 시점 즉시 1회 실행 (HTTP 응답을 막지 않도록 스케줄러 스레드에서 비동기 실행)
+        taskScheduler.schedule(() -> runScheduledJob(jobName, job), Instant.now());
+
+        // 이후에는 cron 표현식이 가리키는 벽시계 시각(매분 0초/매시 정각/매일 자정)마다 반복 실행
+        ScheduledFuture<?> future = taskScheduler.schedule(
                 () -> runScheduledJob(jobName, job),
-                Duration.ofMinutes(1)
+                new CronTrigger(cron)
         );
 
         scheduledJobs.put(jobName, future);
-        log.info("[{}] 1분 간격 반복 실행 시작", jobName);
+        log.info("[{}] cron({}) 기준 반복 실행 시작", jobName, cron);
 
         result.put("scheduled", true);
+        result.put("scheduleLabel", JOB_SCHEDULE_LABELS.get(jobName));
         return ResponseEntity.ok(result);
     }
 

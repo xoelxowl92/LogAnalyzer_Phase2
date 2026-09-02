@@ -39,7 +39,7 @@ import org.springframework.util.StreamUtils;
 @RequiredArgsConstructor
 public class MinuteMonitorService {
 
-    private static final String RESULT_DIR = "dify/result";
+    private static final String RESULT_DIR = "output/minute";
 
     private final DifyProperties difyProperties;
 

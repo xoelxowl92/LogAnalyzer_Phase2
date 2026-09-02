@@ -252,7 +252,7 @@
         </div>
         <div class="card-right">
             <span class="status" id="status-hourlyMonitorJob">-</span>
-            <button onclick="runJob('hourlyMonitorJob', this)">실행</button>
+            <button id="btn-hourlyMonitorJob" onclick="toggleSchedule('hourlyMonitorJob', this)">실행</button>
         </div>
     </div>
 
@@ -262,8 +262,8 @@
             <p>시간 결과 집계 → Dify 일간 분석 → 메일 발송</p>
         </div>
         <div class="card-right">
-            <span class="status" id="status-testDailyMonitorJob">-</span>
-            <button onclick="runJob('testDailyMonitorJob', this)">실행</button>
+            <span class="status" id="status-dailyMonitorJob">-</span>
+            <button id="btn-dailyMonitorJob" onclick="toggleSchedule('dailyMonitorJob', this)">실행</button>
         </div>
     </div>
 
@@ -442,8 +442,11 @@
 
             if (data.scheduled) {
                 statusEl.className = 'status SCHEDULED';
-                statusEl.textContent = '반복 실행 중 (1분)';
+                statusEl.textContent = '반복 실행 중 (' + (data.scheduleLabel || '') + ')';
                 btn.textContent = '중지';
+            } else if (data.error) {
+                statusEl.className = 'status FAILED';
+                statusEl.textContent = data.error;
             } else {
                 statusEl.className = 'status';
                 statusEl.textContent = '-';
