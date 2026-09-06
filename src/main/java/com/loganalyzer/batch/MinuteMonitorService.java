@@ -150,9 +150,7 @@ public class MinuteMonitorService {
 
         StringBuilder result = new StringBuilder();
 
-        // TODO-TEST: 정적 테스트 로그(test_logs/cmp-catalina.2026-06-01.log) 시각대에 맞춘 고정값.
-        // 실제 운영 전환 시 반드시 LocalDateTime.now()로 되돌릴 것.
-        LocalDateTime now = LocalDateTime.of(2026, 6, 1, 9, 44, 0);
+        LocalDateTime now = LocalDateTime.now();
 
         // 20초 버퍼를 두는 이유: 로그 파일 write 지연을 고려해 아직 기록 중인 라인이 섞이지 않도록 함.
         LocalDateTime from = now.minusSeconds(80);

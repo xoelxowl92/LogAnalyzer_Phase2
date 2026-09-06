@@ -151,9 +151,7 @@ public class HourlyMonitorService {
 
         StringBuilder result = new StringBuilder();
 
-        // TODO-TEST: 정적 테스트 로그(test_logs/cmp-catalina.2026-06-01.log) 시각대에 맞춘 고정값.
-        // 실제 운영 전환 시 반드시 LocalDateTime.now()로 되돌릴 것.
-        LocalDateTime now = LocalDateTime.of(2026, 6, 1, 9, 44, 0);
+        LocalDateTime now = LocalDateTime.now();
 
         // MinuteMonitor와 달리 지연 버퍼 없이 정확히 최근 1시간(now-1h ~ now) 구간을 사용한다.
         LocalDateTime from = now.minusHours(1);
