@@ -29,6 +29,7 @@ public class BatchConfig {
     private final MinuteMonitorService minuteMonitorService;
     private final HourlyMonitorService hourlyMonitorService;
     private final DailyMonitorService dailyMonitorService;
+    private final MonthlyMonitorService monthlyMonitorService;
 
     /** 최초 1회 실행. logFilePath를 JobParameter로 전달받아 인코딩/날짜형식/타임존을 자동 탐지 후 config/setup.properties에 저장한다. */
     @Bean
@@ -140,10 +141,23 @@ public class BatchConfig {
                 .build();
     }
 
+    /** 1개월 단위 실행. 전월 daily anomaly 결과를 취합하여 통합 Dify 워크플로우(mode=monthly_report)에 월간 보고를 요청한다. */
     @Bean
     public Job monthlyMonitorJob() {
         return jobBuilderFactory.get("monthlyMonitorJob")
-                .start(placeholderStep("monthlyMonitorStep"))
+                .start(monthlyMonitorStep())
+                .build();
+    }
+
+    @Bean
+    public Step monthlyMonitorStep() {
+
+        return stepBuilderFactory
+                .get("monthlyMonitorStep")
+                .tasklet((contribution, chunkContext) -> {
+                    monthlyMonitorService.execute();
+                    return RepeatStatus.FINISHED;
+                })
                 .build();
     }
 

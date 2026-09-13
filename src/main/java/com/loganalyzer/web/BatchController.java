@@ -52,12 +52,14 @@ public class BatchController {
         crons.put("minuteMonitorJob", "0 * * * * *");
         crons.put("hourlyMonitorJob", "0 0 * * * *");
         crons.put("dailyMonitorJob", "0 0 0 * * *");
+        crons.put("monthlyMonitorJob", "0 0 0 1 * *");
         JOB_CRONS = Collections.unmodifiableMap(crons);
 
         Map<String, String> labels = new HashMap<>();
         labels.put("minuteMonitorJob", "매분 0초");
         labels.put("hourlyMonitorJob", "매시 정각");
         labels.put("dailyMonitorJob", "매일 자정");
+        labels.put("monthlyMonitorJob", "매월 1일 자정");
         JOB_SCHEDULE_LABELS = Collections.unmodifiableMap(labels);
     }
 
