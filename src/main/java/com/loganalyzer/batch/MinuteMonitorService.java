@@ -28,6 +28,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -443,5 +445,65 @@ public class MinuteMonitorService {
                 "[MinuteMonitor] 결과 저장 완료 : {}",
                 file.getAbsolutePath()
         );
+    }
+
+    /**
+     * output/minute에 저장된 가장 최근 실행 결과 1건을 읽어온다. 웹 화면 "실행 결과 보기"에서 사용한다.
+     * 파일명이 yyyy-MM-dd_HH-mm-ss.dat 형식이라 이름순 정렬이 곧 시간순 정렬이다.
+     * 저장된 결과가 하나도 없으면 null을 반환한다.
+     */
+    public MinuteMonitorResult loadLatestResult() {
+
+        File dir = new File(RESULT_DIR);
+
+        if (!dir.exists()) {
+            return null;
+        }
+
+        File[] files = dir.listFiles((d, name) -> name.endsWith(".dat"));
+
+        if (files == null || files.length == 0) {
+            return null;
+        }
+
+        File latest = Arrays.stream(files)
+                .max(Comparator.comparing(File::getName))
+                .orElse(null);
+
+        boolean fault = false;
+        String summary = "";
+
+        try (BufferedReader reader =
+                    new BufferedReader(
+                        new InputStreamReader(
+                            new FileInputStream(latest),
+                            StandardCharsets.UTF_8))) {
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("isFault=")) {
+                    fault = Boolean.parseBoolean(line.substring("isFault=".length()));
+                } else if (line.startsWith("summary=")) {
+                    summary = line.substring("summary=".length());
+                }
+            }
+
+        } catch (IOException e) {
+            log.error(
+                    "[MinuteMonitor] 최근 결과 파일 읽기 실패 : {}",
+                    latest.getAbsolutePath(),
+                    e
+            );
+            return null;
+        }
+
+        String executedAt = latest.getName().replace(".dat", "");
+
+        return MinuteMonitorResult.builder()
+                .fault(fault)
+                .summary(summary)
+                .executedAt(executedAt)
+                .build();
     }
 }

@@ -47,8 +47,21 @@ public class HourlyMonitorService {
      * 최근 1시간 로그를 추출 → 통합 Dify 워크플로우(mode=anomaly)에 요청 → 결과를 파일로 저장하는 순서로 처리한다.
      * <p>
      * 로그 최적화 인사이트(F-04)는 통합 워크플로우에 아직 추가되지 않아 현재는 스킵한다.
+     * <p>
+     * {@code BatchConfig}의 스케쥴 반복 실행(runScheduledJob)에서만 호출되는 진입점 - 항상 현재 시각을
+     * 기준으로 동작한다. 화면 "실행" 버튼의 1회성 실행이나 {@code runHourlyBackfill}의 시간대별 백필은
+     * 아래 {@link #execute(String)}을 사용한다.
      */
     public void execute() {
+        execute(null);
+    }
+
+    /**
+     * baseTime이 주어지면(웹 화면 "기준시간" 선택 후 1회성 실행, 또는 1일 배치의 시간대별 백필) 그 시각을,
+     * 없으면(위 {@link #execute()}를 통한 스케쥴 반복 실행) 현재 시각을 기준으로 최근 1시간 구간 로그를 분석한다.
+     * baseTime은 setup.properties의 dateFormat과 동일한 포맷의 문자열이어야 한다.
+     */
+    public void execute(String baseTime) {
 
         log.info("[HourlyMonitor] 실행 시작");
 
@@ -60,8 +73,10 @@ public class HourlyMonitorService {
             config.getLogFilePath()
         );
 
-        // 2. 최근 1시간 구간 로그 추출
-        String logContent = readLastHourLog(config);
+        LocalDateTime referenceTime = resolveReferenceTime(baseTime, config);
+
+        // 2. 기준시간 이전 1시간 구간 로그 추출
+        String logContent = readLastHourLog(config, referenceTime);
 
         // 3. 해당 구간 로그가 0건이면 Dify 호출 없이 종료
         if (logContent == null ||
@@ -87,18 +102,40 @@ public class HourlyMonitorService {
             logContent.length()
         );
 
-        LocalDateTime batchTime = LocalDateTime.now();
-
         // 4. anomaly 모드는 직전 실행의 카테고리별 누적 건수를 함께 전달해야 증감 여부를 판단할 수 있다.
         AnomalyCounts prevCounts = loadPrevAnomalyCounts();
 
         AnomalyAnalysisResult result = requestAnomalyAnalysisToDify(logContent, prevCounts);
 
         // 5. 결과 저장 + 다음 실행에서 쓸 누적 건수 갱신
-        saveAnomalyResult(result, batchTime);
+        saveAnomalyResult(result, referenceTime);
         savePrevAnomalyCounts(result.getNextCounts());
 
         log.info("[HourlyMonitor] 실행 완료");
+    }
+
+    /**
+     * baseTime이 없으면(자동 스케쥴 실행) 현재 시각을 사용하고, 있으면(웹 화면 수동 실행)
+     * config의 dateFormat으로 파싱해 사용한다. 파싱에 실패하면 현재 시각으로 대체한다.
+     */
+    private LocalDateTime resolveReferenceTime(String baseTime, SetupConfig config) {
+
+        if (baseTime == null || baseTime.trim().isEmpty()) {
+            return LocalDateTime.now();
+        }
+
+        try {
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofPattern(config.getDateFormat(), Locale.ENGLISH);
+            return LocalDateTime.parse(baseTime.trim(), formatter);
+        } catch (Exception e) {
+            log.warn(
+                    "[HourlyMonitor] 기준시간 파싱 실패 - 현재 시각으로 대체 : {}",
+                    baseTime,
+                    e
+            );
+            return LocalDateTime.now();
+        }
     }
 
     /**
@@ -141,21 +178,19 @@ public class HourlyMonitorService {
     }
 
     /**
-     * setup.properties의 dateFormat·encoding 기준으로 최근 1시간 구간 로그 라인을 추출한다.
+     * setup.properties의 dateFormat·encoding 기준으로 referenceTime 이전 1시간 구간 로그 라인을 추출한다.
      * <p>
      * 각 라인의 앞부분을 타임스탬프로 파싱해 구간 포함 여부를 판단하는 방식이라,
      * 로그 포맷이 "타임스탬프로 시작"한다는 것을 전제로 한다.
      * 타임스탬프 파싱에 실패한 라인(멀티라인 스택트레이스 등)은 무시하고 계속 진행한다.
      */
-    public String readLastHourLog(SetupConfig config) {
+    public String readLastHourLog(SetupConfig config, LocalDateTime referenceTime) {
 
         StringBuilder result = new StringBuilder();
 
-        LocalDateTime now = LocalDateTime.now();
-
-        // MinuteMonitor와 달리 지연 버퍼 없이 정확히 최근 1시간(now-1h ~ now) 구간을 사용한다.
-        LocalDateTime from = now.minusHours(1);
-        LocalDateTime to = now;
+        // MinuteMonitor와 달리 지연 버퍼 없이 정확히 referenceTime 기준 1시간(referenceTime-1h ~ referenceTime) 구간을 사용한다.
+        LocalDateTime from = referenceTime.minusHours(1);
+        LocalDateTime to = referenceTime;
 
         DateTimeFormatter formatter =
                 DateTimeFormatter.ofPattern(
@@ -164,7 +199,7 @@ public class HourlyMonitorService {
                 );
 
         // 타임스탬프 포맷의 문자 길이. 각 라인의 앞부분을 이 길이만큼 잘라 파싱한다.
-        int timestampLength = now.format(formatter).length();
+        int timestampLength = referenceTime.format(formatter).length();
 
         File file = new File(config.getLogFilePath());
 

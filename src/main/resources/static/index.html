@@ -22,6 +22,20 @@
         header h1 { font-size: 20px; font-weight: 600; }
         header p { font-size: 13px; color: #aab; margin-top: 4px; }
 
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-schedule {
+            background: #445;
+            flex-shrink: 0;
+        }
+
+        .btn-schedule:hover { background: #556; }
+
         .env-badge {
             display: none;
             font-size: 12px;
@@ -115,6 +129,9 @@
         .status.STARTED   { background: #e3f2fd; color: #1565c0; }
         .status.FAILED    { background: #fdecea; color: #c62828; }
         .status.SCHEDULED { background: #e3f2fd; color: #1565c0; }
+        .status.SUCCESS   { background: #e6f4ea; color: #2e7d32; }
+        .status.FAIL      { background: #fdecea; color: #c62828; }
+        .status.RUNNING   { background: #e6f4ea; color: #2e7d32; }
 
         button {
             background: #2c3e50;
@@ -206,13 +223,106 @@
             background: #f5f6fa;
             border-radius: 6px;
         }
+
+        .modal-wide { width: 560px; }
+
+        .schedule-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .schedule-modal-header h2 { margin-bottom: 0; }
+
+        .btn-schedule-bulk { background: #2c3e50; color: #fff; }
+        .btn-schedule-bulk:hover { background: #1f2c38; }
+        .btn-schedule-bulk[data-mode="stop"] { background: #c62828; }
+        .btn-schedule-bulk[data-mode="stop"]:hover { background: #a02020; }
+
+        .schedule-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .schedule-row:last-child { border-bottom: none; }
+
+        .schedule-row-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .schedule-row-name { font-size: 13px; font-weight: 500; }
+
+        .schedule-badge {
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+
+        .schedule-badge.on { background: #e3f2fd; color: #1565c0; }
+        .schedule-badge.off { background: #eee; color: #888; }
+
+        .schedule-history { display: flex; align-items: center; }
+
+        .history-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 4px;
+        }
+
+        .history-dot.success { background: #2e7d32; }
+        .history-dot.fail { background: #c62828; }
+
+        .history-empty { font-size: 12px; color: #aaa; }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+
+        .result-row:last-child { border-bottom: none; }
+        .result-row .label { color: #888; }
+
+        .result-summary {
+            margin-top: 6px;
+            font-size: 13px;
+            color: #333;
+            white-space: pre-wrap;
+        }
+
+        .fault-badge {
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            background: #eee;
+            color: #888;
+        }
+
+        .fault-badge.yes { background: #fdecea; color: #c62828; }
+        .fault-badge.no { background: #e6f4ea; color: #2e7d32; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>LogAnalyzer 배치 관리<span class="env-badge" id="env-badge">LOCAL</span></h1>
-    <p>배치 수동 실행 및 상태 확인</p>
+    <div class="header-top">
+        <div>
+            <h1>LogAnalyzer 배치 관리<span class="env-badge" id="env-badge">LOCAL</span></h1>
+            <p>배치 수동 실행 및 상태 확인</p>
+        </div>
+        <button class="btn-schedule" onclick="openScheduleModal()">스케쥴링</button>
+    </div>
 </header>
 
 <main>
@@ -241,7 +351,8 @@
         </div>
         <div class="card-right">
             <span class="status" id="status-minuteMonitorJob">-</span>
-            <button id="btn-minuteMonitorJob" onclick="toggleSchedule('minuteMonitorJob', this)">실행</button>
+            <button id="btn-minuteMonitorJob" onclick="runJob('minuteMonitorJob', this)">실행</button>
+            <button class="btn-cancel" onclick="openMinuteResultModal()">결과 보기</button>
         </div>
     </div>
 
@@ -252,7 +363,7 @@
         </div>
         <div class="card-right">
             <span class="status" id="status-hourlyMonitorJob">-</span>
-            <button id="btn-hourlyMonitorJob" onclick="toggleSchedule('hourlyMonitorJob', this)">실행</button>
+            <button id="btn-hourlyMonitorJob" onclick="runJob('hourlyMonitorJob', this)">실행</button>
         </div>
     </div>
 
@@ -263,7 +374,7 @@
         </div>
         <div class="card-right">
             <span class="status" id="status-dailyMonitorJob">-</span>
-            <button id="btn-dailyMonitorJob" onclick="toggleSchedule('dailyMonitorJob', this)">실행</button>
+            <button id="btn-dailyMonitorJob" onclick="runJob('dailyMonitorJob', this)">실행</button>
         </div>
     </div>
 
@@ -300,6 +411,33 @@
         </div>
     </div>
 
+    <!-- 스케쥴링 현황 모달 -->
+    <div class="modal-overlay" id="schedule-modal">
+        <div class="modal modal-wide">
+            <div class="schedule-modal-header">
+                <h2>배치 스케쥴링 현황</h2>
+                <button id="btn-schedule-bulk" class="btn-schedule-bulk" onclick="toggleBulkSchedule()">스케쥴링 시작하기</button>
+            </div>
+            <p class="modal-desc">배치별 반복 실행 상태와 최근 수행 이력입니다.</p>
+            <div id="schedule-list"></div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeScheduleModal()">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1분 배치 실행 결과 모달 -->
+    <div class="modal-overlay" id="minute-result-modal">
+        <div class="modal">
+            <h2>1분 배치 실행 결과</h2>
+            <p class="modal-desc">가장 최근 실행 결과입니다.</p>
+            <div id="minute-result-body"></div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeMinuteResultModal()">닫기</button>
+            </div>
+        </div>
+    </div>
+
     <div class="admin-link">
         <a href="/admin" target="_blank">Spring Boot Admin →</a>
     </div>
@@ -331,6 +469,38 @@
     }
 
     refreshSetupStatus();
+
+    /**
+     * 메인 화면 배치 카드의 상태 배지를 스케쥴 등록 여부와 동기화한다.
+     * 스케쥴에 등록되어 반복 실행 중인 배치는 (등록 경로와 무관하게) 초록색 RUNNING으로 표시한다.
+     * 등록되어 있지 않은 배치의 배지는 건드리지 않는다 (직전 1회 실행 결과를 그대로 유지).
+     */
+    async function syncScheduleBadges() {
+        try {
+            const res = await fetch('/api/batch/schedule/status');
+            const data = await res.json();
+            const jobs = data.jobs || {};
+            Object.keys(jobs).forEach(jobName => {
+                const statusEl = document.getElementById('status-' + jobName);
+                if (!statusEl) return;
+
+                if (jobs[jobName].scheduled) {
+                    statusEl.className = 'status RUNNING';
+                    statusEl.textContent = 'RUNNING';
+                    statusEl.title = jobs[jobName].scheduleLabel || '';
+                } else if (statusEl.classList.contains('RUNNING')) {
+                    // 스케쥴이 중단됐는데 배지가 아직 RUNNING이면 초기 상태로 되돌린다.
+                    statusEl.className = 'status';
+                    statusEl.textContent = '-';
+                    statusEl.title = '';
+                }
+            });
+        } catch (e) {
+            // 조회 실패 시 기존 배지 상태를 그대로 둔다
+        }
+    }
+
+    syncScheduleBadges();
 
     function clearBaseTime() {
         const input = document.getElementById('base-time');
@@ -410,14 +580,24 @@
         }
     }
 
+    // ── 1회성 실행 (카드의 "실행" 버튼) ──────────────────────────────
+    // POST /run/{jobName}로 그 자리에서 1번만 실행한다. 기준시간을 함께 보내며, 아래 반복 스케쥴
+    // (toggleSchedule/toggleBulkSchedule)과는 서로의 상태를 참조하지 않는 완전히 별개의 흐름이다.
+
     async function runJob(jobName, btn) {
         const statusEl = document.getElementById('status-' + jobName);
         btn.disabled = true;
         statusEl.className = 'status STARTED';
         statusEl.textContent = '실행 중';
 
+        const baseTime = document.getElementById('base-time').value.trim();
+
         try {
-            const res = await fetch('/api/batch/run/' + jobName, { method: 'POST' });
+            const res = await fetch('/api/batch/run/' + jobName, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ baseTime: baseTime || null })
+            });
             const data = await res.json();
             statusEl.className = 'status ' + data.status;
             statusEl.textContent = data.status;
@@ -429,8 +609,14 @@
             statusEl.textContent = 'FAILED';
         } finally {
             btn.disabled = false;
+            // 이 배치가 스케쥴에 등록되어 반복 실행 중이면, 방금 표시한 1회성 실행 결과 대신 RUNNING으로 되돌린다.
+            await syncScheduleBadges();
         }
     }
+
+    // ── 반복 스케쥴 등록 (카드 토글 버튼 / "스케쥴링" 팝업) ──────────────
+    // POST /schedule/**로 서버의 scheduledJobs(반복 실행 등록 상태)를 켜고 끈다. 위 1회성 실행(runJob)과는
+    // 서로 참조하지 않으며, 기준시간도 넣지 않으므로 등록된 반복 실행은 항상 실행되는 순간의 현재 시각 기준이다.
 
     async function toggleSchedule(jobName, btn) {
         const statusEl = document.getElementById('status-' + jobName);
@@ -441,8 +627,9 @@
             const data = await res.json();
 
             if (data.scheduled) {
-                statusEl.className = 'status SCHEDULED';
-                statusEl.textContent = '반복 실행 중 (' + (data.scheduleLabel || '') + ')';
+                statusEl.className = 'status RUNNING';
+                statusEl.textContent = 'RUNNING';
+                statusEl.title = data.scheduleLabel || '';
                 btn.textContent = '중지';
             } else if (data.error) {
                 statusEl.className = 'status FAILED';
@@ -458,6 +645,134 @@
         } finally {
             btn.disabled = false;
         }
+    }
+
+    const SCHEDULE_JOB_ORDER = ['minuteMonitorJob', 'hourlyMonitorJob', 'dailyMonitorJob', 'monthlyMonitorJob'];
+    const BULK_SCHEDULE_JOBS = ['minuteMonitorJob', 'hourlyMonitorJob', 'dailyMonitorJob'];
+
+    function getJobDisplayName(jobName) {
+        const statusEl = document.getElementById('status-' + jobName);
+        const h3 = statusEl && statusEl.closest('.card') ? statusEl.closest('.card').querySelector('h3') : null;
+        return h3 ? h3.textContent.replace(/⚠.*$/, '').trim() : jobName;
+    }
+
+    function openScheduleModal() {
+        document.getElementById('schedule-modal').classList.add('open');
+        loadScheduleStatus();
+    }
+
+    function closeScheduleModal() {
+        document.getElementById('schedule-modal').classList.remove('open');
+    }
+
+    async function loadScheduleStatus() {
+        const listEl = document.getElementById('schedule-list');
+        listEl.innerHTML = '<p class="modal-desc">불러오는 중...</p>';
+        try {
+            const res = await fetch('/api/batch/schedule/status');
+            const data = await res.json();
+            renderScheduleList(data.jobs || {});
+        } catch (e) {
+            listEl.innerHTML = '<p class="modal-desc">스케줄 상태를 불러오지 못했습니다.</p>';
+        }
+    }
+
+    function renderScheduleList(jobs) {
+        const listEl = document.getElementById('schedule-list');
+        listEl.innerHTML = '';
+        SCHEDULE_JOB_ORDER.forEach(jobName => {
+            const job = jobs[jobName];
+            if (!job) return;
+
+            const history = (job.history && job.history.length)
+                ? job.history.map(h =>
+                    `<span class="history-dot ${h.status === 'SUCCESS' ? 'success' : 'fail'}" title="${h.status}"></span>`
+                  ).join('')
+                : '<span class="history-empty">이력 없음</span>';
+
+            const row = document.createElement('div');
+            row.className = 'schedule-row';
+            row.innerHTML = `
+                <div class="schedule-row-info">
+                    <span class="schedule-row-name">${getJobDisplayName(jobName)}</span>
+                    <span class="schedule-badge ${job.scheduled ? 'on' : 'off'}">${job.scheduled ? '반복 실행 중' : '중지'}</span>
+                </div>
+                <div class="schedule-history">${history}</div>
+            `;
+            listEl.appendChild(row);
+        });
+
+        updateBulkButton(jobs);
+    }
+
+    function updateBulkButton(jobs) {
+        const btn = document.getElementById('btn-schedule-bulk');
+        const allOn = BULK_SCHEDULE_JOBS.every(name => jobs[name] && jobs[name].scheduled);
+        btn.dataset.mode = allOn ? 'stop' : 'start';
+        btn.textContent = allOn ? '스케쥴링 중단' : '스케쥴링 시작하기';
+    }
+
+    async function toggleBulkSchedule() {
+        const btn = document.getElementById('btn-schedule-bulk');
+        const mode = btn.dataset.mode === 'stop' ? 'stop-all' : 'start-all';
+        btn.disabled = true;
+        try {
+            await fetch('/api/batch/schedule/' + mode, { method: 'POST' });
+        } catch (e) {
+            // 네트워크 오류 등은 무시하고 아래 loadScheduleStatus()로 실제 서버 상태를 다시 동기화
+        } finally {
+            await loadScheduleStatus(); // 서버의 실제 상태를 재조회하여 뱃지/버튼을 다시 그림 (낙관적 갱신 금지)
+            await syncScheduleBadges(); // 메인 화면 배치 카드의 상태 배지도 함께 갱신
+            btn.disabled = false;
+        }
+    }
+
+    function closeMinuteResultModal() {
+        document.getElementById('minute-result-modal').classList.remove('open');
+    }
+
+    async function openMinuteResultModal() {
+        document.getElementById('minute-result-modal').classList.add('open');
+        const bodyEl = document.getElementById('minute-result-body');
+        bodyEl.innerHTML = '<p class="modal-desc">불러오는 중...</p>';
+
+        try {
+            const res = await fetch('/api/batch/run/minuteMonitorJob/last-result');
+            const data = await res.json();
+            renderMinuteResult(data);
+        } catch (e) {
+            bodyEl.innerHTML = '<p class="modal-desc">실행 결과를 불러오지 못했습니다.</p>';
+        }
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function renderMinuteResult(data) {
+        const bodyEl = document.getElementById('minute-result-body');
+
+        if (!data.status && !data.executedAt) {
+            bodyEl.innerHTML = '<p class="modal-desc">아직 실행된 이력이 없습니다.</p>';
+            return;
+        }
+
+        const statusText = data.status || '-';
+        const faultBadge = data.isFault === null
+            ? '<span class="fault-badge">-</span>'
+            : `<span class="fault-badge ${data.isFault ? 'yes' : 'no'}">${data.isFault ? '장애 감지' : '정상'}</span>`;
+
+        bodyEl.innerHTML = `
+            <div class="result-row"><span class="label">배치 실행 상태</span><span class="status ${statusText}">${statusText}</span></div>
+            <div class="result-row"><span class="label">장애 감지 여부</span>${faultBadge}</div>
+            <div class="result-row"><span class="label">실행 시각</span><span>${data.executedAt || '-'}</span></div>
+            <div class="result-row" style="display:block;">
+                <span class="label">요약</span>
+                <p class="result-summary">${escapeHtml(data.summary || '-')}</p>
+            </div>
+        `;
     }
 </script>
 

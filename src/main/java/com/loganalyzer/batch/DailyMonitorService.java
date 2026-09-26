@@ -43,12 +43,24 @@ public class DailyMonitorService {
      * 1일 단위로 실행되는 일일 운영보고 배치의 진입점 (F-05).
      * 전일 hourly anomaly 결과를 취합 → 통합 Dify 워크플로우(mode=daily_report)에 요청 →
      * 결과 저장 → 보관 기간이 지난 hourly 결과 정리 순서로 처리한다.
+     * <p>
+     * {@code BatchConfig}의 스케쥴 반복 실행(runScheduledJob, 매일 자정)에서만 호출되는 진입점 -
+     * 항상 "실행 시점 기준 전일"을 기준일로 삼는다. 화면 "실행" 버튼의 1회성 실행은 기준일을 직접
+     * 지정하는 아래 {@link #execute(LocalDate)}를 사용한다.
      */
     public void execute() {
+        execute(LocalDate.now().minusDays(1));
+    }
+
+    /**
+     * targetDate(기준일) 하루치 hourly anomaly 결과를 취합해 일일 운영보고를 생성한다.
+     * 웹 화면 "기준시간" 기반 1회성 실행에서 사용하며({@code BatchConfig.runHourlyBackfill}로 먼저
+     * 채운 그 날짜를 그대로 받는다), 위 {@link #execute()}를 통해 인자 없이 호출되면(스케쥴 반복 실행)
+     * 항상 전일자를 기준으로 동작한다.
+     */
+    public void execute(LocalDate targetDate) {
 
         log.info("[DailyMonitor] 실행 시작");
-
-        LocalDate targetDate = LocalDate.now().minusDays(1);
 
         String logContent = readTargetDateLogContent(targetDate);
 
