@@ -6,10 +6,10 @@
 |------|------|
 | 배치 이름 | LogAnalysisDailyMonitorJob (가칭) |
 | 실행 주기 | 1일 단위 (매일 자정 또는 익일 새벽 — 확정 필요) |
-| 대상 날짜 | 전일 기준 (실행 시각 기준 전날) |
+| 대상 날짜 | 전일 기준 (실행 시각 기준 전날) — **스케쥴(자동) 실행 한정.** 웹 화면 1회성 실행은 기준일을 직접 지정할 수 있다 (5절 참고) |
 | 목적 | 전일 로그를 통합 Dify 워크플로우(mode=daily_report)에 전달해 일일 운영보고 생성 |
 | 작성일 | 2026-06-22 |
-| 최종 수정일 | 2026-08-25 (통합 워크플로우 전환 반영, hourly anomaly 결과 재활용 방식으로 구현 완료) |
+| 최종 수정일 | 2026-09-26 (웹 화면 1회성 실행 예외 흐름 추가) |
 
 > **로그 최적화 인사이트(구 daily-optimization)는 통합 워크플로우에 mode가 없어 이 설계에서 제외한다.**
 
@@ -146,7 +146,17 @@ public void deleteOldHourlyFiles(LocalDate baseDate)
 
 ---
 
-## 5. 공통 고려사항
+## 5. 웹 화면 1회성 실행 (예외 흐름)
+
+- `execute()` — 스케쥴(매일 자정) 반복 실행 전용. 인자 없이 호출되며 항상 "실행 시점 기준 전일"을 targetDate로 사용한다. 위 "대상 날짜: 전일 기준"은 이 경로에서만 성립한다.
+- `execute(LocalDate targetDate)` — 웹 화면 카드의 "실행" 버튼(1회성)에서 기준시간을 선택한 채로 눌렀을 때 사용되는 별도 진입점. targetDate는 전일이 아니라 **화면에서 선택한 기준시간이 속한 날짜(기준일)**다.
+- 이 1회성 실행은 `DailyBatchOrchestrationService`(daily Step이 위임하는 별도 오케스트레이션 서비스, `BatchConfig`는 Job/Step 설정만 담당)가 먼저 기준일 00시~기준시간까지 `HourlyMonitorService.execute(String)`을 정각 단위로 순서대로 호출해(백필) `output/hourly/anomaly/`를 채운 뒤, 그 기준일로 `execute(targetDate)`를 호출하는 방식으로 동작한다 — 자세한 백필 로직은 `3_hourly-monitor-design.md` 6절 참고.
+- 한 시간대의 백필 실행이 실패해도 나머지 시간대와 뒤이은 일간 배치 실행은 계속 진행된다(부분 실패 허용).
+- 이 예외 흐름은 스케쥴 등록 상태(반복 실행 on/off)와 전혀 무관하다 — JobLauncher나 스케쥴 등록을 거치지 않고 서비스 메서드를 직접 호출하는 것뿐이라, 별도 JobExecution 이력을 남기거나 반복 등록되지 않는다.
+
+---
+
+## 6. 공통 고려사항
 
 - **실행 시점**: 전일 hourly 배치가 모두 완료된 이후 실행 — 새벽 1시 이후 권장.
 - **재시도 정책**: `log-analyzer.dify.max-retries` / `timeout-seconds` 설정을 따른다.
@@ -155,10 +165,12 @@ public void deleteOldHourlyFiles(LocalDate baseDate)
 
 ---
 
-## 6. 변경 이력
+## 7. 변경 이력
 
 | 버전 | 날짜 | 내용 | 작성자 |
 |------|------|------|--------|
 | v1.0 | 2026-06-23 | 초안 완성 | |
 | v2.0 | 2026-08-25 | daily-anomaly/daily-optimization 분리 구조 → log-suite 통합 워크플로우(mode=daily_report)로 변경. 20,000자 제한 이슈 발견 — 구현 보류 상태로 전환. optimization 관련 절 삭제(미지원) | |
 | v2.1 | 2026-08-25 | hourly anomaly 결과(.dat) 재활용 방식으로 20,000자 제한 이슈 해결, `DailyMonitorService` 구현 완료 및 `BatchConfig.dailyMonitorJob`에 연결 | |
+| v2.2 | 2026-09-26 | execute(LocalDate targetDate) 추가 및 웹 화면 1회성 실행(기준일 지정 + 1시간 배치 백필) 예외 흐름 추가 — 스케쥴 실행(execute())은 그대로 전일 기준 | |
+| v2.3 | 2026-09-26 | 백필 오케스트레이션 로직을 `BatchConfig`(Job/Step 설정 전용)에서 `DailyBatchOrchestrationService`로 분리(SRP). `BatchConfig`의 baseTime 참조 방식도 `chunkContext.getJobParameters().get(...)` 대신 `@StepScope` + `@Value("#{jobParameters['baseTime']}")`로 변경 | |

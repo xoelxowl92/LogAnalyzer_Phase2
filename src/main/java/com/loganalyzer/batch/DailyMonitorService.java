@@ -54,7 +54,7 @@ public class DailyMonitorService {
 
     /**
      * targetDate(기준일) 하루치 hourly anomaly 결과를 취합해 일일 운영보고를 생성한다.
-     * 웹 화면 "기준시간" 기반 1회성 실행에서 사용하며({@code BatchConfig.runHourlyBackfill}로 먼저
+     * 웹 화면 "기준시간" 기반 1회성 실행에서 사용하며({@link DailyBatchOrchestrationService}가 먼저
      * 채운 그 날짜를 그대로 받는다), 위 {@link #execute()}를 통해 인자 없이 호출되면(스케쥴 반복 실행)
      * 항상 전일자를 기준으로 동작한다.
      */

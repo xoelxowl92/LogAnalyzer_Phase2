@@ -9,15 +9,12 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /**
  * 전체 배치 Job/Step 등록.
@@ -41,7 +38,7 @@ public class BatchConfig {
     private final SetupService setupService;
     private final MinuteMonitorService minuteMonitorService;
     private final HourlyMonitorService hourlyMonitorService;
-    private final DailyMonitorService dailyMonitorService;
+    private final DailyBatchOrchestrationService dailyBatchOrchestrationService;
     private final MonthlyMonitorService monthlyMonitorService;
 
     /** 최초 1회 실행. logFilePath를 JobParameter로 전달받아 인코딩/날짜형식/타임존을 자동 탐지 후 config/setup.properties에 저장한다. */
@@ -118,15 +115,26 @@ public class BatchConfig {
 
         return stepBuilderFactory
                 .get("hourlyMonitorStep")
-                .tasklet((contribution, chunkContext) -> {
-                    // baseTime 있음 = 화면 "실행" 버튼(1회성, 기준시간 지정)
-                    // baseTime 없음 = "스케쥴링" 팝업의 반복 실행(항상 현재 시각 기준) - runScheduledJob은 이 값을 넣지 않는다
-                    String baseTime = (String) chunkContext.getStepContext()
-                            .getJobParameters().get("baseTime");
-                    hourlyMonitorService.execute(baseTime);
-                    return RepeatStatus.FINISHED;
-                })
+                .tasklet(hourlyMonitorTasklet(null))
                 .build();
+    }
+
+    /**
+     * baseTime 있음 = 화면 "실행" 버튼(1회성, 기준시간 지정)
+     * baseTime 없음 = "스케쥴링" 팝업의 반복 실행(항상 현재 시각 기준) - runScheduledJob은 이 값을 넣지 않는다
+     * <p>
+     * {@code @StepScope}로 선언해 baseTime을 JobParameter에서 늦은 바인딩으로 직접 주입받는다 -
+     * {@code chunkContext.getStepContext().getJobParameters().get(...)}로 꺼내는 것보다 타입 안정성과
+     * 테스트 용이성이 높다. 생성자에 넘기는 {@code null}은 이 팩토리 메서드가 실제로 즉시 호출되는 게
+     * 아니라 Step 스코프 프록시로 대체되므로 무시된다(Spring Batch 관례).
+     */
+    @StepScope
+    @Bean
+    public Tasklet hourlyMonitorTasklet(@Value("#{jobParameters['baseTime']}") String baseTime) {
+        return (contribution, chunkContext) -> {
+            hourlyMonitorService.execute(baseTime);
+            return RepeatStatus.FINISHED;
+        };
     }
 
     /** 1일 단위 실행. hourly anomaly 결과를 취합하여 통합 Dify 워크플로우(mode=daily_report)에 일간 보고를 요청한다. */
@@ -142,58 +150,26 @@ public class BatchConfig {
 
         return stepBuilderFactory
                 .get("dailyMonitorStep")
-                .tasklet((contribution, chunkContext) -> {
-                    // baseTime 있음 = 화면 "실행" 버튼(1회성, 기준시간 지정)
-                    // baseTime 없음 = "스케쥴링" 팝업의 반복 실행(매일 자정, 항상 전일자 기준) - runScheduledJob은 이 값을 넣지 않는다
-                    String baseTime = (String) chunkContext.getStepContext()
-                            .getJobParameters().get("baseTime");
-
-                    if (baseTime == null || baseTime.trim().isEmpty()) {
-                        // 스케쥴 반복 실행 - 기준일 없이 기존 동작(전일자) 그대로 실행
-                        dailyMonitorService.execute();
-                    } else {
-                        // 웹 화면 1회성 실행 - 기준일 00시~기준시간까지 1시간 배치를 정각 단위로 먼저 채운 뒤 일일 배치 실행.
-                        // 아래 runHourlyBackfill은 hourlyMonitorService를 JobLauncher/스케쥴 등록 없이 직접 호출하므로
-                        // scheduledJobs(반복 스케쥴 등록 상태)에는 전혀 영향을 주지 않는다.
-                        LocalDate targetDate = runHourlyBackfill(baseTime);
-                        dailyMonitorService.execute(targetDate);
-                    }
-
-                    return RepeatStatus.FINISHED;
-                })
+                .tasklet(dailyMonitorTasklet(null))
                 .build();
     }
 
     /**
-     * baseTime이 속한 날짜의 00시부터 baseTime 시(정각 단위)까지 1시간 배치를 순서대로 실행해
-     * output/hourly/anomaly/{날짜}_{HH}.dat 파일을 채운다.
-     * 한 시간대 실행이 실패해도 나머지 시간대와 이어지는 일일 배치 실행에 영향을 주지 않도록 개별적으로 격리한다.
+     * baseTime 있음 = 화면 "실행" 버튼(1회성, 기준시간 지정 → 기준일 00시~기준시간까지 1시간 배치를
+     * 정각 단위로 먼저 채운 뒤 일일 배치 실행)
+     * baseTime 없음 = "스케쥴링" 팝업의 반복 실행(매일 자정, 항상 전일자 기준) - runScheduledJob은 이 값을 넣지 않는다
      * <p>
-     * hourlyMonitorService.execute()를 자바 메서드로 바로 호출할 뿐 별도 JobExecution을 만들지 않으므로,
-     * 이 백필 실행들은 Spring Batch 이력이나 스케쥴 등록 상태에 나타나지 않는다 - 오직 이 dailyMonitorJob
-     * 1회 실행 안에서만 일어나는 일이다.
+     * 실제 오케스트레이션(백필 여부 판단, 기준일 파싱, 시간대별 반복 실행)은
+     * {@link DailyBatchOrchestrationService}에 위임한다 - 이 Job/Step 설정 클래스는 baseTime을
+     * JobParameter에서 꺼내 넘겨주는 것 이상의 비즈니스 로직을 갖지 않는다.
      */
-    private LocalDate runHourlyBackfill(String baseTime) {
-
-        SetupConfig config = hourlyMonitorService.loadSetupConfig();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(config.getDateFormat(), Locale.ENGLISH);
-        LocalDateTime referenceTime = LocalDateTime.parse(baseTime.trim(), formatter);
-
-        LocalDate targetDate = referenceTime.toLocalDate();
-        int hour = referenceTime.getHour();
-
-        for (int h = 1; h <= hour; h++) {
-            LocalDateTime hourMark = LocalDateTime.of(targetDate, LocalTime.of(h, 0));
-            String hourMarkText = hourMark.format(formatter);
-
-            try {
-                hourlyMonitorService.execute(hourMarkText);
-            } catch (Exception e) {
-                log.error("[DailyMonitor] {}시 1시간 배치 백필 실패 - 다음 시간대 계속 진행", h, e);
-            }
-        }
-
-        return targetDate;
+    @StepScope
+    @Bean
+    public Tasklet dailyMonitorTasklet(@Value("#{jobParameters['baseTime']}") String baseTime) {
+        return (contribution, chunkContext) -> {
+            dailyBatchOrchestrationService.runDailyMonitor(baseTime);
+            return RepeatStatus.FINISHED;
+        };
     }
 
     // 테스트 화면 전용 - hourly → daily 순서 확인용. 운영에서는 사용하지 않음

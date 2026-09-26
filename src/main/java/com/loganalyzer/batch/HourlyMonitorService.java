@@ -49,8 +49,8 @@ public class HourlyMonitorService {
      * 로그 최적화 인사이트(F-04)는 통합 워크플로우에 아직 추가되지 않아 현재는 스킵한다.
      * <p>
      * {@code BatchConfig}의 스케쥴 반복 실행(runScheduledJob)에서만 호출되는 진입점 - 항상 현재 시각을
-     * 기준으로 동작한다. 화면 "실행" 버튼의 1회성 실행이나 {@code runHourlyBackfill}의 시간대별 백필은
-     * 아래 {@link #execute(String)}을 사용한다.
+     * 기준으로 동작한다. 화면 "실행" 버튼의 1회성 실행이나 {@link DailyBatchOrchestrationService}의
+     * 시간대별 백필은 아래 {@link #execute(String)}을 사용한다.
      */
     public void execute() {
         execute(null);

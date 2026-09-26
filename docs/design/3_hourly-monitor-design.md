@@ -8,7 +8,7 @@
 | 실행 주기 | 1시간 (매 정시 등 — 확정 필요) |
 | 목적 | 서버 로그를 주기적으로 읽어 통합 Dify 워크플로우(mode=anomaly)에 이상 패턴 분석을 요청하고 결과를 저장 |
 | 작성일 | 2026-06-22 |
-| 최종 수정일 | 2026-08-25 (통합 워크플로우 전환 반영) |
+| 최종 수정일 | 2026-09-26 (웹 화면 1회성 실행 예외 흐름 추가) |
 
 > **로그 최적화 인사이트(F-04)는 통합 워크플로우에 아직 mode가 추가되지 않아 현재 스킵한다.**
 > 예전에는 anomaly-analysis와 optimization-analysis를 병렬로 호출했으나, 두 워크플로우가 log-suite 통합 앱으로 합쳐지면서
@@ -65,11 +65,13 @@ public SetupConfig loadSetupConfig()
 ## 2. readLastHourLog()
 
 ### 2.1 책임
-설정값을 기준으로, 현재 시각으로부터 최근 1시간 동안 기록된 로그만 필터링하여 읽는다.
+설정값을 기준으로, referenceTime으로부터 최근 1시간 동안 기록된 로그만 필터링하여 읽는다.
+스케쥴(자동) 실행에서는 referenceTime이 항상 현재 시각이고, 웹 화면 1회성 실행에서는 화면에서
+선택한 기준시간이 될 수 있다 (7절 참고).
 
 ### 2.2 메서드 시그니처
 ```java
-public String readLastHourLog(SetupConfig config)
+public String readLastHourLog(SetupConfig config, LocalDateTime referenceTime)
 ```
 
 ### 2.3 파라미터
@@ -77,6 +79,7 @@ public String readLastHourLog(SetupConfig config)
 | 이름 | 타입 | 필수 | 설명 | 제약조건 |
 |------|------|------|------|----------|
 | config | SetupConfig | Y | loadSetupConfig()에서 불러온 설정 객체 | null 불가 |
+| referenceTime | LocalDateTime | Y | 이 시각 기준 직전 1시간(referenceTime-1h ~ referenceTime)을 읽는다 | null 불가 |
 
 ### 2.4 반환값
 
@@ -207,7 +210,18 @@ public void saveAnomalyResult(AnomalyAnalysisResult result, LocalDateTime batchT
 
 ---
 
-## 6. 공통 고려사항
+## 6. 웹 화면 1회성 실행 (예외 흐름)
+
+- `execute()` — 스케쥴(자동) 반복 실행 전용. 인자 없이 호출되며 항상 현재 시각을 referenceTime으로 사용한다.
+- `execute(String baseTime)` — 아래 두 경우에 사용되는 별도 진입점이다.
+  1. 웹 화면 카드의 "실행" 버튼(1회성)을 기준시간을 선택한 채로 눌렀을 때
+  2. 일간 배치(`4_daily-monitor-design.md`)의 웹 화면 1회성 실행이 기준일 00시~기준시간까지 정각 단위로 이 배치를 미리 채울 때(백필)
+- baseTime은 `config.getDateFormat()`과 동일한 포맷의 문자열이며, 파싱해 referenceTime으로 사용한다. baseTime이 없거나 파싱에 실패하면 현재 시각으로 대체한다.
+- 이 예외 흐름은 스케쥴 등록 상태(반복 실행 on/off)와 전혀 무관하다 — `execute(String)`은 그 자리에서 한 번 호출되어 끝나는 일반 메서드 호출일 뿐, 별도 Job으로 등록되거나 반복되지 않는다.
+
+---
+
+## 7. 공통 고려사항
 
 - **재시도 정책**: Dify 호출 재시도 횟수, 백오프 전략은 `log-analyzer.dify.max-retries` / `timeout-seconds` 설정을 따른다.
 - **출력 파일 보관**: `output/hourly/anomaly/` 파일은 daily-monitor 처리 후 `4_daily-monitor`의 deleteOldHourlyFiles()에서 7일 기준으로 정리.
@@ -216,9 +230,11 @@ public void saveAnomalyResult(AnomalyAnalysisResult result, LocalDateTime batchT
 
 ---
 
-## 7. 변경 이력
+## 8. 변경 이력
 
 | 버전 | 날짜 | 내용 | 작성자 |
 |------|------|------|--------|
 | v1.0 | 2026-06-23 | 초안 완성 | |
 | v2.0 | 2026-08-25 | anomaly-analysis/optimization-analysis 분리 구조 → log-suite 통합 워크플로우(mode=anomaly) 단일 호출로 변경. prev/next 카테고리별 누적 건수 상태 관리 추가. optimization 관련 절 삭제(미지원) | |
+| v2.1 | 2026-09-26 | readLastHourLog/execute가 "현재 시각" 대신 referenceTime을 받도록 변경. 웹 화면 1회성 실행(기준시간 지정, baseTime) 예외 흐름 추가 — 스케쥴 실행(execute())은 그대로 현재 시각 기준 | |
+| v2.2 | 2026-09-26 | `BatchConfig`의 baseTime 참조 방식을 `chunkContext.getJobParameters().get(...)` 대신 `@StepScope` + `@Value("#{jobParameters['baseTime']}")`로 변경 | |
