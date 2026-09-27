@@ -11,7 +11,7 @@
 | F-05 | 일간 이상 패턴 보고 | Daily Monitor | 1일 |
 | F-06 | 일간 최적화 인사이트 저장 | Daily Monitor | 1일 |
 | F-07 | Hourly 파일 정리 | Daily Monitor | 1일 |
-| F-08 | 월간 최적화 인사이트 보고 | Monthly Monitor | 1월 (**개발 보류**) |
+| F-08 | 월간 최적화 인사이트 보고 | Monthly Monitor | 1월 |
 
 ---
 
@@ -163,15 +163,15 @@ output/hourly/optimization/ → 7일 초과 파일 삭제
 
 ---
 
-## F-08. 월간 최적화 인사이트 보고 (**개발 보류**)
+## F-08. 월간 최적화 인사이트 보고
 
 | 항목 | 내용 |
 |------|------|
-| 설명 | 전월 daily 결과를 취합하여 Dify에 전달하고, 월간 최적화 인사이트를 메일로 발송 및 파일로 저장한다 |
-| 트리거 | 1월 단위 자동 실행 (전월 daily 배치 완료 이후) |
-| 입력 | `output/daily/optimization/` 전월 .dat 파일 전체 |
-| 출력 | Dify MCP → 메일 발송 + `output/monthly/yyyy-MM.dat` |
-| 보류 사유 | 총 용량 10MB 초과 시 청킹 처리 및 N개 결과 병합 공수 이슈 |
+| 설명 | 전월 daily 결과를 취합하여 Dify(mode=monthly_report)에 전달하고, 월간 보고 결과를 파일로 저장한다 |
+| 트리거 | 1월 단위 자동 실행 (매월 1일 자정, 전월 daily 배치 완료 이후) 또는 웹 화면 1회성 실행 |
+| 입력 | `output/daily/anomaly/` 전월 .dat 파일 전체 (실제 구현 기준 — 구 스펙의 optimization 변형은 미지원) |
+| 출력 | `output/monthly/yyyy-MM.dat` |
+| 미해결 이슈 | 총 용량 10MB 초과 시 청킹 처리 및 N개 결과 병합 — 아직 코드에 미반영, `docs/design/5_monthly-monitor-design.md` 4절 참고 |
 | 관련 설계서 | `docs/design/5_monthly-monitor-design.md` |
 
 ---
@@ -199,3 +199,5 @@ output/hourly/optimization/ → 7일 초과 파일 삭제
 |------|------|------|--------|
 | v1.0 | 2026-06-23 | 초안 완성 | |
 | v1.1 | 2026-09-26 | 웹 화면 1회성 실행(수동) 흐름 부록 추가 — F-03/F-05/F-06 스케쥴 계약은 변경 없음 | |
+| v1.2 | 2026-09-26 | F-08 개발 착수 결정 — "개발 보류" 표현 제거 | |
+| v1.3 | 2026-09-27 | F-08 1차 구현 완료 (실제 입력 경로·미해결 이슈 반영), 메일 발송(MCP)은 실제로 미구현 상태임을 명시 | |

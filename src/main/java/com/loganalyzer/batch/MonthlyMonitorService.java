@@ -44,12 +44,23 @@ public class MonthlyMonitorService {
     /**
      * 1개월 단위로 실행되는 월간 운영보고 배치의 진입점.
      * 전월 daily anomaly 결과를 취합 → 통합 Dify 워크플로우(mode=monthly_report)에 요청 → 결과 저장 순서로 처리한다.
+     * <p>
+     * {@code BatchConfig}의 스케쥴 반복 실행(runScheduledJob)에서만 호출되는 진입점 - 항상 전월을
+     * 기준으로 동작한다. 화면 "실행" 버튼의 1회성 실행은 아래 {@link #execute(YearMonth)}를 사용한다.
      */
     public void execute() {
+        execute(YearMonth.now().minusMonths(1));
+    }
+
+    /**
+     * targetYearMonth(기준월) 한 달치 daily anomaly 결과를 취합해 월간 운영보고를 생성한다.
+     * 웹 화면 "기준시간" 기반 1회성 실행에서 사용하며({@link MonthlyBatchOrchestrationService}가 먼저
+     * 기준일까지의 일자별 데이터를 백필한 뒤 그 월을 그대로 받는다), 위 {@link #execute()}를 통해
+     * 인자 없이 호출되면(스케쥴 반복 실행) 항상 전월을 기준으로 동작한다.
+     */
+    public void execute(YearMonth targetYearMonth) {
 
         log.info("[MonthlyMonitor] 실행 시작");
-
-        YearMonth targetYearMonth = YearMonth.now().minusMonths(1);
 
         String dailyResultsJson = readMonthlyDailyResults(targetYearMonth);
 
@@ -390,5 +401,71 @@ public class MonthlyMonitorService {
 
     private String joinOrEmpty(List<String> values) {
         return values == null ? "" : String.join(" | ", values);
+    }
+
+    /**
+     * output/monthly에 저장된 가장 최근 월간 배치 실행 결과 1건을 읽어온다. 웹 화면 "결과 보기"에서 사용한다.
+     * 파일명이 yyyy-MM.dat 형식이라 이름순 정렬이 곧 시간순 정렬이다. 저장된 결과가 하나도 없으면 null을 반환한다.
+     */
+    public MonthlyReportResult loadLatestResult() {
+
+        File dir = new File(MONTHLY_RESULT_DIR);
+
+        if (!dir.exists()) {
+            return null;
+        }
+
+        File[] files = dir.listFiles((d, name) -> name.endsWith(".dat"));
+
+        if (files == null || files.length == 0) {
+            return null;
+        }
+
+        File latest = Arrays.stream(files)
+                .max(Comparator.comparing(File::getName))
+                .orElse(null);
+
+        try {
+            String content = new String(Files.readAllBytes(latest.toPath()), StandardCharsets.UTF_8);
+            // saveMonthlyResult()가 저장한 순서(status/dayCount/overallStatus/monthlySummary/trendSummary/
+            // majorIssues/recurringPatterns/recommendations/message/reportText) 그대로 10줄로 분리한다.
+            // reportText는 LLM 응답이라 내부에 줄바꿈을 포함할 수 있어 마지막 줄 이후 전체를 그대로 취급한다.
+            String[] parts = content.split(System.lineSeparator(), 10);
+
+            if (parts.length < 10) {
+                log.warn("[MonthlyMonitor] 저장된 결과 형식이 올바르지 않습니다 : {}", latest.getName());
+                return null;
+            }
+
+            YearMonth targetYearMonth = YearMonth.parse(
+                    latest.getName().replace(".dat", ""),
+                    MONTH_FORMATTER
+            );
+
+            return MonthlyReportResult.builder()
+                    .status(stripPrefix(parts[0], "status="))
+                    .dayCount(parseIntSafely(stripPrefix(parts[1], "dayCount=")))
+                    .overallStatus(stripPrefix(parts[2], "overallStatus="))
+                    .monthlySummary(stripPrefix(parts[3], "monthlySummary="))
+                    .trendSummary(stripPrefix(parts[4], "trendSummary="))
+                    .majorIssues(splitOrEmpty(stripPrefix(parts[5], "majorIssues=")))
+                    .recurringPatterns(splitOrEmpty(stripPrefix(parts[6], "recurringPatterns=")))
+                    .recommendations(splitOrEmpty(stripPrefix(parts[7], "recommendations=")))
+                    .message(stripPrefix(parts[8], "message="))
+                    .reportText(stripPrefix(parts[9], "reportText="))
+                    .targetYearMonth(targetYearMonth)
+                    .build();
+
+        } catch (IOException e) {
+            log.error("[MonthlyMonitor] 최근 결과 파일 읽기 실패 : {}", latest.getAbsolutePath(), e);
+            return null;
+        }
+    }
+
+    private List<String> splitOrEmpty(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return new ArrayList<>();
+        }
+        return Arrays.asList(value.split(" \\| "));
     }
 }

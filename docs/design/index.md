@@ -32,7 +32,7 @@
 
 - **Dify API 연동 스펙**: `docs/design/dify-api-spec.md` — 6개 워크플로우 요청/응답 스펙, 공통 인증/재시도 규칙
 
-- **월 단위 배치 설계서**: `docs/design/5_monthly-monitor-design.md` — 1월 단위 배치 (**개발 보류 — 청킹/결과 병합 공수 이슈**)
-  1. `readDailyResults`
+- **월 단위 배치 설계서**: `docs/design/5_monthly-monitor-design.md` — 1월 단위 배치 (**1차 구현 완료 — 청킹/결과 병합 이슈는 미해결로 남음**)
+  1. `readMonthlyDailyResults`
   2. `requestMonthlyReportToDify`
   3. `saveMonthlyResult`

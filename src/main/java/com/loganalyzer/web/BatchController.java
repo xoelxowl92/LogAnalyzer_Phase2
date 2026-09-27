@@ -4,6 +4,8 @@ import com.loganalyzer.batch.BatchHistoryEntry;
 import com.loganalyzer.batch.BatchScheduleHistoryService;
 import com.loganalyzer.batch.MinuteMonitorResult;
 import com.loganalyzer.batch.MinuteMonitorService;
+import com.loganalyzer.batch.MonthlyMonitorService;
+import com.loganalyzer.batch.MonthlyReportResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -40,11 +42,11 @@ import java.util.concurrent.ScheduledFuture;
  * <ol>
  *   <li><b>1회성 실행</b> — {@code POST /run/{jobName}} (아래 {@link #runJob}, {@link #runSetupJob}).
  *       화면의 "실행" 버튼에서 호출되며, {@link JobLauncher#run}으로 그 자리에서 딱 1번만 실행하고 끝난다.
- *       기준시간(baseTime)을 함께 받아 참고하는 배치(1시간/1일)는 그 값을 기준으로 동작한다.</li>
+ *       기준시간(baseTime)을 함께 받아 참고하는 배치(1시간/1일/1월)는 그 값을 기준으로 동작한다.</li>
  *   <li><b>반복 스케쥴 등록</b> — {@code POST /schedule/**} (아래 {@link #toggleSchedule},
  *       {@link #startAllSchedules}, {@link #stopAllSchedules}). 화면의 "스케쥴링" 팝업에서 호출되며,
  *       {@link #scheduledJobs}에 등록된 {@link TaskScheduler}의 {@link CronTrigger}가 벽시계 기준으로
- *       (매분 0초/매시 정각/매일 자정) 계속 반복 실행한다. 이때는 baseTime을 넣지 않으므로 항상
+ *       (매분 0초/매시 정각/매일 자정/매월 1일 자정) 계속 반복 실행한다. 이때는 baseTime을 넣지 않으므로 항상
  *       "실행되는 그 순간"을 기준으로 동작한다({@link #runScheduledJob}).</li>
  * </ol>
  * setupJob은 logFilePath 파라미터가 필요하므로 별도 엔드포인트로 분리.
@@ -60,6 +62,7 @@ public class BatchController {
     private final TaskScheduler taskScheduler;
     private final BatchScheduleHistoryService batchScheduleHistoryService;
     private final MinuteMonitorService minuteMonitorService;
+    private final MonthlyMonitorService monthlyMonitorService;
 
     private final Map<String, ScheduledFuture<?>> scheduledJobs = new ConcurrentHashMap<>();
 
@@ -68,9 +71,9 @@ public class BatchController {
             "minuteMonitorJob", "hourlyMonitorJob", "dailyMonitorJob", "monthlyMonitorJob"));
     private static final int SCHEDULE_HISTORY_LIMIT = 10;
 
-    /** 스케쥴링 일괄 시작/중단 대상 배치. monthlyMonitorJob은 카드 UI 미구현(개발 보류)으로 제외. */
+    /** 스케쥴링 일괄 시작/중단 대상 배치. */
     private static final List<String> BULK_SCHEDULE_JOBS = Collections.unmodifiableList(Arrays.asList(
-            "minuteMonitorJob", "hourlyMonitorJob", "dailyMonitorJob"));
+            "minuteMonitorJob", "hourlyMonitorJob", "dailyMonitorJob", "monthlyMonitorJob"));
 
     /**
      * 배치별 반복 실행 cron 표현식 (초 분 시 일 월 요일). toggle 대상 배치는 여기 등록되어야 한다.
@@ -133,11 +136,12 @@ public class BatchController {
     // scheduledJobs를 전혀 참조하지 않는다 - 스케쥴 등록 여부와 무관하게 그 자리에서 1번만 실행된다.
 
     /**
-     * 일반 배치 1회성 실행 (1분 / 1시간 / 1일).
+     * 일반 배치 1회성 실행 (1분 / 1시간 / 1일 / 1월).
      * jobName은 Spring Context에 등록된 Bean 이름과 일치해야 함.
-     * body의 baseTime은 화면 "기준시간" 선택값으로, 이를 참고하는 배치(1시간은 그 시각 기준, 1일은
-     * 그 기준일 00시~기준시간까지 1시간 배치를 먼저 채운 뒤 실행 - {@link com.loganalyzer.batch.BatchConfig}
-     * 참고)에만 사용되고 나머지 배치는 무시한다. 비어있으면 각 배치가 현재 시각을 기준으로 실행한다.
+     * body의 baseTime은 화면 "기준시간" 선택값으로, 이를 참고하는 배치에만 사용되고 나머지 배치는
+     * 무시한다 - 1시간은 그 시각 기준, 1일은 그 기준일 00시~기준시간까지, 1월은 그 기준월 1일부터
+     * 기준일까지 날짜별로 1시간 배치를 먼저 채운 뒤 실행한다 ({@link com.loganalyzer.batch.BatchConfig}
+     * 참고). 비어있으면 각 배치가 현재 시각(1분/1시간)/전일(1일)/전월(1월) 기준으로 실행한다.
      */
     @PostMapping("/run/{jobName}")
     public ResponseEntity<Map<String, Object>> runJob(
@@ -189,6 +193,36 @@ public class BatchController {
         return ResponseEntity.ok(result);
     }
 
+    /**
+     * 1월 배치의 가장 최근 실행 결과를 조회한다. 웹 화면 "결과 보기" 버튼 전용.
+     * status는 최근 JobExecution의 성공/실패, 나머지 필드는 output/monthly에 저장된 실제 Dify 월간
+     * 보고 결과다. 아직 한 번도 실행된 적이 없으면 status를 제외한 모든 필드가 null/빈 값이다.
+     */
+    @GetMapping("/run/monthlyMonitorJob/last-result")
+    public ResponseEntity<Map<String, Object>> getMonthlyMonitorLastResult() {
+        Map<String, Object> result = new HashMap<>();
+
+        List<BatchHistoryEntry> history = batchScheduleHistoryService.getRecentHistory("monthlyMonitorJob", 1);
+        result.put("status", history.isEmpty() ? null : history.get(0).getStatus());
+
+        MonthlyReportResult latest = monthlyMonitorService.loadLatestResult();
+        if (latest != null) {
+            result.put("targetYearMonth", latest.getTargetYearMonth() != null ? latest.getTargetYearMonth().toString() : null);
+            result.put("reportStatus", latest.getStatus());
+            result.put("dayCount", latest.getDayCount());
+            result.put("overallStatus", latest.getOverallStatus());
+            result.put("monthlySummary", latest.getMonthlySummary());
+            result.put("majorIssues", latest.getMajorIssues());
+            result.put("recurringPatterns", latest.getRecurringPatterns());
+            result.put("trendSummary", latest.getTrendSummary());
+            result.put("recommendations", latest.getRecommendations());
+            result.put("reportText", latest.getReportText());
+            result.put("message", latest.getMessage());
+        }
+
+        return ResponseEntity.ok(result);
+    }
+
     // ── 반복 스케쥴 등록 (화면 "스케쥴링" 팝업) ───────────────────────
     // scheduledJobs(ConcurrentHashMap)로 등록 상태를 관리하며, 위 1회성 실행 API와는 서로의 상태를
     // 참조하지 않는 별개의 흐름이다. 등록된 반복 실행은 baseTime 없이 항상 "실행되는 그 순간"을
@@ -223,7 +257,7 @@ public class BatchController {
     }
 
     /**
-     * BULK_SCHEDULE_JOBS(1분/1시간/1일)를 한 번에 시작한다. 이미 실행 중인 배치는 건드리지 않는다.
+     * BULK_SCHEDULE_JOBS(1분/1시간/1일/1월)를 한 번에 시작한다. 이미 실행 중인 배치는 건드리지 않는다.
      */
     @PostMapping("/schedule/start-all")
     public ResponseEntity<Map<String, Object>> startAllSchedules() {
@@ -231,7 +265,7 @@ public class BatchController {
     }
 
     /**
-     * BULK_SCHEDULE_JOBS(1분/1시간/1일)를 한 번에 중단한다. 이미 중지된 배치는 건드리지 않는다.
+     * BULK_SCHEDULE_JOBS(1분/1시간/1일/1월)를 한 번에 중단한다. 이미 중지된 배치는 건드리지 않는다.
      */
     @PostMapping("/schedule/stop-all")
     public ResponseEntity<Map<String, Object>> stopAllSchedules() {
@@ -338,8 +372,8 @@ public class BatchController {
 
     /**
      * 스케쥴 등록(startJobSchedule)에 의해 cron 시각마다 반복 호출되는 실행부.
-     * 1회성 실행({@link #runJob})과 달리 baseTime을 전혀 넣지 않으므로, 1시간/1일 배치는
-     * 항상 이 메서드가 호출되는 순간의 현재 시각을 기준으로 동작한다.
+     * 1회성 실행({@link #runJob})과 달리 baseTime을 전혀 넣지 않으므로, 1시간/1일/1월 배치는
+     * 항상 이 메서드가 호출되는 순간의 현재 시각(1시간)/전일(1일)/전월(1월)을 기준으로 동작한다.
      */
     private void runScheduledJob(String jobName, Job job) {
         try {

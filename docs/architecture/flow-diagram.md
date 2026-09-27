@@ -34,8 +34,10 @@ flowchart TD
         H --> H_Dify_A & H_Dify_O
     end
 
-    subgraph Monthly["F-08  월간 최적화 인사이트 보고 · 1월  ⚠️ 개발 보류"]
-        M8["개발 보류\n청킹/결과 병합 공수 이슈"]
+    subgraph Monthly["F-08  월간 최적화 인사이트 보고 · 1월"]
+        M8["daily .dat 취합"]
+        M8_Dify["Dify\n월간 보고"]
+        M8 --> M8_Dify
     end
 
     subgraph Daily["F-05 / F-06 / F-07  일간 보고 + 파일 정리 · 1일"]

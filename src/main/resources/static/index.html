@@ -301,6 +301,16 @@
             white-space: pre-wrap;
         }
 
+        .result-list {
+            margin: 6px 0 0;
+            padding-left: 18px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .result-list li { margin-bottom: 4px; }
+        .result-list.empty { color: #aaa; padding-left: 0; list-style: none; }
+
         .fault-badge {
             font-size: 12px;
             padding: 3px 10px;
@@ -380,12 +390,13 @@
 
     <div class="card">
         <div class="card-info">
-            <h3>1월 배치 — 월간 인사이트 <span style="color:#aaa;font-size:12px;">⚠️ 개발 보류</span></h3>
+            <h3>1월 배치 — 월간 인사이트</h3>
             <p>일간 결과 집계 → Dify 월간 분석</p>
         </div>
         <div class="card-right">
             <span class="status" id="status-monthlyMonitorJob">-</span>
-            <span class="disabled-badge">보류</span>
+            <button id="btn-monthlyMonitorJob" onclick="runJob('monthlyMonitorJob', this)">실행</button>
+            <button class="btn-cancel" onclick="openMonthlyResultModal()">결과 보기</button>
         </div>
     </div>
 
@@ -434,6 +445,18 @@
             <div id="minute-result-body"></div>
             <div class="modal-actions">
                 <button class="btn-cancel" onclick="closeMinuteResultModal()">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1월 배치 실행 결과 모달 -->
+    <div class="modal-overlay" id="monthly-result-modal">
+        <div class="modal modal-wide">
+            <h2>1월 배치 실행 결과</h2>
+            <p class="modal-desc">가장 최근 실행 결과입니다.</p>
+            <div id="monthly-result-body"></div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeMonthlyResultModal()">닫기</button>
             </div>
         </div>
     </div>
@@ -648,7 +671,7 @@
     }
 
     const SCHEDULE_JOB_ORDER = ['minuteMonitorJob', 'hourlyMonitorJob', 'dailyMonitorJob', 'monthlyMonitorJob'];
-    const BULK_SCHEDULE_JOBS = ['minuteMonitorJob', 'hourlyMonitorJob', 'dailyMonitorJob'];
+    const BULK_SCHEDULE_JOBS = ['minuteMonitorJob', 'hourlyMonitorJob', 'dailyMonitorJob', 'monthlyMonitorJob'];
 
     function getJobDisplayName(jobName) {
         const statusEl = document.getElementById('status-' + jobName);
@@ -771,6 +794,85 @@
             <div class="result-row" style="display:block;">
                 <span class="label">요약</span>
                 <p class="result-summary">${escapeHtml(data.summary || '-')}</p>
+            </div>
+        `;
+    }
+
+    function closeMonthlyResultModal() {
+        document.getElementById('monthly-result-modal').classList.remove('open');
+    }
+
+    async function openMonthlyResultModal() {
+        document.getElementById('monthly-result-modal').classList.add('open');
+        const bodyEl = document.getElementById('monthly-result-body');
+        bodyEl.innerHTML = '<p class="modal-desc">불러오는 중...</p>';
+
+        try {
+            const res = await fetch('/api/batch/run/monthlyMonitorJob/last-result');
+            const data = await res.json();
+            renderMonthlyResult(data);
+        } catch (e) {
+            bodyEl.innerHTML = '<p class="modal-desc">실행 결과를 불러오지 못했습니다.</p>';
+        }
+    }
+
+    function renderResultList(items) {
+        if (!items || items.length === 0) {
+            return '<ul class="result-list empty"><li>없음</li></ul>';
+        }
+        return '<ul class="result-list">' + items.map(item => `<li>${escapeHtml(item)}</li>`).join('') + '</ul>';
+    }
+
+    function renderMonthlyResult(data) {
+        const bodyEl = document.getElementById('monthly-result-body');
+
+        if (!data.status && !data.targetYearMonth) {
+            bodyEl.innerHTML = '<p class="modal-desc">아직 실행된 이력이 없습니다.</p>';
+            return;
+        }
+
+        const statusText = data.status || '-';
+
+        if (data.reportStatus === 'no_data') {
+            bodyEl.innerHTML = `
+                <div class="result-row"><span class="label">배치 실행 상태</span><span class="status ${statusText}">${statusText}</span></div>
+                <div class="result-row"><span class="label">대상 연월</span><span>${data.targetYearMonth || '-'}</span></div>
+                <div class="result-row" style="display:block;">
+                    <span class="label">안내</span>
+                    <p class="result-summary">${escapeHtml(data.message || '집계할 일별 결과 데이터가 없습니다.')}</p>
+                </div>
+            `;
+            return;
+        }
+
+        bodyEl.innerHTML = `
+            <div class="result-row"><span class="label">배치 실행 상태</span><span class="status ${statusText}">${statusText}</span></div>
+            <div class="result-row"><span class="label">대상 연월</span><span>${data.targetYearMonth || '-'}</span></div>
+            <div class="result-row"><span class="label">집계된 일수</span><span>${data.dayCount != null ? data.dayCount : '-'}일</span></div>
+            <div class="result-row"><span class="label">종합 상태</span><span>${escapeHtml(data.overallStatus || '-')}</span></div>
+            <div class="result-row" style="display:block;">
+                <span class="label">월간 요약</span>
+                <p class="result-summary">${escapeHtml(data.monthlySummary || '-')}</p>
+            </div>
+            <div class="result-row" style="display:block;">
+                <span class="label">주요 이슈</span>
+                ${renderResultList(data.majorIssues)}
+            </div>
+            <div class="result-row" style="display:block;">
+                <span class="label">반복 패턴</span>
+                ${renderResultList(data.recurringPatterns)}
+            </div>
+            <div class="result-row" style="display:block;">
+                <span class="label">트렌드 요약</span>
+                <p class="result-summary">${escapeHtml(data.trendSummary || '-')}</p>
+            </div>
+            <div class="result-row" style="display:block;">
+                <span class="label">권장사항</span>
+                ${renderResultList(data.recommendations)}
+            </div>
+            <div class="result-row" style="display:block;">
+                <span class="label">보고서 원문</span>
+                <p class="result-summary">${escapeHtml(data.reportText || '-')}</p>
             </div>
         `;
     }

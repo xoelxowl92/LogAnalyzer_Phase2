@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
  * 전체 배치 Job/Step 등록.
  * setupJob은 최초 1회 실행, 나머지는 스케줄러로 주기적 실행.
  * <p>
- * 여기 등록된 Job 빈(hourlyMonitorJob, dailyMonitorJob 등)은 화면 "실행" 버튼의 1회성 실행
+ * 여기 등록된 Job 빈(hourlyMonitorJob, dailyMonitorJob, monthlyMonitorJob 등)은 화면 "실행" 버튼의 1회성 실행
  * ({@code BatchController.runJob}, baseTime 있음)과 "스케쥴링" 팝업의 반복 실행
  * ({@code BatchController.runScheduledJob}, baseTime 없음) 양쪽에서 똑같이 재사용된다.
  * 즉 Step 자신은 "누가 호출했는지"를 모르며, 오직 전달받은 baseTime JobParameter의 유무로만
@@ -39,7 +39,7 @@ public class BatchConfig {
     private final MinuteMonitorService minuteMonitorService;
     private final HourlyMonitorService hourlyMonitorService;
     private final DailyBatchOrchestrationService dailyBatchOrchestrationService;
-    private final MonthlyMonitorService monthlyMonitorService;
+    private final MonthlyBatchOrchestrationService monthlyBatchOrchestrationService;
 
     /** 최초 1회 실행. logFilePath를 JobParameter로 전달받아 인코딩/날짜형식/타임존을 자동 탐지 후 config/setup.properties에 저장한다. */
     @Bean
@@ -194,11 +194,24 @@ public class BatchConfig {
 
         return stepBuilderFactory
                 .get("monthlyMonitorStep")
-                .tasklet((contribution, chunkContext) -> {
-                    monthlyMonitorService.execute();
-                    return RepeatStatus.FINISHED;
-                })
+                .tasklet(monthlyMonitorTasklet(null))
                 .build();
+    }
+
+    /**
+     * baseTime 있음 = 화면 "실행" 버튼(1회성, 기준시간 지정 → 기준월 1일부터 기준일까지 날짜별로
+     * 1시간 배치 백필 + 일일 배치 실행 후 월간 배치 실행)
+     * baseTime 없음 = "스케쥴링" 팝업의 반복 실행(매월 1일 자정, 항상 전월 기준) - runScheduledJob은 이 값을 넣지 않는다
+     * <p>
+     * 실제 오케스트레이션은 {@link MonthlyBatchOrchestrationService}에 위임한다.
+     */
+    @StepScope
+    @Bean
+    public Tasklet monthlyMonitorTasklet(@Value("#{jobParameters['baseTime']}") String baseTime) {
+        return (contribution, chunkContext) -> {
+            monthlyBatchOrchestrationService.runMonthlyMonitor(baseTime);
+            return RepeatStatus.FINISHED;
+        };
     }
 
     private Step placeholderStep(String name) {
