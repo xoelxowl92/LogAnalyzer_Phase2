@@ -156,7 +156,17 @@ public void deleteOldHourlyFiles(LocalDate baseDate)
 
 ---
 
-## 6. 공통 고려사항
+## 6. loadLatestResult() — 웹 화면 '결과 보기'
+
+- **책임**: `output/daily/anomaly/`에서 파일명이 가장 큰 `.dat` 1건(`yyyy-MM-dd.dat`, 이름순 = 날짜순)을 읽어 기존 `DailyAnomalyResult`로 반환한다. `BatchController`의 `GET /api/batch/run/dailyMonitorJob/last-result`에서 사용한다.
+- **메서드 시그니처**: `public DailyAnomalyResult loadLatestResult()`
+- **파싱**: `content.split(System.lineSeparator(), 5)` — reportDate/errorCount/warnCount/uniqueIssueCount/reportText 순서, reportText는 멀티라인이라 5번째 이후 전체. 건수는 파싱 실패 시 0. reportDate는 파일명을 `DATE_FORMATTER`로 파싱해 결정한다.
+- **예외 처리**: 폴더 없음/파일 0건 → null, 줄 수 부족 → WARN 후 null, 파일명 날짜 파싱 실패(DateTimeParseException) → WARN 후 null, IOException → ERROR 후 null.
+- **비고**: 선택 기준이 대상 일자(파일명)라 과거 기준일 1회성 실행 시 "가장 나중에 실행된 결과"와 다를 수 있다. hourly 결과가 없으면 파일이 저장되지 않으므로 이전 일자 결과가 보일 수 있다 — 화면에 대상 일자를 함께 표시해 대응.
+
+---
+
+## 7. 공통 고려사항
 
 - **실행 시점**: 전일 hourly 배치가 모두 완료된 이후 실행 — 새벽 1시 이후 권장.
 - **재시도 정책**: `log-analyzer.dify.max-retries` / `timeout-seconds` 설정을 따른다.
@@ -165,7 +175,7 @@ public void deleteOldHourlyFiles(LocalDate baseDate)
 
 ---
 
-## 7. 변경 이력
+## 8. 변경 이력
 
 | 버전 | 날짜 | 내용 | 작성자 |
 |------|------|------|--------|
@@ -174,3 +184,4 @@ public void deleteOldHourlyFiles(LocalDate baseDate)
 | v2.1 | 2026-08-25 | hourly anomaly 결과(.dat) 재활용 방식으로 20,000자 제한 이슈 해결, `DailyMonitorService` 구현 완료 및 `BatchConfig.dailyMonitorJob`에 연결 | |
 | v2.2 | 2026-09-26 | execute(LocalDate targetDate) 추가 및 웹 화면 1회성 실행(기준일 지정 + 1시간 배치 백필) 예외 흐름 추가 — 스케쥴 실행(execute())은 그대로 전일 기준 | |
 | v2.3 | 2026-09-26 | 백필 오케스트레이션 로직을 `BatchConfig`(Job/Step 설정 전용)에서 `DailyBatchOrchestrationService`로 분리(SRP). `BatchConfig`의 baseTime 참조 방식도 `chunkContext.getJobParameters().get(...)` 대신 `@StepScope` + `@Value("#{jobParameters['baseTime']}")`로 변경 | |
+| v2.4 | 2026-09-28 | 웹 화면 '결과 보기'용 `loadLatestResult()` 추가(6절) | |

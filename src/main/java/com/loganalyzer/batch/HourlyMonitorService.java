@@ -24,8 +24,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -565,5 +568,57 @@ public class HourlyMonitorService {
         } catch (NumberFormatException e) {
             return 0;
         }
+    }
+
+    /**
+     * output/hourly/anomaly에 저장된 가장 최근 1시간 배치 실행 결과 1건을 읽어온다. 웹 화면 "결과 보기"에서 사용한다.
+     * 파일명이 yyyy-MM-dd_HH.dat 형식이라 이름순 정렬이 곧 시간순 정렬이다. 저장된 결과가 하나도 없으면 null을 반환한다.
+     */
+    public HourlyMonitorResult loadLatestResult() {
+
+        File dir = new File(ANOMALY_RESULT_DIR);
+
+        if (!dir.exists()) {
+            return null;
+        }
+
+        File[] files = dir.listFiles((d, name) -> name.endsWith(".dat"));
+
+        if (files == null || files.length == 0) {
+            return null;
+        }
+
+        File latest = Arrays.stream(files)
+                .max(Comparator.comparing(File::getName))
+                .orElse(null);
+
+        try {
+            String content = new String(Files.readAllBytes(latest.toPath()), StandardCharsets.UTF_8);
+            // message는 LLM 응답이라 내부에 줄바꿈을 포함할 수 있어 앞 두 줄만 분리하고 나머지 전체를 message로 취급한다.
+            String[] parts = content.split(System.lineSeparator(), 3);
+
+            if (parts.length < 3) {
+                log.warn("[HourlyMonitor] 저장된 결과 형식이 올바르지 않습니다 : {}", latest.getName());
+                return null;
+            }
+
+            String severity = stripPrefix(parts[1], "severity=");
+
+            return HourlyMonitorResult.builder()
+                    .anomalyDetected(Boolean.parseBoolean(stripPrefix(parts[0], "anomalyDetected=").trim()))
+                    // saveAnomalyResult()가 null severity를 "null" 문자열로 저장하므로 빈 값으로 정규화한다.
+                    .severity("null".equals(severity) ? "" : severity)
+                    .message(stripPrefix(parts[2], "message="))
+                    .targetHour(latest.getName().replace(".dat", ""))
+                    .build();
+
+        } catch (IOException e) {
+            log.error("[HourlyMonitor] 최근 결과 파일 읽기 실패 : {}", latest.getAbsolutePath(), e);
+            return null;
+        }
+    }
+
+    private String stripPrefix(String line, String prefix) {
+        return line.startsWith(prefix) ? line.substring(prefix.length()) : line;
     }
 }

@@ -2,6 +2,10 @@ package com.loganalyzer.web;
 
 import com.loganalyzer.batch.BatchHistoryEntry;
 import com.loganalyzer.batch.BatchScheduleHistoryService;
+import com.loganalyzer.batch.DailyAnomalyResult;
+import com.loganalyzer.batch.DailyMonitorService;
+import com.loganalyzer.batch.HourlyMonitorResult;
+import com.loganalyzer.batch.HourlyMonitorService;
 import com.loganalyzer.batch.MinuteMonitorResult;
 import com.loganalyzer.batch.MinuteMonitorService;
 import com.loganalyzer.batch.MonthlyMonitorService;
@@ -62,6 +66,8 @@ public class BatchController {
     private final TaskScheduler taskScheduler;
     private final BatchScheduleHistoryService batchScheduleHistoryService;
     private final MinuteMonitorService minuteMonitorService;
+    private final HourlyMonitorService hourlyMonitorService;
+    private final DailyMonitorService dailyMonitorService;
     private final MonthlyMonitorService monthlyMonitorService;
 
     private final Map<String, ScheduledFuture<?>> scheduledJobs = new ConcurrentHashMap<>();
@@ -189,6 +195,51 @@ public class BatchController {
         result.put("isFault", latest != null ? latest.isFault() : null);
         result.put("summary", latest != null ? latest.getSummary() : null);
         result.put("executedAt", latest != null ? latest.getExecutedAt() : null);
+
+        return ResponseEntity.ok(result);
+    }
+
+    /**
+     * 1시간 배치의 가장 최근 실행 결과를 조회한다. 웹 화면 "결과 보기" 버튼 전용.
+     * status는 최근 JobExecution의 성공/실패, anomalyDetected/severity/message/targetHour는 output/hourly/anomaly에
+     * 저장된 실제 Dify 분석 결과다. 아직 한 번도 실행된 적이 없으면 모든 필드가 null이다.
+     */
+    @GetMapping("/run/hourlyMonitorJob/last-result")
+    public ResponseEntity<Map<String, Object>> getHourlyMonitorLastResult() {
+        Map<String, Object> result = new HashMap<>();
+
+        List<BatchHistoryEntry> history = batchScheduleHistoryService.getRecentHistory("hourlyMonitorJob", 1);
+        result.put("status", history.isEmpty() ? null : history.get(0).getStatus());
+
+        HourlyMonitorResult latest = hourlyMonitorService.loadLatestResult();
+        result.put("anomalyDetected", latest != null ? latest.isAnomalyDetected() : null);
+        result.put("severity", latest != null ? latest.getSeverity() : null);
+        result.put("message", latest != null ? latest.getMessage() : null);
+        result.put("targetHour", latest != null ? latest.getTargetHour() : null);
+
+        return ResponseEntity.ok(result);
+    }
+
+    /**
+     * 1일 배치의 가장 최근 실행 결과를 조회한다. 웹 화면 "결과 보기" 버튼 전용.
+     * status는 최근 JobExecution의 성공/실패, 나머지 필드는 output/daily/anomaly에 저장된 실제 Dify 일일
+     * 보고 결과다. 저장된 결과가 없으면 status 외의 필드는 응답에 포함되지 않는다.
+     */
+    @GetMapping("/run/dailyMonitorJob/last-result")
+    public ResponseEntity<Map<String, Object>> getDailyMonitorLastResult() {
+        Map<String, Object> result = new HashMap<>();
+
+        List<BatchHistoryEntry> history = batchScheduleHistoryService.getRecentHistory("dailyMonitorJob", 1);
+        result.put("status", history.isEmpty() ? null : history.get(0).getStatus());
+
+        DailyAnomalyResult latest = dailyMonitorService.loadLatestResult();
+        if (latest != null) {
+            result.put("reportDate", latest.getReportDate() != null ? latest.getReportDate().toString() : null);
+            result.put("errorCount", latest.getErrorCount());
+            result.put("warnCount", latest.getWarnCount());
+            result.put("uniqueIssueCount", latest.getUniqueIssueCount());
+            result.put("reportText", latest.getReportText());
+        }
 
         return ResponseEntity.ok(result);
     }

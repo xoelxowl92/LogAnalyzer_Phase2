@@ -13,6 +13,8 @@
 | 1분 배치 - 실행 | 기준시간을 근거로 1분 내의 로그를 분석 (`MinuteMonitorService` 실행) | `MinuteMonitorService` 정상 종료 시 COMPLETED | - |
 | 1시간 단위 분석 - 실행 | 기준시간을 근거로 1시간 내의 로그를 분석 (`HourlyMonitorService` 실행) | `HourlyMonitorService` 정상 종료 시 COMPLETED | - |
 | 1일 배치 - 실행 | 기준시간을 근거로 1시간 단위 분석을 24회 이하로 진행 후 일간 분석 (`HourlyMonitorService` → `DailyMonitorService` 순서 실행, 선후관계 처리 중요) | `DailyMonitorService` 정상 종료 시 COMPLETED | 테스트 화면에서는 `testDailyMonitorJob` 호출 (hourly→daily 순서 확인용). 운영용 `dailyMonitorJob`은 daily Step만 포함하여 별도 분리 |
+| 1시간 단위 분석 - 결과 보기 | 가장 최근 대상 시각의 1시간 배치 결과 조회 (`GET /api/batch/run/hourlyMonitorJob/last-result`, `output/hourly/anomaly/yyyy-MM-dd_HH.dat`) | 최근 JobExecution 상태 + 이상 감지 여부/심각도/대상 시각/분석 메시지 모달 표시 | 파일명(대상 시각) 기준 선택이라 과거 baseTime 1회성 실행 시 최근 실행 결과와 다를 수 있음 |
+| 1일 배치 - 결과 보기 | 가장 최근 대상 일자의 1일 배치 결과 조회 (`GET /api/batch/run/dailyMonitorJob/last-result`, `output/daily/anomaly/yyyy-MM-dd.dat`) | 최근 JobExecution 상태 + 대상 일자/ERROR·WARN 건수/고유 이슈 수/일일 보고서 모달 표시 | 파일명(대상 일자) 기준 선택 |
 | 1월 배치 - 실행 | 기준시간을 근거로 기준월 1일부터 기준일까지 1시간/1일 배치를 순서대로 진행 후 월간 분석 (`MonthlyBatchOrchestrationService` → `MonthlyMonitorService` 실행) | `MonthlyMonitorService` 정상 종료 시 COMPLETED | 청킹/결과 병합(10MB 초과 시) 이슈는 아직 미해결 |
 
 ---

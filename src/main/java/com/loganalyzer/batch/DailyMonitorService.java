@@ -24,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -396,6 +397,70 @@ public class DailyMonitorService {
                 // 파일명이 날짜 형식이 아니면(예상치 못한 파일) 건드리지 않고 다음 파일로 진행
                 log.warn("[DailyMonitor] 파일명에서 날짜 파싱 실패 - 삭제 대상에서 제외 : {}", fileName);
             }
+        }
+    }
+
+    /**
+     * output/daily/anomaly에 저장된 가장 최근 1일 배치 실행 결과 1건을 읽어온다. 웹 화면 "결과 보기"에서 사용한다.
+     * 파일명이 yyyy-MM-dd.dat 형식이라 이름순 정렬이 곧 시간순 정렬이다. 저장된 결과가 하나도 없으면 null을 반환한다.
+     */
+    public DailyAnomalyResult loadLatestResult() {
+
+        File dir = new File(DAILY_RESULT_DIR);
+
+        if (!dir.exists()) {
+            return null;
+        }
+
+        File[] files = dir.listFiles((d, name) -> name.endsWith(".dat"));
+
+        if (files == null || files.length == 0) {
+            return null;
+        }
+
+        File latest = Arrays.stream(files)
+                .max(Comparator.comparing(File::getName))
+                .orElse(null);
+
+        try {
+            String content = new String(Files.readAllBytes(latest.toPath()), StandardCharsets.UTF_8);
+            // saveDailyAnomalyResult()가 저장한 순서(reportDate/errorCount/warnCount/uniqueIssueCount/reportText)대로
+            // 5줄로 분리한다. reportText는 LLM 응답이라 줄바꿈을 포함할 수 있어 마지막 줄 이후 전체를 그대로 취급한다.
+            String[] parts = content.split(System.lineSeparator(), 5);
+
+            if (parts.length < 5) {
+                log.warn("[DailyMonitor] 저장된 결과 형식이 올바르지 않습니다 : {}", latest.getName());
+                return null;
+            }
+
+            LocalDate reportDate = LocalDate.parse(latest.getName().replace(".dat", ""), DATE_FORMATTER);
+
+            return DailyAnomalyResult.builder()
+                    .reportDate(reportDate)
+                    .errorCount(parseIntSafely(stripPrefix(parts[1], "errorCount=")))
+                    .warnCount(parseIntSafely(stripPrefix(parts[2], "warnCount=")))
+                    .uniqueIssueCount(parseIntSafely(stripPrefix(parts[3], "uniqueIssueCount=")))
+                    .reportText(stripPrefix(parts[4], "reportText="))
+                    .build();
+
+        } catch (DateTimeParseException e) {
+            log.warn("[DailyMonitor] 결과 파일명에서 날짜 파싱 실패 : {}", latest.getName());
+            return null;
+        } catch (IOException e) {
+            log.error("[DailyMonitor] 최근 결과 파일 읽기 실패 : {}", latest.getAbsolutePath(), e);
+            return null;
+        }
+    }
+
+    private String stripPrefix(String line, String prefix) {
+        return line.startsWith(prefix) ? line.substring(prefix.length()) : line;
+    }
+
+    private int parseIntSafely(String value) {
+        try {
+            return Integer.parseInt(value.trim());
+        } catch (Exception e) {
+            return 0;
         }
     }
 }

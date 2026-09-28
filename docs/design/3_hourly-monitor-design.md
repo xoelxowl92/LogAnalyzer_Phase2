@@ -221,7 +221,17 @@ public void saveAnomalyResult(AnomalyAnalysisResult result, LocalDateTime batchT
 
 ---
 
-## 7. 공통 고려사항
+## 7. loadLatestResult() — 웹 화면 '결과 보기'
+
+- **책임**: `output/hourly/anomaly/`에서 파일명이 가장 큰 `.dat` 1건(`yyyy-MM-dd_HH.dat`, 이름순 = 시간순)을 읽어 `HourlyMonitorResult`(anomalyDetected/severity/message/targetHour)로 반환한다. `BatchController`의 `GET /api/batch/run/hourlyMonitorJob/last-result`에서 사용한다.
+- **메서드 시그니처**: `public HourlyMonitorResult loadLatestResult()`
+- **파싱**: `content.split(System.lineSeparator(), 3)` — message는 멀티라인일 수 있어 3번째 이후 전체를 message로 취급. severity가 `"null"` 문자열이면 `""`로 정규화(`saveAnomalyResult`가 null을 그대로 저장하기 때문). targetHour는 파일명(`yyyy-MM-dd_HH`).
+- **예외 처리**: 폴더 없음/파일 0건 → null, 줄 수 부족 → WARN 후 null, IOException → ERROR 후 null.
+- **비고**: 선택 기준이 대상 시각(파일명)이라 과거 baseTime 1회성 실행/백필 시 "가장 나중에 실행된 결과"와 다를 수 있다. 분석 대상 로그 0건이면 파일이 저장되지 않으므로 이전 시간대 결과가 보일 수 있다 — 화면에 대상 시각을 함께 표시해 대응.
+
+---
+
+## 8. 공통 고려사항
 
 - **재시도 정책**: Dify 호출 재시도 횟수, 백오프 전략은 `log-analyzer.dify.max-retries` / `timeout-seconds` 설정을 따른다.
 - **출력 파일 보관**: `output/hourly/anomaly/` 파일은 daily-monitor 처리 후 `4_daily-monitor`의 deleteOldHourlyFiles()에서 7일 기준으로 정리.
@@ -230,7 +240,7 @@ public void saveAnomalyResult(AnomalyAnalysisResult result, LocalDateTime batchT
 
 ---
 
-## 8. 변경 이력
+## 9. 변경 이력
 
 | 버전 | 날짜 | 내용 | 작성자 |
 |------|------|------|--------|
@@ -238,3 +248,4 @@ public void saveAnomalyResult(AnomalyAnalysisResult result, LocalDateTime batchT
 | v2.0 | 2026-08-25 | anomaly-analysis/optimization-analysis 분리 구조 → log-suite 통합 워크플로우(mode=anomaly) 단일 호출로 변경. prev/next 카테고리별 누적 건수 상태 관리 추가. optimization 관련 절 삭제(미지원) | |
 | v2.1 | 2026-09-26 | readLastHourLog/execute가 "현재 시각" 대신 referenceTime을 받도록 변경. 웹 화면 1회성 실행(기준시간 지정, baseTime) 예외 흐름 추가 — 스케쥴 실행(execute())은 그대로 현재 시각 기준 | |
 | v2.2 | 2026-09-26 | `BatchConfig`의 baseTime 참조 방식을 `chunkContext.getJobParameters().get(...)` 대신 `@StepScope` + `@Value("#{jobParameters['baseTime']}")`로 변경 | |
+| v2.3 | 2026-09-28 | 웹 화면 '결과 보기'용 `loadLatestResult()` 및 `HourlyMonitorResult` 추가(7절) | |
